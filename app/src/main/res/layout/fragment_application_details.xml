@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.ApplicationDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_back"
+                app:tint="@color/dark_text"
+                android:scaleType="fitXY" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_home"
+                android:fontFamily="@font/montserrat"
+                android:textSize="11sp"
+                android:layout_marginStart="-4dp"
+                android:textColor="@color/dark_text" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/update_button"
+                android:text="Update"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/primary"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/application_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            android:layout_marginVertical="@dimen/margin"
+            android:textColor="@color/primary_dark"
+            tools:text="Google - Summer Analyst 2022"
+            style="@style/PageHeaderTextStyle" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            app:cardBackgroundColor="@color/card_color"
+            app:cardElevation="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginVertical="@dimen/margin"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:text="@string/placeholder_notes"
+                    android:fontFamily="@font/montserrat"
+                    app:drawableStartCompat="@drawable/ic_description"
+                    android:drawablePadding="@dimen/padding_small"
+                    app:drawableTint="@color/primary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/notes"
+                    tools:text="@tools:sample/lorem/random"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/light_text" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            app:cardBackgroundColor="@color/card_color"
+            app:cardElevation="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginVertical="@dimen/margin"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:text="@string/placeholder_job_url"
+                    android:fontFamily="@font/montserrat"
+                    app:drawableStartCompat="@drawable/ic_link"
+                    android:drawablePadding="@dimen/padding_small"
+                    app:drawableTint="@color/primary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/job_link"
+                    android:autoLink="all"
+                    tools:text="@tools:sample/lorem/random"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/light_text" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            app:cardBackgroundColor="@color/card_color"
+            app:cardElevation="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginVertical="@dimen/margin"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:text="@string/placeholder_created_at"
+                    android:fontFamily="@font/montserrat"
+                    app:drawableStartCompat="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/padding_small"
+                    app:drawableTint="@color/primary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/application_created_at"
+                    tools:text="17 Dec, 2021 12:51 PM"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/light_text" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_large"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            app:cardBackgroundColor="@color/card_color"
+            app:cardElevation="8dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginVertical="@dimen/margin"
+                android:textAlignment="center"
+                android:id="@+id/job_status"
+                tools:text="Applied"
+                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/dark_text" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</ScrollView>

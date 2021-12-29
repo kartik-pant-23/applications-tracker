@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">ApplicationTracker</string>
+
+    <string name="label_home">Your Applications</string>
+    <string name="label_home_header">Your\nApplications</string>
+    <string name="label_details">️Application Details</string>
+    <string name="label_details_header">️Application\nDetails</string>
+    <string name="label_add_application">Add New Application</string>
+    <string name="label_add_application_header">Add New\nApplication</string>
+
+    <string name="content_desc_add_application">Takes user to a new screen where he can add a new application</string>
+
+    <string name="hint_company_name">Company Name</string>
+    <string name="hint_role">Job Role</string>
+    <string name="hint_job_link">Job URL</string>
+    <string name="hint_job_status">Job Status</string>
+    <string name="hint_notes">Notes</string>
+    <string name="hint_search_view">Search company, job title</string>
+    <string name="add_application">Add Application</string>
+
+    <string name="placeholder_notes">Notes</string>
+    <string name="placeholder_job_url">Job URL</string>
+    <string name="placeholder_created_at">Created At</string>
+    <string name="placeholder_null_notes">~~Consider adding notes!!\nThey can help you remember who you approached for referral.~~</string>
+
+    <string-array name="job_status">
+        <item>Waiting For Referral</item>
+        <item>Applied</item>
+        <item>Applied With Referral</item>
+        <item>Rejected</item>
+        <item>Selected</item>
+    </string-array>
+</resources>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.AddApplicationFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_back"
+                app:tint="@color/dark_text"
+                android:scaleType="fitXY" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_home"
+                android:fontFamily="@font/montserrat"
+                android:textSize="11sp"
+                android:layout_marginStart="-4dp"
+                android:textColor="@color/dark_text" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:text="@string/label_add_application_header"
+            style="@style/PageHeaderTextStyle" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_company_name"
+            android:textColorHint="@color/light_text"
+            android:layout_marginTop="@dimen/margin"
+            style="@style/TextInputLayoutStyle">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/company_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_text"
+                android:inputType="textCapWords|textShortMessage"
+                android:fontFamily="@font/montserrat" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextInputLayoutStyle"
+            android:hint="@string/hint_role"
+            android:textColorHint="@color/light_text"
+            android:layout_marginTop="@dimen/margin">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/job_role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_text"
+                android:inputType="textCapWords"
+                android:fontFamily="@font/montserrat" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_job_link"
+            android:textColorHint="@color/light_text"
+            style="@style/TextInputLayoutStyle"
+            android:layout_marginTop="@dimen/margin">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/job_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_text"
+                android:fontFamily="@font/montserrat"
+                android:inputType="textUri" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            style="@style/TextInputLayoutStyle"
+            android:hint="@string/hint_notes"
+            android:textColorHint="@color/light_text"
+            android:layout_marginTop="@dimen/margin">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/notes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/dark_text"
+                android:gravity="top"
+                android:fontFamily="@font/montserrat"
+                android:inputType="textMultiLine|textCapSentences"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin"
+                android:textSize="16sp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/light_text"
+                android:text="@string/hint_job_status" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <Spinner
+                    android:id="@+id/job_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@color/grey_background" />
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_drop_down"
+                    app:tint="@color/dark_text"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:scaleType="fitCenter" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_xlarge"
+            android:text="@string/add_application"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/primary"
+            app:strokeWidth="2dp"
+            app:cornerRadius="24dp"
+            android:layout_marginTop="@dimen/margin_xlarge" />
+
+    </LinearLayout>
+
+</ScrollView>
