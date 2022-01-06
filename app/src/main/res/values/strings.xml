@@ -22,6 +22,11 @@
     <string name="placeholder_job_url">Job URL</string>
     <string name="placeholder_created_at">Created At</string>
     <string name="placeholder_null_notes">~~Consider adding notes!!\nThey can help you remember who you approached for referral.~~</string>
+    <string name="no_applications_title">Oops!</string>
+    <string name="no_applications_message">You have not added any applications!!\nAdd an application and get started.</string>
+
+    <string name="button_update">Update</string>
+    <string name="button_save">Save</string>
 
     <string-array name="job_status">
         <item>Waiting For Referral</item>

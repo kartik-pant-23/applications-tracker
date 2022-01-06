@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,8 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_large"
-            android:layout_marginTop="@dimen/margin"
-            app:layout_scrollFlags="scroll"
+            android:layout_marginVertical="@dimen/margin"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             android:text="@string/label_home_header"
             style="@style/PageHeaderTextStyle" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -24,8 +25,9 @@
         android:id="@+id/applications_rcv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:overScrollMode="never"
+        tools:itemCount="2"
         tools:listitem="@layout/item_application"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

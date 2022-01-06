@@ -21,7 +21,8 @@
         android:id="@+id/addApplicationFragment"
         android:name="com.studbudd.application_tracker.fragments.AddApplicationFragment"
         android:label="@string/label_add_application"
-        tools:layout="@layout/fragment_add_application" />
+        tools:layout="@layout/fragment_add_application" >
+    </fragment>
     <fragment
         android:id="@+id/applicationDetailsFragment"
         android:name="com.studbudd.application_tracker.fragments.ApplicationDetailsFragment"

@@ -15,9 +15,9 @@ import com.studbudd.application_tracker.data.Application
 import com.studbudd.application_tracker.databinding.FragmentAddApplicationBinding
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
 
-private const val ErrorMessage = "Field cannot be empty!"
 class AddApplicationFragment : Fragment() {
 
+    private val ErrorMessage = "Field cannot be empty!"
     private var binding: FragmentAddApplicationBinding? = null
     private val viewModel: ApplicationViewModel by viewModels {
         ApplicationViewModel.ApplicationsViewModelFactory((requireActivity().applicationContext as ApplicationsStart).repository)
@@ -62,7 +62,7 @@ class AddApplicationFragment : Fragment() {
                     status = jobStatus.selectedItemPosition
                 )
                 viewModel.insertApplication(application)
-                Toast.makeText(this@AddApplicationFragment.requireContext(), "Application successfully added!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AddApplicationFragment.requireContext(), "Application successfully added!", Toast.LENGTH_LONG).show()
                 view.findNavController().navigateUp()
             }
         }

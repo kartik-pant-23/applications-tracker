@@ -9,12 +9,12 @@ import java.util.Calendar.DAY_OF_YEAR
 data class Application(
     val company_name: String,
     val role: String,
-    val notes: String?,
-    val jobLink: String,
+    var notes: String?,
+    var jobLink: String,
     val created_at: Calendar = Calendar.getInstance(),
-    val modified_at: Calendar = Calendar.getInstance(),
+    var modified_at: Calendar = Calendar.getInstance(),
     val notify_after: Int = 7,
-    val status: Int = 0
+    var status: Int = 0
 ) {
 
     @PrimaryKey(autoGenerate = true)

@@ -41,7 +41,7 @@ class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
             1 -> Color.parseColor("#BF80FF80")
             2 -> Color.parseColor("#BF99CC00")
             3 -> Color.parseColor("#BFFF8080")
-            else -> Color.parseColor("#BFFF1FBC")
+            else -> Color.parseColor("#BF42A5F5")
         }
     }
     @SuppressLint("SetTextI18n")

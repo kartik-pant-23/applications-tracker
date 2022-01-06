@@ -2,16 +2,10 @@ package com.studbudd.application_tracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.studbudd.application_tracker.data.Application
 import com.studbudd.application_tracker.databinding.ActivityMainBinding
-import com.studbudd.application_tracker.view_models.ApplicationViewModel
 
 class MainActivity : AppCompatActivity() {
 
