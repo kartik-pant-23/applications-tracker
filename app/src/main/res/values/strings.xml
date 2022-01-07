@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ApplicationTracker</string>
+    <string name="app_name">Applications Tracker</string>
 
     <string name="label_home">Your Applications</string>
     <string name="label_home_header">Your\nApplications</string>
@@ -27,6 +27,10 @@
 
     <string name="button_update">Update</string>
     <string name="button_save">Save</string>
+
+    <!-- For notifications -->
+    <string name="channel_name">Job Status</string>
+    <string name="channel_description">Periodic notification based on the status of your jobs.</string>
 
     <string-array name="job_status">
         <item>Waiting For Referral</item>

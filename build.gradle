@@ -5,10 +5,11 @@ buildscript {
         mavenCentral()
     }
     ext {
-        roomVersion = '2.4.0-beta02'
+        roomVersion = '2.4.0'
         coroutinesVersion = '1.5.2'
         lifecycleVersion = '2.4.0'
         navVersion = '2.3.5'
+        workVersion = '2.7.1'
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.2"

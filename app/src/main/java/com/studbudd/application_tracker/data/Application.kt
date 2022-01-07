@@ -13,16 +13,11 @@ data class Application(
     var jobLink: String,
     val created_at: Calendar = Calendar.getInstance(),
     var modified_at: Calendar = Calendar.getInstance(),
-    val notify_after: Int = 7,
     var status: Int = 0
 ) {
 
     @PrimaryKey(autoGenerate = true)
     var application_id: Int = 0
-
-    fun shouldNotify(since: Calendar): Boolean {
-        return since > modified_at.apply { add(DAY_OF_YEAR, notify_after) }
-    }
 
     val title
         get() = company_name.plus(" - ").plus(role)

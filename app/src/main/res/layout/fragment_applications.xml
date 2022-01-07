@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center_vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="fragments.ApplicationsFragment">
 
@@ -81,7 +82,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_large"
-        android:layout_marginTop="200dp"
         android:visibility="gone"
         app:cardBackgroundColor="@color/card_color"
         app:cardElevation="8dp">

@@ -11,7 +11,7 @@ In this project following libraries are(and will be) used -
 |[Navigation](https://developer.android.com/jetpack/androidx/releases/navigation)|- Navigation between screens <br> - Passing arguments between screens <br> - Handling fragment transactions |
 |[Room](https://developer.android.com/jetpack/androidx/releases/room)| - Storing all the applications added by user <br> - Allowing updates and deletion <br>|
 |[Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle)|- View Models <br> - LiveData <br> - Flow|
-|[WorkManager](https://developer.android.com/jetpack/androidx/releases/work)|- Scheduling notifications based on job status ==(Yet to be implemented)==|
+|[WorkManager](https://developer.android.com/jetpack/androidx/releases/work)|- Scheduling notifications based on job status|
 
 ## Screenshots
 I have implemented both Day(Light) and Night(Dark) Themes for the apps, but th theme cannot be changed from inside the app **as of now**. Adding screenshots of the screens created so far.
@@ -19,9 +19,9 @@ I have implemented both Day(Light) and Night(Dark) Themes for the apps, but th t
 
 |    | Light UI | Dark UI |
 |----|----------|---------|
-|Home Screen|<img src="screenshots/home-light.jpeg" alt="Home Light UI" width="200px">|<img src="screenshots/home-dark.jpeg" alt="Home Dark UI" width="200px">|
-|Add Application|<img src="screenshots/add-application-light.jpeg" alt="Add Application Light UI" width="200px">|<img src="screenshots/add-application-dark.jpeg" alt="Add Application Dark UI" width="200px">|
-|Application Details|<img src="screenshots/application-details-light.jpeg" alt="Application Details Light UI" width="200px">|<img src="screenshots/application-details-dark.jpeg" alt="Application Details Dark UI" width="200px">|
+|Home Screen|<img src="screenshots/home-light.png" alt="Home Light UI" width="250px">|<img src="screenshots/home-dark.png" alt="Home Dark UI" width="250px">|
+|Add Application|<img src="screenshots/add-application-light.png" alt="Add Application Light UI" width="250px">|<img src="screenshots/add-application-dark.png" alt="Add Application Dark UI" width="250px">|
+|Application Details|<img src="screenshots/application-details-light.png" alt="Application Details Light UI" width="250px">|<img src="screenshots/application-details-dark.png" alt="Application Details Dark UI" width="250px">|
 
 ## Contribution
 Before you start contributing, keep following things in mind - 

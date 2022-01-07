@@ -1,15 +1,20 @@
 package com.studbudd.application_tracker
 
+import android.app.PendingIntent
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.studbudd.application_tracker.databinding.ActivityMainBinding
+import com.studbudd.application_tracker.fragments.ApplicationsFragmentDirections
+import com.studbudd.application_tracker.workers.NotifyWorker
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val navHost = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
         navController = navHost.navController
 
+        onNewIntent(intent)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.applicationsFragment) {
                 binding.addApplicationButton.visibility = View.VISIBLE
@@ -36,5 +42,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onNavigateUp()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent != null) {
+            val applicationId: Int = intent.getIntExtra(NotifyWorker.applicationIdKey, -1)
+            if (applicationId != -1) {
+                navController.navigate(
+                    ApplicationsFragmentDirections.actionApplicationsFragmentToApplicationDetailsFragment(
+                        applicationId
+                    )
+                )
+            }
+        }
     }
 }

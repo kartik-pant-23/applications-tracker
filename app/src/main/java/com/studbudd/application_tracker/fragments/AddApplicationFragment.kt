@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.studbudd.application_tracker.ApplicationsStart
+import com.studbudd.application_tracker.BaseApplication
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.data.Application
 import com.studbudd.application_tracker.databinding.FragmentAddApplicationBinding
@@ -20,7 +20,10 @@ class AddApplicationFragment : Fragment() {
     private val ErrorMessage = "Field cannot be empty!"
     private var binding: FragmentAddApplicationBinding? = null
     private val viewModel: ApplicationViewModel by viewModels {
-        ApplicationViewModel.ApplicationsViewModelFactory((requireActivity().applicationContext as ApplicationsStart).repository)
+        ApplicationViewModel.ApplicationsViewModelFactory(
+            requireActivity().application,
+            (requireActivity().applicationContext as BaseApplication).repository
+        )
     }
 
     override fun onCreateView(

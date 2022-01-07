@@ -1,17 +1,16 @@
 package com.studbudd.application_tracker.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.annotation.UiThread
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.studbudd.application_tracker.ApplicationsStart
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.studbudd.application_tracker.BaseApplication
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.data.Application
 import com.studbudd.application_tracker.databinding.FragmentApplicationDetailsBinding
@@ -23,7 +22,10 @@ class ApplicationDetailsFragment : Fragment() {
 
     private var binding: FragmentApplicationDetailsBinding? = null
     private val viewModel: ApplicationViewModel by viewModels {
-        ApplicationViewModel.ApplicationsViewModelFactory((requireActivity().applicationContext as ApplicationsStart).repository)
+        ApplicationViewModel.ApplicationsViewModelFactory(
+            requireActivity().application,
+            (requireActivity().applicationContext as BaseApplication).repository
+        )
     }
     private var applicationId: Int = 1
     private lateinit var _application: Application
@@ -116,10 +118,20 @@ class ApplicationDetailsFragment : Fragment() {
     }
 
     private fun deleteApplication(view: View) {
-        viewModel.deleteApplication(_application).invokeOnCompletion {
-            Toast.makeText(this.requireContext(), "Application deleted!", Toast.LENGTH_LONG).show()
-            view.findNavController().navigateUp()
-        }
+        MaterialAlertDialogBuilder(view.context, R.style.CustomAlertDialog)
+            .setTitle("Discard application?")
+            .setMessage("This application will be deleted and can no longer be recovered.")
+            .setPositiveButton("Discard") { _, _ ->
+                viewModel.deleteApplication(_application).invokeOnCompletion {
+                    Toast.makeText(this.requireContext(), "Application deleted!", Toast.LENGTH_LONG)
+                        .show()
+                    view.findNavController().navigateUp()
+                }
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun sendMessage(view: View) {}

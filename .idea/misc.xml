@@ -7,12 +7,14 @@
         <entry key="app/src/main/res/drawable/bg_rounded_corner.xml" value="0.2462962962962963" />
         <entry key="app/src/main/res/drawable/bg_shadow.xml" value="0.18958333333333333" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.2082236842105263" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2082236842105263" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23867753623188406" />
         <entry key="app/src/main/res/layout/applications_rcv_scroller.xml" value="0.309375" />
         <entry key="app/src/main/res/layout/fragment_add_application.xml" value="0.309375" />
         <entry key="app/src/main/res/layout/fragment_application_details.xml" value="0.176" />
         <entry key="app/src/main/res/layout/fragment_applications.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_application.xml" value="0.309375" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2082236842105263" />
       </map>
     </option>
   </component>

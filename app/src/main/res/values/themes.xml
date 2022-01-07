@@ -14,10 +14,10 @@
         <item name="boxStrokeWidth">2dp</item>
     </style>
 
-    <style name="ToolbarTitleStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="fontFamily">@font/ubuntu_bold</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColorSecondary">#FFFFFF</item>
+    <style name="CustomAlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/card_color</item>
+        <item name="colorOnSurface">@color/dark_text</item>
+        <item name="colorPrimary">@color/primary</item>
     </style>
 
     <style name="PageHeaderTextStyle" parent="TextAppearance.AppCompat.Display1">
