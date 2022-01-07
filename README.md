@@ -17,7 +17,7 @@ In this project following libraries are used -
 |[Navigation](https://developer.android.com/jetpack/androidx/releases/navigation)|Navigation between all the present screens is handled using Navigation Library which makes it easier to handle fragment transactions, and to pass the data between them.|
 |[Room](https://developer.android.com/jetpack/androidx/releases/room)|Data is being stored inside SQLite database, and Room library makes it easier to work with all these database related stuff.|
 |[Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle)|We are using LiveData to update and observe live changes in the applications that user has added. Screens are updated in real time and user is able to track the applications.|
-|[WorkManager](https://developer.android.com/jetpack/androidx/releases/work)|We are using WorkManager to provide periodic notifications to the user, depending upon the status of their applications. Using WorkManager, we are assured that user is notified regularly,|
+|[WorkManager](https://developer.android.com/jetpack/androidx/releases/work)|We are using WorkManager to provide periodic notifications to the user, depending upon the status of their applications. Using WorkManager, we are assured that user is notified regularly.|
 
 ## Screenshots
 App comes with both Light and Dark themes. Soft colors and a minimalist design is used, hence enhancing user experience. Screenshots of the screens created so far are added below - 
