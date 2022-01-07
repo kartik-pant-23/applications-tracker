@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.studbudd.application_tracker.utilities.DATABASE_NAME
 import com.studbudd.application_tracker.utilities.DateConverter
 
-@Database(entities = [Application::class], version = 1, exportSchema = false)
+@Database(entities = [Application::class], version = 2, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase: RoomDatabase() {
 
