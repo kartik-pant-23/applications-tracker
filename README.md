@@ -31,7 +31,11 @@ App comes with both Light and Dark themes. Soft colors and a minimalist design i
 
 ## App Link and Future Scope
 App is being tested among some students from IIIT Bhopal and has a limited number of users. App can be tested using this [link](https://github.com/kartik-pant-23/applications-tracker/releases/download/v1.0.1/applications-tracker-v1.0.1.apk). For getting the latest version of the app, you can check [releases](https://github.com/kartik-pant-23/applications-tracker/releases).
-Once app is fully tested, it will be uploaded to PlayStore.
+Once app is fully tested, it will be uploaded to [PlayStore]().
+
+Following features will be added in future - 
+* **Draft Messages** - Users can create a message template which then can be sent via email, linkedin message, etc.
+* **Filtering Lists** - There should be a way for user to organize and filter applications list.
 
 ## Contribution
 Before you start contributing, keep following things in mind - 
