@@ -65,6 +65,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/ic_send"
+                    android:visibility="gone"
                     android:scaleType="fitXY"
                     app:tint="@color/primary" />
                 <ImageButton
@@ -72,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/button_edit"
                     android:padding="@dimen/padding_small"
+                    android:layout_marginStart="@dimen/margin"
                     android:background="@android:color/transparent"
                     android:foreground="?attr/selectableItemBackground"
                     android:clickable="true"
