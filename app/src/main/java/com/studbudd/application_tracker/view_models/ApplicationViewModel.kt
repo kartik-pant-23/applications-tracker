@@ -58,46 +58,50 @@ class ApplicationViewModel (application: android.app.Application, private val re
     }
 
     private fun createNotification(application: Application) {
-        if (application.status > 2) return
-        val contentTitle: String = when(application.status) {
-            0 -> "Still waiting?"
-            1 -> "Are there any updates?"
-            else -> "More expectations, more excitement!!"
-        }
-        val contentText: String = when(application.status) {
-            0 -> "Did you get a referral for ${application.role} role at ${application.company_name}?"
-            1 -> "Any updates on your application at ${application.company_name} for role of ${application.role}?"
-            else -> "You applied with a referral at ${application.company_name}, ${application.role} role. Any good news?"
-        }
-        val duration: Long = when(application.status) {
-            0 -> 6
-            1 -> 7
-            else -> 15
-        }
-        val unit: TimeUnit = when(application.status) {
-            0 -> TimeUnit.HOURS
-            else -> TimeUnit.DAYS
-        }
+        if (application.status > 2) {
+            workManager.cancelUniqueWork("application${application.application_id}")
+        } else {
+            val contentTitle: String = when (application.status) {
+                0 -> "Still waiting?"
+                1 -> "Are there any updates?"
+                else -> "More expectations, more excitement!!"
+            }
+            val contentText: String = when (application.status) {
+                0 -> "Did you get a referral for ${application.role} role at ${application.company_name}?"
+                1 -> "Any updates on your application at ${application.company_name} for role of ${application.role}?"
+                else -> "You applied with a referral at ${application.company_name}, ${application.role} role. Any good news?"
+            }
+            val duration: Long = when (application.status) {
+                0 -> 6
+                1 -> 7
+                else -> 15
+            }
+            val unit: TimeUnit = when (application.status) {
+                0 -> TimeUnit.HOURS
+                else -> TimeUnit.DAYS
+            }
 
-        val inputData = Data.Builder()
-            .putInt(NotifyWorker.applicationIdKey, application.application_id)
-            .putString(NotifyWorker.contentTitleKey, contentTitle)
-            .putString(NotifyWorker.contentTextKey, contentText)
-            .build()
+            val inputData = Data.Builder()
+                .putInt(NotifyWorker.applicationIdKey, application.application_id)
+                .putString(NotifyWorker.contentTitleKey, contentTitle)
+                .putString(NotifyWorker.contentTextKey, contentText)
+                .build()
 
-        val workRequest = PeriodicWorkRequest.Builder(
-            NotifyWorker::class.java,
-            duration,
-            unit)
-            .setInitialDelay(duration, unit)
-            .setInputData(inputData)
-            .addTag("application${application.application_id}")
-            .build()
-        workManager.enqueueUniquePeriodicWork(
-            "application${application.application_id}",
-            ExistingPeriodicWorkPolicy.REPLACE,
-            workRequest
-        )
+            val workRequest = PeriodicWorkRequest.Builder(
+                NotifyWorker::class.java,
+                duration,
+                unit
+            )
+                .setInitialDelay(duration, unit)
+                .setInputData(inputData)
+                .addTag("application${application.application_id}")
+                .build()
+            workManager.enqueueUniquePeriodicWork(
+                "application${application.application_id}",
+                ExistingPeriodicWorkPolicy.REPLACE,
+                workRequest
+            )
+        }
     }
 
     class ApplicationsViewModelFactory(private val application: android.app.Application, private val repository: ApplicationsRepository): ViewModelProvider.Factory {
