@@ -10,6 +10,8 @@ buildscript {
         lifecycleVersion = '2.4.0'
         navVersion = '2.3.5'
         workVersion = '2.7.1'
+        playCoreVersion = '1.10.2'
+        playCoreKotlinExtVersion = '1.8.1'
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.2"

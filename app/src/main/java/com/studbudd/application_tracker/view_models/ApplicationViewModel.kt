@@ -41,14 +41,15 @@ class ApplicationViewModel (application: android.app.Application, private val re
 
     // Insert New Application
     fun insertApplication(application: Application) = viewModelScope.launch {
+        val id = repository.insertApplication(application)
+        application.application_id = id.toInt()
         createNotification(application)
-        repository.insertApplication(application)
     }
 
     // Update Application
     fun updateApplication(newApplication: Application) = viewModelScope.launch {
-        createNotification(newApplication)
         repository.updateApplication(newApplication)
+        createNotification(newApplication)
     }
 
     // Delete Application
@@ -94,7 +95,6 @@ class ApplicationViewModel (application: android.app.Application, private val re
             )
                 .setInitialDelay(duration, unit)
                 .setInputData(inputData)
-                .addTag("application${application.application_id}")
                 .build()
             workManager.enqueueUniquePeriodicWork(
                 "application${application.application_id}",

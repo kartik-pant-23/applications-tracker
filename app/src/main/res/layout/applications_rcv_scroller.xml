@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_large"
             android:layout_marginVertical="@dimen/margin"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:layout_scrollFlags="enterAlways|snap|scroll"
             android:text="@string/label_home_header"
             style="@style/PageHeaderTextStyle" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -24,7 +24,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/applications_rcv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:overScrollMode="never"
         tools:itemCount="2"

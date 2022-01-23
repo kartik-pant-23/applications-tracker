@@ -23,7 +23,7 @@ interface ApplicationsDao {
     fun getApplication(id: Int): Flow<Application>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(application: Application)
+    suspend fun insert(application: Application): Long
 
     @Update
     suspend fun update(application: Application)

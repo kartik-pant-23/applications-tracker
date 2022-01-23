@@ -95,7 +95,6 @@
             android:layout_height="150dp"
             style="@style/TextInputLayoutStyle"
             android:hint="@string/hint_notes"
-            android:textColorHint="@color/light_text"
             android:layout_marginTop="@dimen/margin">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/notes"
@@ -155,7 +154,7 @@
             app:strokeColor="@color/primary"
             app:strokeWidth="2dp"
             app:cornerRadius="24dp"
-            android:layout_marginTop="@dimen/margin_xlarge" />
+            android:layout_marginVertical="@dimen/margin_xlarge" />
 
     </LinearLayout>
 

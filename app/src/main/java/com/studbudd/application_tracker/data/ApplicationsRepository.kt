@@ -16,7 +16,7 @@ class ApplicationsRepository(private val applicationsDao: ApplicationsDao) {
     fun getApplication(id: Int): Flow<Application> = applicationsDao.getApplication(id)
 
     @WorkerThread
-    suspend fun insertApplication(application: Application) = applicationsDao.insert(application)
+    suspend fun insertApplication(application: Application): Long = applicationsDao.insert(application)
 
     @WorkerThread
     suspend fun updateApplication(application: Application) {

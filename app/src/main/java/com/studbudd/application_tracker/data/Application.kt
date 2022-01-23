@@ -24,7 +24,7 @@ data class Application(
 
     override fun toString(): String {
         return """
-            { "title": ${title}, "jobLink": ${jobLink}, "status": ${status}
+            { "_id": ${application_id} "title": ${title}, "jobLink": ${jobLink}, "status": ${status}
         """.trimIndent()
     }
 
