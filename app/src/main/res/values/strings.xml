@@ -16,6 +16,13 @@
     <string name="hint_job_status">Job Status</string>
     <string name="hint_notes">Notes</string>
     <string name="hint_search_view">Search company, job title</string>
+    <string name="hint_draft_message">Draft Message</string>
+    <string name="hint_placeholder_name">&lt;name&gt;</string>
+    <string name="hint_placeholder_degree">&lt;degree&gt;</string>
+    <string name="hint_placeholder_college">&lt;college&gt;</string>
+    <string name="hint_placeholder_experience">&lt;experience&gt;</string>
+    <string name="hint_placeholder_resume">&lt;resume&gt;</string>
+
     <string name="add_application">Add Application</string>
 
     <string name="placeholder_notes">Notes</string>
@@ -24,13 +31,21 @@
     <string name="placeholder_null_notes">~~Consider adding notes!!\nThey can help you remember who you approached for referral.~~</string>
     <string name="no_applications_title">Oops!</string>
     <string name="no_applications_message">You have not added any applications!!\nAdd an application and get started.</string>
+    <string name="show_preview">Show Preview</string>
 
     <string name="button_update">Update</string>
     <string name="button_save">Save</string>
+    <string name="button_send">Send</string>
 
     <!-- For notifications -->
     <string name="channel_name">Job Status</string>
     <string name="channel_description">Periodic notification based on the status of your jobs.</string>
+
+    <string name="placeholder_info">Before removing &lt;name&gt;, &lt;resume&gt;, etc, see the preview and start setting placeholders.\n\nFor more information, visit https://github.com/kartik-pant-23/applications-tracker/</string>
+    <string name="setup_placeholders">Setup Placeholders</string>
+
+    <string name="show_placeholder_info">important</string>
+    <string name="hide_placeholder_info">hide info</string>
 
     <string-array name="job_status">
         <item>Waiting For Referral</item>

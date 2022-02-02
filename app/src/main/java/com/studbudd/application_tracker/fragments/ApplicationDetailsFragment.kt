@@ -43,7 +43,7 @@ class ApplicationDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentApplicationDetailsBinding.inflate(inflater, container, false)
 
-        viewModel.getApplication(applicationId).observe(viewLifecycleOwner, { application ->
+        viewModel.getApplication(applicationId).observe(viewLifecycleOwner) { application ->
             if (application == null) {
                 binding?.root?.findNavController()?.navigateUp()
             } else {
@@ -73,11 +73,11 @@ class ApplicationDetailsFragment : Fragment() {
                     editJobStatus.setSelection(application.status, true)
                 }
             }
-        })
+        }
 
-        viewModel.editMode.observe(viewLifecycleOwner, {
+        viewModel.editMode.observe(viewLifecycleOwner) {
             if (it != null) showEditMode(it)
-        })
+        }
 
         // On click listeners for navigation bar buttons
         binding?.run {
@@ -134,7 +134,11 @@ class ApplicationDetailsFragment : Fragment() {
             .show()
     }
 
-    private fun sendMessage(view: View) {}
+    private fun sendMessage(view: View) {
+        val action = ApplicationDetailsFragmentDirections
+            .actionApplicationDetailsFragmentToDraftMessageFragment(_application.jobLink)
+        view.findNavController().navigate(action)
+    }
 
     private fun saveChanges() {
         binding?.run {

@@ -30,6 +30,20 @@
         tools:layout="@layout/fragment_application_details" >
         <argument
             android:name="application_id"
-            app:argType="integer" />
+            app:argType="integer"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_applicationDetailsFragment_to_draftMessageFragment"
+            app:destination="@id/draftMessageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/draftMessageFragment"
+        android:name="com.studbudd.application_tracker.fragments.DraftMessageFragment"
+        android:label="fragment_draft_message"
+        tools:layout="@layout/fragment_draft_message">
+        <argument
+            android:name="job_link"
+            app:argType="string"
+            app:nullable="false" />
     </fragment>
 </navigation>

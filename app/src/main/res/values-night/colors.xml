@@ -14,6 +14,7 @@
     <color name="fab_color">#0CCBD7</color>
     <color name="grey_background">#293643</color>
     <color name="error_color">#FF8080</color>
+    <color name="warning_color">#293643</color>
 
     <color name="card_color">#293643</color>
     <color name="text_input_layout">#40EFEFEF</color>
