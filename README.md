@@ -26,11 +26,11 @@ Meanwhile, the app has following features -
 1.  **Add Applications**
 	* The app provides user a **simple UI** asking just the information that is actually relevant.
 	* User can also **add status** of their application, this becomes **the basis of sending the notifications**. 
-	* Depending on the status, applications are given a **colored badge** that makes it easier for the user to identify the applications and **enhances user experience**.	
+	* Depending on the status, applications are given a **colored badge** that makes it easier for the user to identify the applications and **enhances user experience**.<br>
 	> **Notification Frequency**
-	>	Waiting for Referral - Every 6 hours
-	>	Applied - Every 15 days
-	>	Applied with Referral - Every 30 days
+	>	<br>Waiting for Referral - Every 6 hours
+	>	<br>Applied - Every 15 days
+	>	<br>Applied with Referral - Every 30 days
 <p width="100%" align="center">
 <img src="screenshots/home-light.png" alt="Home Light UI" width="250px">&nbsp;&nbsp;
 <img src="screenshots/add-application-light.png" alt="Add Application Light UI" width="250px">
@@ -46,7 +46,7 @@ Meanwhile, the app has following features -
 3. **Draft Messages and Placeholders**
 	* Latest version of the app let's users to add **Draft Messages**, which you can used as a way to **to ask for referral**.
 	* There is a concept of **placeholders** which makes it easier to reuse the informations that is required most of the time.
-	> **Placeholders** actually refer to certain reusable key-value pairs that you can add inside your draft messages and they are parsed before message is sent. You can see the **message preview** before sending it. 
+	> **Placeholders** actually refer to certain reusable key-value pairs that you can add inside your draft messages and they are parsed before message is sent. You can see the **message preview** before sending it.<br>
 	> For some of the placeholders (like &lt;name&gt;, &lt;resume&gt;, etc.), you can add custom values that are saved inside your device, while &lt;job-link&gt; is always replaced with the job link that you add in your application.
 
 <p width="100%" align="center">
