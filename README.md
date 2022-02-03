@@ -19,6 +19,40 @@ In this project following libraries are used -
 |[Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle)|We are using LiveData to update and observe live changes in the applications that user has added. Screens are updated in real time and user is able to track the applications.|
 |[WorkManager](https://developer.android.com/jetpack/androidx/releases/work)|We are using WorkManager to provide periodic notifications to the user, depending upon the status of their applications. Using WorkManager, we are assured that user is notified regularly.|
 
+## Features
+This app basically targets the job seekers, and it has been created keeping this audience in mind. Being a single person, this app might seem to have lack of important features but that can be resolved, if you guys suggest improvements. 
+Meanwhile, the app has following features - 
+
+1.  **Add Applications**
+	* The app provides user a **simple UI** asking just the information that is actually relevant.
+	* User can also **add status** of their application, this becomes **the basis of sending the notifications**. 
+	* Depending on the status, applications are given a **colored badge** that makes it easier for the user to identify the applications and **enhances user experience**.	
+	> **Notification Frequency**
+	>	Waiting for Referral - Every 6 hours
+	>	Applied - Every 15 days
+	>	Applied with Referral - Every 30 days
+<p width="100%" align="center">
+<img src="screenshots/home-light.png" alt="Home Light UI" width="250px">&nbsp;&nbsp;
+<img src="screenshots/add-application-light.png" alt="Add Application Light UI" width="250px">
+</p>
+
+2. **Update/Delete Application**
+	* Make changes to your added application, may be change the status, thereby changing frequency of receiving the notifications.
+	* You can also delete the applications, sweet and simple!!
+<p width="100%" align="center">
+<img src="screenshots/application-details-light.png" alt="Application Details Light UI" width="250px">
+</p>
+
+3. **Draft Messages and Placeholders**
+	* Latest version of the app let's users to add **Draft Messages**, which you can used as a way to **to ask for referral**.
+	* There is a concept of **placeholders** which makes it easier to reuse the informations that is required most of the time.
+	> **Placeholders** actually refer to certain reusable key-value pairs that you can add inside your draft messages and they are parsed before message is sent. You can see the **message preview** before sending it. 
+	> For some of the placeholders (like &lt;name&gt;, &lt;resume&gt;, etc.), you can add custom values that are saved inside your device, while &lt;job-link&gt; is always replaced with the job link that you add in your application.
+
+<p width="100%" align="center">
+<img src="screenshots/placeholder_tutorial.gif" alt="How to add placeholder?" width="250px">
+</p>
+
 ## Screenshots
 App comes with both Light and Dark themes. Soft colors and a minimalist design is used, hence enhancing user experience. Screenshots of the screens created so far are added below - 
 > I don't think there are anymore screens that need to be created, I have built all the screens and we will work on fixing issues and adding features.
@@ -28,13 +62,13 @@ App comes with both Light and Dark themes. Soft colors and a minimalist design i
 |Home Screen|<img src="screenshots/home-light.png" alt="Home Light UI" width="250px">|<img src="screenshots/home-dark.png" alt="Home Dark UI" width="250px">|
 |Add Application|<img src="screenshots/add-application-light.png" alt="Add Application Light UI" width="250px">|<img src="screenshots/add-application-dark.png" alt="Add Application Dark UI" width="250px">|
 |Application Details|<img src="screenshots/application-details-light.png" alt="Application Details Light UI" width="250px">|<img src="screenshots/application-details-dark.png" alt="Application Details Dark UI" width="250px">|
+|Draft Messages|<img src="screenshots/draft-message-light.png" alt="Draft Message Light UI" width="250px">|<img src="screenshots/draft-message-dark.png" alt="Draft Message Dark UI" width="250px">|
 
 ## App Link and Future Scope
 App is being tested among some students from IIIT Bhopal and has a limited number of users. App can be tested using this [link](https://github.com/kartik-pant-23/applications-tracker/releases/download/v1.0.1/applications-tracker-v1.0.1.apk). For getting the latest version of the app, you can check [releases](https://github.com/kartik-pant-23/applications-tracker/releases).
 Once app is fully tested, it will be uploaded to [PlayStore].
 
 Following features will be added in future - 
-* **Draft Messages** - Users can create a message template which then can be sent via email, linkedin message, etc.
 * **Filtering Lists** - There should be a way for user to organize and filter applications list.
 
 ## Contribution

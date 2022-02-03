@@ -13,7 +13,7 @@
         <entry key="app/src/main/res/layout/fragment_add_application.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_application_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_applications.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/fragment_draft_message.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_draft_message.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_application.xml" value="0.309375" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2082236842105263" />
       </map>

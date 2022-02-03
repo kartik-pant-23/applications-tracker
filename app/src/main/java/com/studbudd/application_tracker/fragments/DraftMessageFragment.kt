@@ -121,6 +121,7 @@ class DraftMessageFragment : Fragment() {
                 putExtra(Intent.EXTRA_TEXT, dmUtil.getPreviewMessage(messageContent, jobLink ?: "~Error~"))
                 type = "text/plain"
             }
+            dmUtil.saveMessage(messageContent)
             val shareIntent = Intent.createChooser(sendMessageIntent, "Send message via")
             startActivity(shareIntent)
         }
