@@ -17,6 +17,12 @@
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_xlarge"
+            android:paddingVertical="@dimen/padding_large"
+            android:layout_marginStart="-8dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <ImageView
@@ -24,6 +30,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_back"
                 app:tint="@color/dark_text"
+                android:contentDescription="@string/back_button_desc"
                 android:scaleType="fitXY" />
             <TextView
                 android:layout_width="wrap_content"
@@ -140,7 +147,8 @@
                     android:layout_centerVertical="true"
                     android:background="@android:color/transparent"
                     android:layout_marginEnd="@dimen/margin_small"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:contentDescription="@string/spinner_desc"/>
             </RelativeLayout>
         </LinearLayout>
 

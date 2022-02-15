@@ -46,6 +46,11 @@
 
     <string name="show_placeholder_info">important</string>
     <string name="hide_placeholder_info">hide info</string>
+    <string name="back_button_desc">Back button</string>
+    <string name="delete_button_desc">Delete application</string>
+    <string name="send_button_desc">Send draft message</string>
+    <string name="edit_button_desc">Edit application</string>
+    <string name="spinner_desc">Application status drop down menu</string>
 
     <string-array name="job_status">
         <item>Waiting For Referral</item>

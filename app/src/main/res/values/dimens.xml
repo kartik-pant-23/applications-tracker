@@ -12,6 +12,7 @@
     <dimen name="padding_xlarge">12dp</dimen>
     <dimen name="item_application_padding_vertical">12dp</dimen>
     <dimen name="item_application_padding_horizontal">12dp</dimen>
+    <dimen name="padding_image_button">10dp</dimen>
 
     <dimen name="text_title">20dp</dimen>
     <dimen name="text_big">18dp</dimen>

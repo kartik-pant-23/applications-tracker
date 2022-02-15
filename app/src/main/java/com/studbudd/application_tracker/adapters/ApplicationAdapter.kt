@@ -62,7 +62,7 @@ class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
             status.backgroundTintList = ColorStateList.valueOf(getStatusColor(application.status))
 
             // Adding on click listener
-            itemApplicationLayout.setOnClickListener{
+            root.setOnClickListener{
                 OnItemClickListener(it, application.application_id)
             }
         }

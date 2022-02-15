@@ -26,13 +26,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="@dimen/margin_large"
-                    android:layout_marginHorizontal="@dimen/margin_large"
+                    android:layout_marginHorizontal="@dimen/margin_small"
                     android:gravity="center_vertical">
                     <!-- Back button -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/back_button"
+                        android:paddingHorizontal="@dimen/padding_xlarge"
+                        android:paddingVertical="@dimen/padding_large"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
                         <ImageView
@@ -40,7 +45,8 @@
                             android:layout_height="24dp"
                             android:src="@drawable/ic_back"
                             app:tint="@color/dark_text"
-                            android:scaleType="fitXY" />
+                            android:scaleType="fitXY"
+                            android:contentDescription="@string/back_button_desc" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -58,17 +64,23 @@
                         android:id="@+id/button_send"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/padding_xlarge"
+                        android:paddingVertical="@dimen/padding_large"
                         android:text="@string/button_send"
                         android:textAllCaps="true"
                         android:fontFamily="@font/montserrat"
-                        android:textColor="@color/primary" />
+                        android:textColor="@color/primary"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center" />
                 </LinearLayout>
 
                 <!-- Details on how to add arguments -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginTop="@dimen/margin"
                     android:layout_marginHorizontal="@dimen/margin_large"
                     app:cardBackgroundColor="@color/warning_color"
                     app:cardCornerRadius="4dp"
@@ -100,8 +112,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/show_placeholder_info"
-                                android:paddingHorizontal="@dimen/padding_large"
-                                android:paddingVertical="@dimen/padding_small"
+                                android:paddingHorizontal="@dimen/padding_xlarge"
+                                android:paddingVertical="@dimen/padding_large"
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:background="?attr/selectableItemBackground"
@@ -232,6 +244,9 @@
                     android:id="@+id/button_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_xlarge"
+                    android:paddingVertical="@dimen/padding_large"
+                    android:layout_marginEnd="-8dp"
                     android:text="@string/button_save"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
