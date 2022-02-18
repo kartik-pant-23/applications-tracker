@@ -12,6 +12,9 @@ import androidx.navigation.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.databinding.FragmentDraftMessageBinding
 import com.studbudd.application_tracker.utilities.ARG_JOB_LINK
@@ -121,6 +124,11 @@ class DraftMessageFragment : Fragment() {
                 putExtra(Intent.EXTRA_TEXT, dmUtil.getPreviewMessage(messageContent, jobLink ?: "~Error~"))
                 type = "text/plain"
             }
+
+            Firebase.analytics.logEvent("send_draft_message") {
+                param("draft_msg_length", messageContent.length.toLong())
+            }
+
             dmUtil.saveMessage(messageContent)
             val shareIntent = Intent.createChooser(sendMessageIntent, "Send message via")
             startActivity(shareIntent)

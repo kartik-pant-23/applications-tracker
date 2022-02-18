@@ -5,18 +5,20 @@ buildscript {
         mavenCentral()
     }
     ext {
-        roomVersion = '2.4.0'
+        roomVersion = '2.4.1'
         coroutinesVersion = '1.5.2'
-        lifecycleVersion = '2.4.0'
-        navVersion = '2.3.5'
+        lifecycleVersion = '2.4.1'
+        navVersion = '2.4.1'
         workVersion = '2.7.1'
-        playCoreVersion = '1.10.2'
+        playCoreVersion = '1.10.3'
         playCoreKotlinExtVersion = '1.8.1'
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.2"
+        classpath 'com.android.tools.build:gradle:7.1.1'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
+        classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
     }
 }
 

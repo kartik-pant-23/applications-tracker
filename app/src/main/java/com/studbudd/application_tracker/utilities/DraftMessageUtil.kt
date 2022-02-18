@@ -3,6 +3,9 @@ package com.studbudd.application_tracker.utilities
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 
 class DraftMessageUtil(context: Context) {
     private val sharedPref: SharedPreferences =
@@ -55,11 +58,19 @@ class DraftMessageUtil(context: Context) {
         _resume: String?
     ) {
         sharedPref.edit().apply {
-            if (!_name.isNullOrEmpty()) putString(PLACEHOLDER_NAME_KEY, _name)
-            if (!_degree.isNullOrEmpty()) putString(PLACEHOLDER_DEGREE_KEY, _degree)
-            if (!_college.isNullOrEmpty()) putString(PLACEHOLDER_COLLEGE_KEY, _college)
-            if (!_experience.isNullOrEmpty()) putString(PLACEHOLDER_EXPERIENCE_KEY, _experience)
-            if (!_resume.isNullOrEmpty()) putString(PLACEHOLDER_RESUME_KEY, _resume)
+            if (!_name.isNullOrEmpty() && _name != "<name>") putString(PLACEHOLDER_NAME_KEY, _name)
+            if (!_degree.isNullOrEmpty() && _name != "<degree>") putString(PLACEHOLDER_DEGREE_KEY, _degree)
+            if (!_college.isNullOrEmpty() && _name != "<college>") putString(PLACEHOLDER_COLLEGE_KEY, _college)
+            if (!_experience.isNullOrEmpty() && _name != "<experience>") putString(PLACEHOLDER_EXPERIENCE_KEY, _experience)
+            if (!_resume.isNullOrEmpty() && _name != "<resume>") putString(PLACEHOLDER_RESUME_KEY, _resume)
         }.apply()
+
+        Firebase.analytics.logEvent("placeholders") {
+            param("has_name", if (_name?.equals("<name>") == false) "true" else "false")
+            param("has_degree", if (_name?.equals("<degree>") == false) "true" else "false")
+            param("has_college", if (_name?.equals("<college>") == false) "true" else "false")
+            param("has_experience", if (_name?.equals("<experience>") == false) "true" else "false")
+            param("has_resume", if (_name?.equals("<resume>") == false) "true" else "false")
+        }
     }
 }

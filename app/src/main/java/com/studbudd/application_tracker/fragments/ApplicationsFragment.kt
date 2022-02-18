@@ -40,7 +40,7 @@ class ApplicationsFragment : Fragment() {
         }
 
         viewModel.getAllApplications()
-        viewModel.applicationsList.observe(viewLifecycleOwner, {
+        viewModel.applicationsList.observe(viewLifecycleOwner) {
             if (it.isNullOrEmpty()) {
                 binding?.noApplicationsLayout?.visibility = View.VISIBLE
                 binding?.rcvScroller?.mainLayout?.visibility = View.GONE
@@ -49,7 +49,7 @@ class ApplicationsFragment : Fragment() {
                 binding?.rcvScroller?.mainLayout?.visibility = View.VISIBLE
                 adapter.submitList(it)
             }
-        })
+        }
 
         binding?.let {
             val applicationsList = it.rcvScroller.applicationsRcv
@@ -58,7 +58,7 @@ class ApplicationsFragment : Fragment() {
             applicationsList.adapter = adapter
 
             it.addApplicationButton.setOnClickListener { view ->
-                view.findNavController().navigate(R.id.action_applicationsFragment_to_addApplicationFragment)
+                 view.findNavController().navigate(R.id.action_applicationsFragment_to_addApplicationFragment)
             }
 
             it.applyFilter.setOnClickListener { getFilteredApplications() }

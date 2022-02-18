@@ -1,9 +1,10 @@
 package com.studbudd.application_tracker.view_models
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.work.*
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.studbudd.application_tracker.data.Application
 import com.studbudd.application_tracker.data.ApplicationsRepository
 import com.studbudd.application_tracker.workers.NotifyWorker
@@ -15,6 +16,7 @@ class ApplicationViewModel (application: android.app.Application, private val re
     private val workManager = WorkManager.getInstance(application.applicationContext)
     private val _applicationsList: MutableLiveData<List<Application>> = MutableLiveData()
     val applicationsList: LiveData<List<Application>> = _applicationsList
+    private val firebaseAnalytics = Firebase.analytics
 
     private val _editMode: MutableLiveData<Boolean> = MutableLiveData()
     val editMode: LiveData<Boolean> = _editMode
@@ -44,6 +46,11 @@ class ApplicationViewModel (application: android.app.Application, private val re
         val id = repository.insertApplication(application)
         application.application_id = id.toInt()
         createNotification(application)
+
+        firebaseAnalytics.logEvent("application_created") {
+            param("status", application.status.toLong())
+            param("has_notes", if (application.notes.isNullOrBlank()) "true" else "false" )
+        }
     }
 
     // Update Application
