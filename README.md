@@ -1,13 +1,13 @@
 # Applications Tracker
 
 ## Problem Statement
-Lately I have been applying for many roles, and it has become a hard task to keep track of all the applications. Spreadsheets are a great way to store this data, but we understand how hard it becomes to check it regularly. We all like how **Mobile Applications** are so efficient to use and increase the accessibility, and so seem the appropriate solution to this problem.
+Lately, I have been applying for many roles, and it has become a hard task to keep track of all the applications. Spreadsheets are a great way to store this data, but we understand how hard it becomes to check it regularly. We all like how **Mobile Applications** are so efficient to use and increase the accessibility, and so seem the appropriate solution to this problem.
 
 ## Proposed Solution
-So this is an attempt to make our lives easier, a dedicated app for the purpose of storing job applications only. All the roles that you apply for, **add** them up inside the app, mark if you are **waiting for a referral**, or have you **applied** or not, and get **regular notifications** to remind you about these status, so that you don't keep waiting for the referral the next time you apply. You can easily make changes to applications data and/or even delete them whenever needed.
+So this is an attempt to make our lives easier, a dedicated app to store job applications only. All the roles that you apply for, **add** them up inside the app, mark if you are **waiting for a referral**, or have you **applied** or not, and get **regular notifications** to remind you about this status, so that you don't keep waiting for the referral the next time you apply. You can easily make changes to applications' data and/or even delete them whenever needed.
 
 ## Functionality and Concepts Used
-App has a simple and intuitive user interface, that allows users to add data about their applications, they can edit the applications and even delete them whenever needed. App makes use of Android Jetpack. Jetpack is a suite of libraries to help developers follow best practices, reduce boilerplate code, and write code that works consistently across Android versions and devices so that developers can focus on the code they care about. 
+App has a simple and intuitive user interface, that allows users to add data about their applications, they can edit the applications and even delete them whenever needed. The app makes use of Android Jetpack. Jetpack is a suite of libraries to help developers follow best practices, reduce boilerplate code, and write code that works consistently across Android versions and devices so that developers can focus on the code they care about. 
 
 In this project following libraries are used -
 | Library | Used For|
@@ -20,8 +20,8 @@ In this project following libraries are used -
 |[WorkManager](https://developer.android.com/jetpack/androidx/releases/work)|We are using WorkManager to provide periodic notifications to the user, depending upon the status of their applications. Using WorkManager, we are assured that user is notified regularly.|
 
 ## Features
-This app basically targets the job seekers, and it has been created keeping this audience in mind. Being a single person, this app might seem to have lack of important features but that can be resolved, if you guys suggest improvements. 
-Meanwhile, the app has following features - 
+This app basically targets job seekers, and it has been created keeping this audience in mind. Being a single person, this app might seem to have a lack of important features but that can be resolved if you guys suggest improvements. 
+Meanwhile, the app has the following features - 
 
 1.  **Add Applications**
 	* The app provides user a **simple UI** asking just the information that is actually relevant.
@@ -54,8 +54,8 @@ Meanwhile, the app has following features -
 </p>
 
 ## Screenshots
-App comes with both Light and Dark themes. Soft colors and a minimalist design is used, hence enhancing user experience. Screenshots of the screens created so far are added below - 
-> I don't think there are anymore screens that need to be created, I have built all the screens and we will work on fixing issues and adding features.
+The app comes with both Light and Dark themes. Soft colors and a minimalist design are used, hence enhancing user experience. Screenshots of the screens created so far are added below - 
+> I don't think there are any more screens that need to be created, I have built all the screens and we will work on fixing issues and adding features.
 
 |    | Light UI | Dark UI |
 |----|----------|---------|
@@ -65,7 +65,7 @@ App comes with both Light and Dark themes. Soft colors and a minimalist design i
 |Draft Messages|<img src="screenshots/draft-message-light.png" alt="Draft Message Light UI" width="250px">|<img src="screenshots/draft-message-dark.png" alt="Draft Message Dark UI" width="250px">|
 
 ## App Link and Future Scope
-App is being tested among some students from IIIT Bhopal and has a limited number of users. App can be tested using this [link](https://github.com/kartik-pant-23/applications-tracker/releases/download/v1.0.1/applications-tracker-v1.0.1.apk). For getting the latest version of the app, you can check [releases](https://github.com/kartik-pant-23/applications-tracker/releases).
+The app is being tested among some students from IIIT Bhopal and has a limited number of users. App can be tested using this [link](https://github.com/kartik-pant-23/applications-tracker/releases/download/v1.0.1/applications-tracker-v1.0.1.apk). For getting the latest version of the app, you can check [releases](https://github.com/kartik-pant-23/applications-tracker/releases).
 Once app is fully tested, it will be uploaded to [PlayStore].
 
 Following features will be added in future - 
@@ -73,7 +73,7 @@ Following features will be added in future -
 
 ## Contribution
 Before you start contributing, keep following things in mind - 
-* In case you are doing anything related to UI(Adding Features, Enhancements, Bug Fixes), make sure you to attach revelant images.
+* In case you are doing anything related to UI(Adding Features, Enhancements, Bug Fixes), make sure you attach relevant images.
 * Don't work on an issue, that has been assigned to someone else.
 * Work on an issue, only if it has been assigned to you.
 * Be respectful to fellow contributors and maintainers.
