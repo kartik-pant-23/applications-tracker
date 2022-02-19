@@ -65,8 +65,9 @@ The app comes with both Light and Dark themes. Soft colors and a minimalist desi
 |Draft Messages|<img src="screenshots/draft-message-light.png" alt="Draft Message Light UI" width="250px">|<img src="screenshots/draft-message-dark.png" alt="Draft Message Dark UI" width="250px">|
 
 ## App Link and Future Scope
-Whoopee! The app is now available on google playstore.Here is the [link](https://play.google.com/store/apps/details?id=com.studbudd.application_tracker). Download it and give it a try, suggestions and constructive criticism are always welcome.
-For source code, visit [link](https://github.com/kartik-pant-23/applications-tracker/releases/download/v1.0.1/applications-tracker-v1.0.1.apk).
+Whoopee! The app is now available on [google playstore](https://play.google.com/store/apps/details?id=com.studbudd.application_tracker). Download it and give it a try, suggestions and constructive criticism are always welcome.
+Check the latest releases [here](https://github.com/kartik-pant-23/applications-tracker/releases/download/v1.0.1/applications-tracker-v1.0.1.apk).
+
 ## Contribution
 Before you start contributing, keep following things in mind - 
 * In case you are doing anything related to UI(Adding Features, Enhancements, Bug Fixes), make sure you attach relevant images.
