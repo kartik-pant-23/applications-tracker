@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/application-tracker.iml" filepath="$PROJECT_DIR$/.idea/modules/application-tracker.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/application-tracker.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/application-tracker.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/application-tracker.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/application-tracker.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/application-tracker.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/application-tracker.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/application-tracker.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/application-tracker.app.unitTest.iml" />
     </modules>
   </component>
 </project>
