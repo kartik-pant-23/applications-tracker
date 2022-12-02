@@ -2,8 +2,8 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/montserrat</item>
-        <item>@font/montserrat_bold</item>
-        <item>@font/ubuntu</item>
-        <item>@font/ubuntu_bold</item>
+        <item>@font/montserrat_black_font</item>
+        <item>@font/montserrat_bold_font</item>
+        <item>@font/montserrat_medium_font</item>
     </array>
 </resources>

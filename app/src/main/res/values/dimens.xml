@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="margin_screen_horizontal">24dp</dimen>
+    <dimen name="margin_screen_vertical">16dp</dimen>
+
+    <dimen name="padding_card_horizontal">16dp</dimen>
+    <dimen name="padding_card_vertical">12dp</dimen>
+
     <dimen name="margin_xsmall">2dp</dimen>
     <dimen name="margin_small">4dp</dimen>
     <dimen name="margin">8dp</dimen>

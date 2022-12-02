@@ -10,18 +10,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.data.Application
+import com.studbudd.application_tracker.feature_applications_management.data.JobApplication
 import com.studbudd.application_tracker.databinding.ItemApplicationBinding
 import com.studbudd.application_tracker.utilities.DATE_FORMAT
-import java.text.SimpleDateFormat
 
 class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
-    ListAdapter<Application, ApplicationAdapter.ApplicationsViewHolder>(
-        object : DiffUtil.ItemCallback<Application>() {
-            override fun areItemsTheSame(oldItem: Application, newItem: Application): Boolean {
+    ListAdapter<JobApplication, ApplicationAdapter.ApplicationsViewHolder>(
+        object : DiffUtil.ItemCallback<JobApplication>() {
+            override fun areItemsTheSame(oldItem: JobApplication, newItem: JobApplication): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: Application, newItem: Application): Boolean {
+            override fun areContentsTheSame(oldItem: JobApplication, newItem: JobApplication): Boolean {
                 return oldItem.toString() == newItem.toString()
             }
 

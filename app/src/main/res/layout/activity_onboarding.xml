@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center_vertical"
+    tools:context=".feature_user.ui.onboarding.OnboardingActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/margin_screen_horizontal"
+            android:paddingVertical="@dimen/margin_screen_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:text="@string/app_name"
+                style="@style/SubHeading"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Title"
+                android:includeFontPadding="false"
+                android:text="@string/landing_screen_heading" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:background="@drawable/card_background"
+                android:text="@string/important_notes_text"
+                style="@style/Body"
+                android:textColor="@color/light_text" />
+
+            <Button
+                android:id="@+id/anonymous_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                style="@style/FilledButton"
+                android:text="@string/signin_button_text"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="64dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:textAlignment="center"
+                android:text="@string/already_login_label"
+                style="@style/Body" />
+
+            <Button
+                android:id="@+id/google_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="64dp"
+                style="@style/FilledButton"
+                android:text="@string/google_signin_button_text"
+                app:backgroundTint="@color/blue_button_color" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/loader_screen"
+        layout="@layout/loader_screen" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#3185DA</color>
+    <color name="primary">#03847C</color>
     <color name="primary_dark">#1F2933</color>
-    <color name="accent_color">#3185DA</color>
+    <color name="accent_color">#03847C</color>
 
-    <color name="light_text">#BF1F2933</color>
-    <color name="dark_text">#1F2933</color>
+    <!-- Button Colors -->
+    <color name="blue_button_color">#346EF1</color>
 
+    <!-- Text color -->
+    <color name="light_text">#303030</color>
+    <color name="dark_text">#2d2d2d</color>
+
+    <!-- Window color -->
     <color name="window_background">#FAFAFA</color>
     <color name="status_bar_color">#F8F8F8</color>
+    <bool name="status_icon_color">true</bool>
     <color name="light_button_background">#403185DA</color>
+    <color name="bottom_navigation_bar">#EFEFEF</color>
 
     <color name="fab_color">#3185DA</color>
     <color name="grey_background">#40B4C0CC</color>
     <color name="error_color">#FF0000</color>
     <color name="warning_color">#FFF5A6</color>
 
-    <color name="card_color">#FFFFFF</color>
+    <color name="card_color">#F0F0F0</color>
     <color name="text_input_layout">#401F2933</color>
 
-    <bool name="status_icon_color">true</bool>
 </resources>

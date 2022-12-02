@@ -5,13 +5,12 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import com.studbudd.application_tracker.data.AppDatabase
-import com.studbudd.application_tracker.data.ApplicationsRepository
+import com.studbudd.application_tracker.feature_applications_management.data.AppDatabase
+import com.studbudd.application_tracker.feature_applications_management.data.ApplicationsRepository
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class BaseApplication: Application() {
-
-    val database by lazy { AppDatabase.getInstance(this) }
-    val repository by lazy { ApplicationsRepository(database.applicationsDao()) }
 
     override fun onCreate() {
         super.onCreate()

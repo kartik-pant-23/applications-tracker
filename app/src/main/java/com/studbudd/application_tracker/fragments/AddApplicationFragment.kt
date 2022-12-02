@@ -9,22 +9,16 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.studbudd.application_tracker.BaseApplication
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.data.Application
+import com.studbudd.application_tracker.feature_applications_management.data.JobApplication
 import com.studbudd.application_tracker.databinding.FragmentAddApplicationBinding
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
 
 class AddApplicationFragment : Fragment() {
 
-    private val ErrorMessage = "Field cannot be empty!"
+    private val errorMessage = "Field cannot be empty!"
     private var binding: FragmentAddApplicationBinding? = null
-    private val viewModel: ApplicationViewModel by viewModels {
-        ApplicationViewModel.ApplicationsViewModelFactory(
-            requireActivity().application,
-            (requireActivity().applicationContext as BaseApplication).repository
-        )
-    }
+    private val viewModel by viewModels<ApplicationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,19 +46,19 @@ class AddApplicationFragment : Fragment() {
 
     private fun addNewApplication(view: View) {
         binding?.apply {
-            companyName.error = if (companyName.text.isNullOrBlank()) ErrorMessage else null
-            jobLink.error = if (jobLink.text.isNullOrBlank()) ErrorMessage else null
-            jobRole.error = if (jobRole.text.isNullOrBlank()) ErrorMessage else null
+            companyName.error = if (companyName.text.isNullOrBlank()) errorMessage else null
+            jobLink.error = if (jobLink.text.isNullOrBlank()) errorMessage else null
+            jobRole.error = if (jobRole.text.isNullOrBlank()) errorMessage else null
 
             if (!companyName.text.isNullOrBlank() && !jobRole.text.isNullOrBlank() && !jobLink.text.isNullOrBlank()) {
-                val application = Application(
+                val jobApplication = JobApplication(
                     company_name = companyName.text!!.toString(),
                     role = jobRole.text!!.toString(),
                     notes = notes.text?.toString(),
                     jobLink = jobLink.text!!.toString(),
                     status = jobStatus.selectedItemPosition
                 )
-                viewModel.insertApplication(application)
+                viewModel.insertApplication(jobApplication)
                 Toast.makeText(this@AddApplicationFragment.requireContext(), "Application successfully added!", Toast.LENGTH_LONG).show()
                 view.findNavController().navigateUp()
             }

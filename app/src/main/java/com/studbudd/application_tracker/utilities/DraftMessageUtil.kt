@@ -1,16 +1,16 @@
 package com.studbudd.application_tracker.utilities
 
-import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
 
-class DraftMessageUtil(context: Context) {
-    private val sharedPref: SharedPreferences =
-        context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
-    val draftMessage: String = sharedPref.getString(DRAFT_MSG_KEY, DEFAULT_DRAFT_MESSAGE) ?: DEFAULT_DRAFT_MESSAGE
+class DraftMessageUtil @Inject constructor() {
+    @Inject lateinit var sharedPref: SharedPreferences
+
+    val draftMessage: String =
+        sharedPref.getString(DRAFT_MSG_KEY, DEFAULT_DRAFT_MESSAGE) ?: DEFAULT_DRAFT_MESSAGE
 
     lateinit var name: String
         private set
@@ -31,7 +31,8 @@ class DraftMessageUtil(context: Context) {
         name = sharedPref.getString(PLACEHOLDER_NAME_KEY, "<name>") ?: "<name>"
         degree = sharedPref.getString(PLACEHOLDER_DEGREE_KEY, "<degree>") ?: "<degree>"
         college = sharedPref.getString(PLACEHOLDER_COLLEGE_KEY, "<college>") ?: "<college>"
-        experience = sharedPref.getString(PLACEHOLDER_EXPERIENCE_KEY, "<experience>") ?: "<experience>"
+        experience =
+            sharedPref.getString(PLACEHOLDER_EXPERIENCE_KEY, "<experience>") ?: "<experience>"
         resume = sharedPref.getString(PLACEHOLDER_RESUME_KEY, "<resume>") ?: "<resume>"
     }
 
@@ -59,10 +60,22 @@ class DraftMessageUtil(context: Context) {
     ) {
         sharedPref.edit().apply {
             if (!_name.isNullOrEmpty() && _name != "<name>") putString(PLACEHOLDER_NAME_KEY, _name)
-            if (!_degree.isNullOrEmpty() && _name != "<degree>") putString(PLACEHOLDER_DEGREE_KEY, _degree)
-            if (!_college.isNullOrEmpty() && _name != "<college>") putString(PLACEHOLDER_COLLEGE_KEY, _college)
-            if (!_experience.isNullOrEmpty() && _name != "<experience>") putString(PLACEHOLDER_EXPERIENCE_KEY, _experience)
-            if (!_resume.isNullOrEmpty() && _name != "<resume>") putString(PLACEHOLDER_RESUME_KEY, _resume)
+            if (!_degree.isNullOrEmpty() && _name != "<degree>") putString(
+                PLACEHOLDER_DEGREE_KEY,
+                _degree
+            )
+            if (!_college.isNullOrEmpty() && _name != "<college>") putString(
+                PLACEHOLDER_COLLEGE_KEY,
+                _college
+            )
+            if (!_experience.isNullOrEmpty() && _name != "<experience>") putString(
+                PLACEHOLDER_EXPERIENCE_KEY,
+                _experience
+            )
+            if (!_resume.isNullOrEmpty() && _name != "<resume>") putString(
+                PLACEHOLDER_RESUME_KEY,
+                _resume
+            )
         }.apply()
 
         Firebase.analytics.logEvent("placeholders") {

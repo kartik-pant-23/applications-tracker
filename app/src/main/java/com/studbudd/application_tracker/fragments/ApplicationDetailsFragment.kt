@@ -10,9 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.studbudd.application_tracker.BaseApplication
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.data.Application
+import com.studbudd.application_tracker.feature_applications_management.data.JobApplication
 import com.studbudd.application_tracker.databinding.FragmentApplicationDetailsBinding
 import com.studbudd.application_tracker.utilities.ARG_APPLICATION_ID
 import com.studbudd.application_tracker.utilities.DATE_FORMAT
@@ -21,14 +20,9 @@ import com.studbudd.application_tracker.view_models.ApplicationViewModel
 class ApplicationDetailsFragment : Fragment() {
 
     private var binding: FragmentApplicationDetailsBinding? = null
-    private val viewModel: ApplicationViewModel by viewModels {
-        ApplicationViewModel.ApplicationsViewModelFactory(
-            requireActivity().application,
-            (requireActivity().applicationContext as BaseApplication).repository
-        )
-    }
+    private val viewModel by viewModels<ApplicationViewModel>()
     private var applicationId: Int = 1
-    private lateinit var _application: Application
+    private lateinit var _Job_application: JobApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +41,7 @@ class ApplicationDetailsFragment : Fragment() {
             if (application == null) {
                 binding?.root?.findNavController()?.navigateUp()
             } else {
-                _application = application
+                _Job_application = application
                 binding?.run {
                     applicationTitle.text = application.title
                     notes.text =
@@ -122,7 +116,7 @@ class ApplicationDetailsFragment : Fragment() {
             .setTitle("Discard application?")
             .setMessage("This application will be deleted and can no longer be recovered.")
             .setPositiveButton("Discard") { _, _ ->
-                viewModel.deleteApplication(_application).invokeOnCompletion {
+                viewModel.deleteApplication(_Job_application).invokeOnCompletion {
                     Toast.makeText(this.requireContext(), "Application deleted!", Toast.LENGTH_LONG)
                         .show()
                     view.findNavController().navigateUp()
@@ -136,7 +130,7 @@ class ApplicationDetailsFragment : Fragment() {
 
     private fun sendMessage(view: View) {
         val action = ApplicationDetailsFragmentDirections
-            .actionApplicationDetailsFragmentToDraftMessageFragment(_application.jobLink)
+            .actionApplicationDetailsFragmentToDraftMessageFragment(_Job_application.jobLink)
         view.findNavController().navigate(action)
     }
 
@@ -145,10 +139,10 @@ class ApplicationDetailsFragment : Fragment() {
             if (editJobLink.text.isNullOrBlank()) {
                 editJobLink.error = "Field cannot be empty!"
             } else {
-                _application.notes = editNotes.text.toString()
-                _application.jobLink = editJobLink.text.toString()
-                _application.status = editJobStatus.selectedItemPosition
-                viewModel.updateApplication(_application)
+                _Job_application.notes = editNotes.text.toString()
+                _Job_application.jobLink = editJobLink.text.toString()
+                _Job_application.status = editJobStatus.selectedItemPosition
+                viewModel.updateApplication(_Job_application)
                 viewModel.changeEditMode(false)
                 Toast.makeText(this@ApplicationDetailsFragment.requireContext(), "Changes saved!", Toast.LENGTH_LONG).show()
             }

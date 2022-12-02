@@ -4,25 +4,28 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
-import com.google.android.play.core.ktx.isImmediateUpdateAllowed
+import com.studbudd.application_tracker.common.ui.main_activity.MainActivityState
+import com.studbudd.application_tracker.common.ui.main_activity.MainActivityViewModel
 import com.studbudd.application_tracker.databinding.ActivityMainBinding
+import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
 import com.studbudd.application_tracker.fragments.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.workers.NotifyWorker
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var appUpdateManager: AppUpdateManager
+    private val viewModel by viewModels<MainActivityViewModel>()
 
     companion object {
         const val DAYS_FOR_FLEXIBLE_UPDATES: Int = 7
@@ -34,6 +37,20 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel.state.observe(this) {
+            when (it) {
+                is MainActivityState.Loading -> println("loading")
+                is MainActivityState.LoggedIn -> {
+                    binding.root.visibility = View.VISIBLE
+                    // TODO - Implement screens when user logged in
+                }
+                is MainActivityState.LoggedOut -> {
+                    startActivity(Intent(this, OnboardingActivity::class.java))
+                    finishAffinity()
+                }
+            }
+        }
 
         appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
 
@@ -62,24 +79,17 @@ class MainActivity : AppCompatActivity() {
             UPDATE_REQUEST_CODE
         )
     }
+
     override fun onResume() {
         super.onResume()
-        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
-                startUpdate(appUpdateInfo, AppUpdateType.IMMEDIATE)
-            } else if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                var updateType = AppUpdateType.FLEXIBLE
-                if (appUpdateInfo.isImmediateUpdateAllowed
-                    && (appUpdateInfo.updatePriority() >= 4
-                    || (appUpdateInfo.clientVersionStalenessDays() ?: -1 ) >= DAYS_FOR_FLEXIBLE_UPDATES
-                    || !appUpdateInfo.isFlexibleUpdateAllowed)
-                ) {
-                        updateType = AppUpdateType.IMMEDIATE
-                }
-                startUpdate(appUpdateInfo, updateType)
-            }
+        viewModel.checkForUpdates(appUpdateManager) { appUpdateInfo, updateType ->
+            startUpdate(appUpdateInfo, updateType)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        println("on start function")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -88,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             if (resultCode != RESULT_OK) showSnackbar("In-app update failed!");
         }
     }
+
     private fun showSnackbar(message: String) {
         Snackbar.make(
             binding.root, message, Snackbar.LENGTH_INDEFINITE

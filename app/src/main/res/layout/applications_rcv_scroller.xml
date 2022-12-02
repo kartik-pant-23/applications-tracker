@@ -18,7 +18,7 @@
             android:layout_marginVertical="@dimen/margin"
             app:layout_scrollFlags="enterAlways|snap|scroll"
             android:text="@string/label_home_header"
-            style="@style/PageHeaderTextStyle" />
+            style="@style/Title" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

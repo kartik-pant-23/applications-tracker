@@ -8,28 +8,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.studbudd.application_tracker.BaseApplication
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.adapters.ApplicationAdapter
 import com.studbudd.application_tracker.databinding.FragmentApplicationsBinding
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ApplicationsFragment : Fragment() {
 
     private var binding: FragmentApplicationsBinding? = null
-    lateinit var adapter: ApplicationAdapter
-    private val viewModel: ApplicationViewModel by viewModels {
-        ApplicationViewModel.ApplicationsViewModelFactory(
-            requireActivity().application,
-            (requireActivity().applicationContext as BaseApplication).repository
-        )
-    }
+    private lateinit var adapter: ApplicationAdapter
+    private val viewModel by viewModels<ApplicationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentApplicationsBinding.inflate(inflater, container, false);
+        binding = FragmentApplicationsBinding.inflate(inflater, container, false)
 
         adapter = ApplicationAdapter { itemView, applicationId ->
             val action =

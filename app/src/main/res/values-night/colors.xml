@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#0CCBD7</color>
     <color name="primary_dark">#EFEFEF</color>
-    <color name="accent_color">#0CCBD7</color>
 
-    <color name="light_text">#BFEFEFEF</color>
-    <color name="dark_text">#EFEFEF</color>
+    <color name="light_text">#D0D0D0</color>
+    <color name="dark_text">#FAFAFA</color>
 
-    <color name="window_background">#1F2933</color>
-    <color name="status_bar_color">#1A2933</color>
+    <color name="window_background">#282F41</color>
+    <color name="status_bar_color">#212735</color>
     <color name="light_button_background">#400CCBD7</color>
+    <color name="bottom_navigation_bar">#242A39</color>
 
     <color name="fab_color">#0CCBD7</color>
     <color name="grey_background">#293643</color>
     <color name="error_color">#FF8080</color>
     <color name="warning_color">#293643</color>
 
-    <color name="card_color">#293643</color>
-    <color name="text_input_layout">#40EFEFEF</color>
+    <color name="card_color">#323A50</color>
+    <color name="text_input_layout">@color/card_color</color>
 
     <bool name="status_icon_color">false</bool>
 </resources>

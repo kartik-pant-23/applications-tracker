@@ -31,7 +31,7 @@ class DraftMessageFragment : Fragment() {
         arguments?.let {
             jobLink = it.getString(ARG_JOB_LINK)
         }
-        dmUtil = DraftMessageUtil(requireContext())
+        dmUtil = DraftMessageUtil()
     }
 
     override fun onCreateView(

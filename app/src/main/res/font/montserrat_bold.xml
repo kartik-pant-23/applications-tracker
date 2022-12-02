@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<font-family xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:fontProviderAuthority="com.google.android.gms.fonts"
-        app:fontProviderPackage="com.google.android.gms"
-        app:fontProviderQuery="name=Montserrat&amp;weight=700"
-        app:fontProviderCerts="@array/com_google_android_gms_fonts_certs">
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <font
+        app:fontStyle="normal"
+        app:fontWeight="800"
+        app:font="@font/montserrat_bold_font"
+        android:fontStyle="normal"
+        android:fontWeight="600"
+        android:font="@font/montserrat_bold_font" />
+    <font
+        app:fontStyle="italic"
+        app:fontWeight="800"
+        app:font="@font/montserrat_bold_italic"
+        android:fontStyle="italic"
+        android:fontWeight="600"
+        android:font="@font/montserrat_bold_italic" />
+
 </font-family>
