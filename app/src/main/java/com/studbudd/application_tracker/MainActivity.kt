@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -14,8 +15,8 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.studbudd.application_tracker.common.ui.main_activity.MainActivityState
 import com.studbudd.application_tracker.common.ui.main_activity.MainActivityViewModel
 import com.studbudd.application_tracker.databinding.ActivityMainBinding
+import com.studbudd.application_tracker.feature_applications_management.ui.home.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
-import com.studbudd.application_tracker.fragments.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.workers.NotifyWorker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +39,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.root.visibility = View.INVISIBLE
+        binding.bottomNavigationView.menu.findItem(R.id.menu_placeholder).isEnabled = false
+
         viewModel.state.observe(this) {
             when (it) {
                 is MainActivityState.Loading -> println("loading")
@@ -56,15 +60,9 @@ class MainActivity : AppCompatActivity() {
 
         val navHost = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
         navController = navHost.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
 
         onNewIntent(intent)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.applicationsFragment) {
-                binding.addApplicationButton.visibility = View.VISIBLE
-            } else {
-                binding.addApplicationButton.visibility = View.GONE
-            }
-        }
 
         binding.addApplicationButton.setOnClickListener {
             navController.navigate(R.id.action_applicationsFragment_to_addApplicationFragment)

@@ -16,7 +16,7 @@
     <color name="status_bar_color">#F8F8F8</color>
     <bool name="status_icon_color">true</bool>
     <color name="light_button_background">#403185DA</color>
-    <color name="bottom_navigation_bar">#EFEFEF</color>
+    <color name="bottom_navigation_bar">#F5F5F5</color>
 
     <color name="fab_color">#3185DA</color>
     <color name="grey_background">#40B4C0CC</color>

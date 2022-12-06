@@ -22,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
+import com.studbudd.application_tracker.BuildConfig
 import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.databinding.ActivityOnboardingBinding
@@ -70,7 +71,7 @@ class OnboardingActivity : AppCompatActivity() {
     private fun initializeGoogleSignInDependencies() {
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
-            .requestIdToken(getString(R.string.google_signin_client_id))
+            .requestIdToken(BuildConfig.GOOGLE_SIGN_IN_CLIENT_ID)
             .build()
         gsc = GoogleSignIn.getClient(this, gso)
         gsRequestLauncher =

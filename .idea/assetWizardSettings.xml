@@ -328,7 +328,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_notification" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="anonymous_user_dp" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../icons/anonymous_user_dp.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import com.studbudd.application_tracker.BuildConfig
 import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_applications_management.data.AppDatabase
 import com.studbudd.application_tracker.feature_applications_management.data.ApplicationsRepository
@@ -66,7 +67,7 @@ class AppModule {
             chain.proceed(request)
         }.build()
         return Retrofit.Builder()
-            .baseUrl("http://192.168.29.70:4000/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(authClient)
             .build()
@@ -76,7 +77,7 @@ class AppModule {
     @Provides
     fun providesRetrofitObject(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.29.70:4000/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }

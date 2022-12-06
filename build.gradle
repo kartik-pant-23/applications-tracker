@@ -8,17 +8,22 @@ buildscript {
         roomVersion = '2.4.1'
         coroutinesVersion = '1.5.2'
         lifecycleVersion = '2.4.1'
-        navVersion = '2.4.1'
+        navVersion = '2.5.3'
         workVersion = '2.7.1'
         playCoreVersion = '1.10.3'
         playCoreKotlinExtVersion = '1.8.1'
+        playServicesAuthVersion = '20.4.0'
+        daggerVersion = '2.40.1'
+        retrofitVersion = '2.9.0'
+        moshiVersion = '1.14.0'
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.1'
+        classpath 'com.android.tools.build:gradle:7.3.1'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
-        classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
+        classpath 'com.google.gms:google-services:4.3.14'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$daggerVersion"
     }
 }
 

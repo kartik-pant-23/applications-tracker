@@ -7,16 +7,32 @@
     <string name="signin_button_text">Going Anonymously</string>
     <string name="already_login_label">Already have an account?</string>
     <string name="google_signin_button_text">Sign In With Google</string>
-    <string name="google_signin_client_id">86829620708-192ogkccbl7e4i9ggmo1ovug88f3nb5d.apps.googleusercontent.com</string>
 
+    <!-- Main Activity -->
+    <string name="menu_item_home">Home</string>
+    <string name="menu_item_explore">Explore</string>
+    <string name="menu_item_alert">Alerts</string>
+    <string name="menu_item_profile">Profile</string>
+
+    <!-- Home Screen -->
     <string name="label_home">Your Applications</string>
     <string name="label_home_header">Your\nApplications</string>
     <string name="label_details">️Application Details</string>
     <string name="label_details_header">️Application\nDetails</string>
+
+    <!-- Add new applications -->
     <string name="label_add_application">Add New Application</string>
     <string name="label_add_application_header">Add New\nApplication</string>
-
     <string name="content_desc_add_application">Takes user to a new screen where he can add a new application</string>
+
+    <!-- Explore Screen -->
+    <string name="label_explore">Explore</string>
+
+    <!-- Profile screen -->
+    <string name="label_profile">Profile</string>
+
+    <!-- Alert screen -->
+    <string name="label_alert">Alert</string>
 
     <string name="hint_company_name">Company Name</string>
     <string name="hint_role">Job Role</string>
@@ -59,6 +75,8 @@
     <string name="send_button_desc">Send draft message</string>
     <string name="edit_button_desc">Edit application</string>
     <string name="spinner_desc">Application status drop down menu</string>
+    <string name="content_desc_info_text_view">arrow on information text view</string>
+    <string name="content_desc_user_dp">Display picture of the user</string>
 
     <string-array name="job_status">
         <item>Waiting For Referral</item>
