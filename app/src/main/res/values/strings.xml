@@ -30,6 +30,10 @@
 
     <!-- Profile screen -->
     <string name="label_profile">Profile</string>
+    <string name="user_details_header">User Details</string>
+    <string name="settings_header">Settings</string>
+    <string name="google_sign_in_layout_header">Save Your Data</string>
+    <string name="google_sign_in_layout_text">With this new version, never loose your progress across multiple logins.</string>
 
     <!-- Alert screen -->
     <string name="label_alert">Alert</string>

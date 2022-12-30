@@ -25,4 +25,6 @@
     <dimen name="text_normal">16dp</dimen>
     <dimen name="text_small">14dp</dimen>
 
+    <integer name="slide_transition_duration">300</integer>
+
 </resources>

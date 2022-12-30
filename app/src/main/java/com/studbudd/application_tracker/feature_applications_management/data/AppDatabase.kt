@@ -24,6 +24,10 @@ abstract class AppDatabase : RoomDatabase() {
                     "CREATE TABLE `users` " +
                             "(`id` INTEGER NOT NULL, " +
                             "`name` TEXT NOT NULL, " +
+                            "`email` TEXT, " +
+                            "`remoteId` TEXT, " +
+                            "`photoUrl` TEXT, " +
+                            "`createdAt` TEXT, " +
                             "`placeholderKeys` TEXT NOT NULL, " +
                             "`placeholderValues` TEXT NOT NULL, " +
                             "PRIMARY KEY(`id`))"

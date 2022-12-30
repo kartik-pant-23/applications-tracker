@@ -11,14 +11,14 @@ import javax.inject.Inject
 class RemoteSignInUseCase @Inject constructor(
     private val preferencesManager: SharedPreferencesManager,
     private val userRepository: UserRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend operator fun invoke(token: String) : Resource<Boolean> = withContext(dispatcher) {
         when (val res = userRepository.loginUser(token)) {
             is Resource.Success -> {
                 preferencesManager.accessToken = res.data!!.accessToken
                 preferencesManager.refreshToken = res.data.refreshToken
-                Resource.Success("User logged in successfully", true)
+                Resource.Success(true, "User logged in successfully")
             }
             else -> {
                 Resource.Failure(res.message, false)

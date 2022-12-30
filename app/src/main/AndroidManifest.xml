@@ -13,6 +13,13 @@
         android:theme="@style/Theme.Applicationtracker"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".feature_user.ui.placeholder.UpdatePlaceholderActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".feature_user.ui.onboarding.OnboardingActivity"
             android:exported="false">
             <meta-data

@@ -8,6 +8,7 @@ import com.studbudd.application_tracker.BuildConfig
 import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_applications_management.data.AppDatabase
 import com.studbudd.application_tracker.feature_applications_management.data.ApplicationsRepository
+import com.studbudd.application_tracker.feature_user.data.dao.AuthUserRemoteDao
 import com.studbudd.application_tracker.feature_user.data.dao.UserRemoteDao
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import com.studbudd.application_tracker.feature_user.domain.repo.UserRepository_Impl
@@ -63,7 +64,7 @@ class AppModule {
         val token = prefManager.accessToken ?: ""
         val authClient = OkHttpClient.Builder().addInterceptor { chain ->
             val request =
-                chain.request().newBuilder().addHeader("Authorization", "Bearer $token").build()
+                chain.request().newBuilder().addHeader("authorization", token).build()
             chain.proceed(request)
         }.build()
         return Retrofit.Builder()
@@ -75,6 +76,7 @@ class AppModule {
 
     @RetrofitObject
     @Provides
+    @Singleton
     fun providesRetrofitObject(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
@@ -83,17 +85,23 @@ class AppModule {
     }
 
     @Provides
+    @Singleton
     fun providesUserRemoteDao(@RetrofitObject retrofit: Retrofit): UserRemoteDao {
         return retrofit.create(UserRemoteDao::class.java)
     }
 
     @Provides
-    @Singleton
+    fun providesAuthUserRemoteDao(@AuthRetrofitObject retrofit: Retrofit): AuthUserRemoteDao {
+        return retrofit.create(AuthUserRemoteDao::class.java)
+    }
+
+    @Provides
     fun providesUserRepository(
         database: AppDatabase,
-        userRemoteDao: UserRemoteDao
+        userRemoteDao: UserRemoteDao,
+        authUserRemoteDao: AuthUserRemoteDao
     ): UserRepository {
-        return UserRepository_Impl(database.userLocalDao(), userRemoteDao)
+        return UserRepository_Impl(database.userLocalDao(), userRemoteDao, authUserRemoteDao)
     }
 
     @Provides

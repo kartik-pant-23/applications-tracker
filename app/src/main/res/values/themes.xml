@@ -3,9 +3,11 @@
     <style name="Theme.Applicationtracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent_color</item>
+
         <item name="android:statusBarColor">@color/status_bar_color</item>
         <item name="android:windowLightStatusBar">@bool/status_icon_color</item>
         <item name="android:windowBackground">@color/window_background</item>
+
         <item name="snackbarStyle">@style/Snackbar</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
     </style>
@@ -36,14 +38,13 @@
         <item name="android:textSize">32sp</item>
     </style>
     <style name="Heading">
-        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:textColor">@color/dark_text</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
     <style name="SubHeading">
-        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:textColor">@color/light_text</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
     </style>
     <style name="Body">
@@ -105,6 +106,14 @@
     </style>
     <style name="SearchHintTextAppearance">
         <item name="fontFamily">@font/montserrat</item>
+    </style>
+
+    <!-- Popup Menu -->
+    <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:itemTextAppearance">@style/Body</item>
+        <item name="popupMenuBackground">@color/bottom_navigation_bar</item>
+        <item name="android:popupElevation">16dp</item>
+        <item name="android:listDivider">@color/light_text</item>
     </style>
 
 </resources>

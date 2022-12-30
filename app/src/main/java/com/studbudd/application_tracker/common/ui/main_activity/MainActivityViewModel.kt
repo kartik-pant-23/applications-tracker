@@ -1,6 +1,5 @@
 package com.studbudd.application_tracker.common.ui.main_activity
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +11,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
 import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import com.studbudd.application_tracker.MainActivity
-import com.studbudd.application_tracker.feature_user.domain.use_cases.GetUserDataUseCase
+import com.studbudd.application_tracker.common.models.Resource
 import com.studbudd.application_tracker.feature_user.domain.use_cases.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -54,10 +53,11 @@ class MainActivityViewModel @Inject constructor(
     }
 
     private fun checkIfUserLoggedIn() = viewModelScope.launch {
-        userUseCases.getUser()?.let {
-            Log.d("User", "{ name: ${it.name}, email: ${it.email} }")
-            _state.postValue(MainActivityState.LoggedIn(it))
-        } ?: _state.postValue(MainActivityState.LoggedOut())
+        _state.postValue(MainActivityState.Loading())
+        _state.postValue(when(val userResource = userUseCases.getUser()) {
+            is Resource.Success -> MainActivityState.LoggedIn(userResource.data!!)
+            else -> MainActivityState.LoggedOut()
+        })
     }
 
 }

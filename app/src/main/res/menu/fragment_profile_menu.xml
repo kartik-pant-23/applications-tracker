@@ -2,13 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/sign_out"
-        android:title="Sign Out" />
+    <group android:id="@+id/group_general_options">
+        <item
+            android:id="@+id/about_us"
+            android:title="About Us" />
+        <item
+            android:id="@+id/privacy_policy"
+            android:title="Privacy Policy" />
+        <item
+            android:id="@+id/contribute"
+            android:title="Contribute" />
+    </group>
 
-    <item
-        android:id="@+id/know_more"
-        android:icon="@drawable/ic_search"
-        android:title="Know More" />
+    <group android:id="@+id/group_user_settings">
+        <item
+            android:id="@+id/sign_out"
+            android:title="Sign Out" />
+    </group>
+
 
 </menu>

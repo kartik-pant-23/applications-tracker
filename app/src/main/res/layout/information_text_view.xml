@@ -10,9 +10,8 @@
 
     <TextView
         android:id="@+id/key"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
         tools:text="Name"
         android:ellipsize="end"
         android:fontFamily="@font/montserrat"
@@ -22,15 +21,13 @@
         android:id="@+id/value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:layout_marginStart="16dp"
         tools:text="Kartik Pant"
         android:textAlignment="textEnd"
-        android:ellipsize="marquee"
-        android:marqueeRepeatLimit="marquee_forever"
         android:fadingEdge="horizontal"
-        android:scrollHorizontally="true"
-        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/dark_text" />
 

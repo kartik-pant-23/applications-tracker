@@ -57,6 +57,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d727a09f1ad788cc9d296d0c518f8aaf/transformed/appcompat-1.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3ce41337f117c6fa0f913270017e2189/transformed/legacy-support-v4-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/95c33718a6d9d04523c7a5a119879d67/transformed/jetified-play-services-auth-20.4.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/524f68777b54246d87c4bcf4fa591ae5/transformed/jetified-glide-4.14.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e05bbb2a2f2566ddb5ffc58c91e088a6/transformed/jetified-viewpager2-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/0c9d3677f562c8d1dc628bf1df5deaa2/transformed/jetified-firebase-auth-ktx-21.0.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d557cf4660776398da2dbb560482d2e8/transformed/jetified-firebase-auth-21.0.1-api.jar</arg>
@@ -133,6 +134,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f63171ce585a28b042c07e30a054f37e/transformed/lifecycle-livedata-core-2.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.5.1/1fdb7349701e9cf2f0a69fc10642b6fef6bb3e12/lifecycle-common-2.5.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/5a1d61c1f1b13fee410f241acb38cbfc/transformed/lifecycle-viewmodel-2.5.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/f43c03904c699f344703447875273dc8/transformed/jetified-gifdecoder-4.14.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/a10ee04169363f3b002a7fa04e2c1bd2/transformed/jetified-firebase-components-17.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/eb60cb0e6eb0e66f64eaa3fe47fa6cf6/transformed/jetified-concurrent-futures-1.0.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/136855482aab1a8fada90f7b8d2d7ae7/transformed/versionedparcelable-1.1.1-api.jar</arg>
@@ -174,6 +176,9 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/33619cb8e18e214b6aa088c4c41b8675/transformed/constraintlayout-2.1.4-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/2ef95a4a3989e06ec05c3be4c0ba2ef7/transformed/jetified-core-1.10.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/63bb3b0d3202e3be9fb231a99fc8d38b/transformed/jetified-dagger-lint-aar-2.40.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/4a0be6ba36fc7b540ec355b51dc71246/transformed/jetified-disklrucache-4.14.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/86691a2b54ab3c8fa098b4f87f4b5737/transformed/jetified-annotations-4.14.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/16e00c9c39f46f13b58f0330e45687bc/transformed/exifinterface-1.3.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f0c4fe494c0392d5f119469302d08d9b/transformed/jetified-startup-runtime-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/654ecb1d08e3afd0fdccd8be90ee6508/transformed/jetified-firebase-annotations-16.0.0.jar</arg>
                 <arg>$USER_HOME$/Android/Sdk/platforms/android-33/android.jar</arg>
@@ -272,6 +277,8 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio:2.10.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.retrofit2:converter-moshi:2.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.moshi:moshi:1.14.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:disklrucache:4.14.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:annotations:4.14.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.navigation:navigation-testing:2.5.3@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-runtime-testing:2.3.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-runtime-ktx:2.5.1@aar" level="project" />
@@ -387,6 +394,9 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.android.gms:play-services-fido:19.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:hilt-android:2.40.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:dagger-lint-aar:2.40.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:glide:4.14.2@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:gifdecoder:4.14.2@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.exifinterface:exifinterface:1.3.3@aar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="application-tracker.app.main" />
 </module>

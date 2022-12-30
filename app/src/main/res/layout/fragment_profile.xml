@@ -17,10 +17,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/window_background"
-            app:menu="@menu/fragment_profile_menu" />
+            app:popupTheme="@style/PopupMenuStyle" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
@@ -53,6 +54,7 @@
                     app:cardBackgroundColor="@color/card_color"
                     app:cardElevation="0dp" >
                     <ImageView
+                        android:id="@+id/user_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/anonymous_user_dp"
@@ -71,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="User Details"
+                    android:text="@string/user_details_header"
                     style="@style/Caption" />
 
                 <com.studbudd.application_tracker.common.ui.views.InformationTextView
@@ -111,7 +113,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Settings"
+                    android:text="@string/settings_header"
                     style="@style/Caption" />
 
                 <com.studbudd.application_tracker.common.ui.views.InformationTextView
@@ -130,6 +132,42 @@
                     app:valueText="Edit"
                     app:endIconVisibility="true"
                     android:layout_marginTop="2dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_google_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="32dp"
+                android:background="@drawable/card_background"
+                android:backgroundTint="@color/card_color"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/google_sign_in_layout_header"
+                    style="@style/Heading"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/google_sign_in_layout_text"
+                    android:textAlignment="center"
+                    style="@style/Body" />
+
+                <Button
+                    android:id="@+id/google_sign_in"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    style="@style/FilledButton"
+                    app:backgroundTint="@color/blue_button_color"
+                    android:text="@string/google_signin_button_text" />
 
             </LinearLayout>
 

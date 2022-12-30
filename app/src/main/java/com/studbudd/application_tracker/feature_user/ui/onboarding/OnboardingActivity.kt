@@ -59,6 +59,7 @@ class OnboardingActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 startActivity(Intent(this, MainActivity::class.java))
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
                 finishAffinity()
             } else if (state is OnboardingState.SignInFailure) {
                 state.snackBarMessage?.let {

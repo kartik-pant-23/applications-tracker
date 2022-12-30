@@ -12,10 +12,10 @@ import javax.inject.Inject
 class AnonymousSignInUseCase @Inject constructor(
     private val preferencesManager: SharedPreferencesManager,
     private val repo: UserRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend operator fun invoke(name: String) = withContext(dispatcher) {
-        repo.createAnonymousUser(UserLocal(name))
+        repo.createAnonymousUser(UserLocal(name = name))
         preferencesManager.refreshToken = "LOCAL"
     }
 }

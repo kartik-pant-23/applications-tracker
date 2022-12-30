@@ -54,6 +54,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/00158b283831aad0dc9879a0974693c4/transformed/material-1.7.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d727a09f1ad788cc9d296d0c518f8aaf/transformed/appcompat-1.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/95c33718a6d9d04523c7a5a119879d67/transformed/jetified-play-services-auth-20.4.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/524f68777b54246d87c4bcf4fa591ae5/transformed/jetified-glide-4.14.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/0c9d3677f562c8d1dc628bf1df5deaa2/transformed/jetified-firebase-auth-ktx-21.0.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d557cf4660776398da2dbb560482d2e8/transformed/jetified-firebase-auth-21.0.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e05bbb2a2f2566ddb5ffc58c91e088a6/transformed/jetified-viewpager2-1.0.0-api.jar</arg>
@@ -128,6 +129,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f76ee5c619ab01124e3ca9532b9ee4f9/transformed/jetified-lifecycle-livedata-core-ktx-2.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f63171ce585a28b042c07e30a054f37e/transformed/lifecycle-livedata-core-2.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.5.1/1fdb7349701e9cf2f0a69fc10642b6fef6bb3e12/lifecycle-common-2.5.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/f43c03904c699f344703447875273dc8/transformed/jetified-gifdecoder-4.14.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/766bf2cc48990aa3fe83e78c702ed69b/transformed/jetified-transport-backend-cct-3.1.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d8c86b23d5c0d30f3805b0e6ee5f4b44/transformed/jetified-transport-runtime-3.1.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/cffa8f48e80fe9b59b65c47684f7fdfe/transformed/jetified-firebase-encoders-json-18.0.0-api.jar</arg>
@@ -153,6 +155,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/0a1eb8c1d0d3822335398b01713919c2/transformed/jetified-kotlin-stdlib-common-1.7.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9cd2a6e7a9211d6f2ef5839566bb7e3f/transformed/jetified-annotations-13.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/7937e8a213c6ca1a94b6035f44378ba7/transformed/jetified-listenablefuture-1.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/e35d6a8b0c581fbc7ecd90d62a5c6dce/transformed/jetified-tracing-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/654ecb1d08e3afd0fdccd8be90ee6508/transformed/jetified-firebase-annotations-16.0.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/ccfa6682f67b726a2a7ba6061ea98d54/transformed/jetified-hilt-core-2.40.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/7fa97f6d17008c39af7954ec7dc5164e/transformed/jetified-dagger-2.40.1.jar</arg>
@@ -162,6 +165,9 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/2ef95a4a3989e06ec05c3be4c0ba2ef7/transformed/jetified-core-1.10.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/63bb3b0d3202e3be9fb231a99fc8d38b/transformed/jetified-dagger-lint-aar-2.40.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/73d7f6e537996d0a94da7534e67c49df/transformed/jetified-jsr305-3.0.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/4a0be6ba36fc7b540ec355b51dc71246/transformed/jetified-disklrucache-4.14.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/86691a2b54ab3c8fa098b4f87f4b5737/transformed/jetified-annotations-4.14.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/16e00c9c39f46f13b58f0330e45687bc/transformed/exifinterface-1.3.3-api.jar</arg>
                 <arg>$USER_HOME$/Android/Sdk/platforms/android-33/android.jar</arg>
                 <arg>$USER_HOME$/Android/Sdk/build-tools/30.0.3/core-lambda-stubs.jar</arg>
               </args>
@@ -247,6 +253,8 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio:2.10.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.retrofit2:converter-moshi:2.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.moshi:moshi:1.14.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:disklrucache:4.14.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:annotations:4.14.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.13.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.databinding:viewbinding:7.3.1@aar" level="project" />
@@ -353,6 +361,10 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.android.gms:play-services-fido:19.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:hilt-android:2.40.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:dagger-lint-aar:2.40.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:glide:4.14.2@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:gifdecoder:4.14.2@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.exifinterface:exifinterface:1.3.3@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.tracing:tracing:1.0.0@aar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="application-tracker.app.main" />
 </module>

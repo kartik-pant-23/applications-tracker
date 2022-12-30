@@ -17,14 +17,12 @@ class InformationTextView (
         set(value) {
             field = value
             binding.key.text = field
-            binding.key.maxLines = 1
             postInvalidate()
         }
     var valueText = ""
         set(value) {
             field = value
             binding.value.text = field
-            binding.value.maxLines = 1
             postInvalidate()
         }
     var endIconVisibility = true
