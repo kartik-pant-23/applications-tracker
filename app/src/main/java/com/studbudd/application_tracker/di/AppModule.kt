@@ -4,7 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.studbudd.application_tracker.BuildConfig
+import com.studbudd.application_tracker.common.domain.ClearAppDataUseCase
 import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_applications_management.data.AppDatabase
 import com.studbudd.application_tracker.feature_applications_management.data.ApplicationsRepository
@@ -56,6 +60,25 @@ class AppModule {
     @Singleton
     fun providesSharedPrefManager(sharedPref: SharedPreferences): SharedPreferencesManager {
         return SharedPreferencesManager(sharedPref)
+    }
+
+    @Provides
+    @Singleton
+    fun providesGoogleSignInClient(application: Application): GoogleSignInClient {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .requestIdToken(BuildConfig.GOOGLE_SIGN_IN_CLIENT_ID)
+            .build()
+        return GoogleSignIn.getClient(application.applicationContext, gso)
+    }
+
+    @Provides
+    @Singleton
+    fun providesClearAppDataUseCase(
+        prefManager: SharedPreferencesManager,
+        database: AppDatabase
+    ): ClearAppDataUseCase {
+        return ClearAppDataUseCase(prefManager, database)
     }
 
     @AuthRetrofitObject

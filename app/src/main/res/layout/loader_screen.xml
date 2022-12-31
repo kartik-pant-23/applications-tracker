@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:visibility="gone"
     android:padding="24dp"
-    android:background="#40000000">
+    android:background="#CC000000">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -16,8 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/card_background"
-        android:backgroundTint="@color/window_background"
         android:gravity="center_vertical"
         android:elevation="12dp">
         <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -41,7 +39,8 @@
             app:layout_constraintBottom_toBottomOf="@id/progress_bar"
             app:layout_constraintStart_toEndOf="@id/progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            style="@style/SubHeading"/>
+            style="@style/SubHeading"
+            android:textColor="#fff" />
 
     </LinearLayout>
 

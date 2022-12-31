@@ -11,15 +11,18 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
 import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import com.studbudd.application_tracker.MainActivity
+import com.studbudd.application_tracker.common.domain.ClearAppDataUseCase
 import com.studbudd.application_tracker.common.models.Resource
 import com.studbudd.application_tracker.feature_user.domain.use_cases.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val userUseCases: UserUseCases
+    private val userUseCases: UserUseCases,
+    private val clearAppDataUseCase: ClearAppDataUseCase
 ) : ViewModel() {
 
     private val _state = MutableLiveData<MainActivityState>(MainActivityState.Loading())
@@ -54,10 +57,35 @@ class MainActivityViewModel @Inject constructor(
 
     private fun checkIfUserLoggedIn() = viewModelScope.launch {
         _state.postValue(MainActivityState.Loading())
-        _state.postValue(when(val userResource = userUseCases.getUser()) {
-            is Resource.Success -> MainActivityState.LoggedIn(userResource.data!!)
-            else -> MainActivityState.LoggedOut()
-        })
+        _state.postValue(
+            when (val userResource = userUseCases.getUser()) {
+                is Resource.Success -> MainActivityState.LoggedIn(userResource.data!!)
+                else -> MainActivityState.LoggedOut()
+            }
+        )
+    }
+
+    fun removeDataFromTables() = viewModelScope.launch {
+        _state.postValue(
+            MainActivityState.Loading(
+                "Removing your data from your device",
+                state.value?.user
+            )
+        )
+        clearAppDataUseCase()
+    }
+
+    fun removeGoogleIdTokens() {
+        _state.postValue(
+            MainActivityState.Loading(
+                "Deleting Google Sign In credentials from your device",
+                state.value?.user
+            )
+        )
+    }
+
+    fun setUserSignedOut() {
+        _state.postValue(MainActivityState.LoggedOut())
     }
 
 }

@@ -27,6 +27,7 @@ import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.databinding.ActivityOnboardingBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingActivity : AppCompatActivity() {
@@ -34,8 +35,7 @@ class OnboardingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingBinding
     private val viewModel by viewModels<OnboardingViewModel>()
 
-    private lateinit var gso: GoogleSignInOptions
-    private lateinit var gsc: GoogleSignInClient
+    @Inject lateinit var gsc: GoogleSignInClient
     private lateinit var gsRequestLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ class OnboardingActivity : AppCompatActivity() {
         viewModel.state.observe(this) { state ->
             binding.loaderScreen.progressText.text = state.loaderMessage ?: ""
             binding.loaderScreen.root.visibility = if (state.loading) View.VISIBLE else View.GONE
-            enableButtonClicks(!state.loading)
+            binding.root.isClickable = !state.loading
             if (state is OnboardingState.SignInSuccess) {
                 Toast.makeText(
                     this,
@@ -70,11 +70,6 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun initializeGoogleSignInDependencies() {
-        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .requestIdToken(BuildConfig.GOOGLE_SIGN_IN_CLIENT_ID)
-            .build()
-        gsc = GoogleSignIn.getClient(this, gso)
         gsRequestLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
@@ -107,11 +102,6 @@ class OnboardingActivity : AppCompatActivity() {
                 viewModel.signInFailed("Some internal error occurred")
             }
         }
-    }
-
-    private fun enableButtonClicks(enable: Boolean) {
-        binding.googleSignIn.isEnabled = enable
-        binding.anonymousSignIn.isEnabled = enable
     }
 
     companion object {

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="Theme.Applicationtracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
@@ -114,6 +114,24 @@
         <item name="popupMenuBackground">@color/bottom_navigation_bar</item>
         <item name="android:popupElevation">16dp</item>
         <item name="android:listDivider">@color/light_text</item>
+    </style>
+    
+    <!-- Alert Dialog -->
+    <style name="AlertDialog.TitleText" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textColor">@color/dark_text</item>
+    </style>
+    <style name="AlertDialog.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+    <style name="AlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">@color/bottom_navigation_bar</item>
+        <item name="colorOnSurface">@color/dark_text</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/AlertDialog.TitleText</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Body</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertDialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/AlertDialog.Button</item>
     </style>
 
 </resources>
