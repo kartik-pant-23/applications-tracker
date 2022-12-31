@@ -24,9 +24,9 @@ class OnboardingViewModel @Inject constructor(
         }
     }
 
-    fun signInAnonymously(name: String? = null) = viewModelScope.launch {
+    fun signInAnonymously() = viewModelScope.launch {
         _state.postValue(OnboardingState.Loading("Creating Anonymous User"))
-        userUseCases.createAnonymousUser(name ?: "Anonymous User")
+        userUseCases.createAnonymousUser()
         _state.postValue(OnboardingState.SignInSuccess("Signed In anonymously!"))
     }
 

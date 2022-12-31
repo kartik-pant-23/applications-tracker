@@ -1,5 +1,9 @@
 package com.studbudd.application_tracker.feature_user.ui.profile
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +15,8 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.common.ui.main_activity.MainActivityViewModel
 import com.studbudd.application_tracker.common.ui.views.loadImageFromUrl
@@ -23,6 +29,8 @@ class ProfileFragment : Fragment() {
     private val binding
         get() = _binding!!
     private val viewModel by activityViewModels<MainActivityViewModel>()
+
+    var isAnonymousUser = true;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +46,8 @@ class ProfileFragment : Fragment() {
                 user.photoUrl?.let { photoUrl ->
                     binding.userImage.loadImageFromUrl(photoUrl, R.drawable.anonymous_user_dp)
                 }
+
+                isAnonymousUser = user.isAnonymousUser
                 if (user.isAnonymousUser)
                     binding.layoutGoogleSignIn.visibility = View.VISIBLE
                 else
@@ -50,6 +60,10 @@ class ProfileFragment : Fragment() {
                 startActivity(Intent(it, UpdatePlaceholderActivity::class.java))
                 it.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
             }
+        }
+
+        binding.googleSignIn.setOnClickListener {
+            (requireActivity() as MainActivity).signInWithGoogle()
         }
 
         setupMenu()
@@ -72,11 +86,51 @@ class ProfileFragment : Fragment() {
                 R.id.privacy_policy -> false
                 R.id.contribute -> false
                 R.id.sign_out -> {
-                    // TODO - Perform Sign Out
+                    if (isAnonymousUser) showSignInAlertDialog()
+                    else showSignOutAlertDialog()
                     true
                 }
                 else -> false
             }
+        }
+    }
+
+    private fun getAlertDialog(context: Context): MaterialAlertDialogBuilder {
+        return MaterialAlertDialogBuilder(context, R.style.AlertDialog)
+    }
+
+    private fun showSignInAlertDialog() {
+        activity?.let {
+            getAlertDialog(it)
+                .setTitle("Protect your data")
+                .setMessage("You have not connected your Google Account, so you will loose your data.")
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                    showSignOutAlertDialog()
+                }
+                .setPositiveButton("Connect") { dialog, _ ->
+                    (requireActivity() as MainActivity).signInWithGoogle()
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
+    }
+
+    private fun showSignOutAlertDialog() {
+        activity?.let {
+            getAlertDialog(it)
+                .setTitle("Sign Out")
+                .setMessage("Are you sure you want to sign out from your account?")
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton("Sign Out") { dialog, _ ->
+                    dialog.dismiss()
+                    (requireActivity() as MainActivity).signOut()
+                }
+                .create()
+                .show()
         }
     }
 

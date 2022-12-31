@@ -19,4 +19,7 @@ class SharedPreferencesManager @Inject constructor(
             value?.let { sharedPreferences.edit().putString("accessToken", it).apply() }
         }
 
+    fun clearAllData() =
+        sharedPreferences.edit().clear().apply()
+
 }
