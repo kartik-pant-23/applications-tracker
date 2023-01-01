@@ -56,13 +56,32 @@ class MainActivityViewModel @Inject constructor(
     }
 
     private fun checkIfUserLoggedIn() = viewModelScope.launch {
-        _state.postValue(MainActivityState.Loading())
+        _state.postValue(
+            MainActivityState.Loading(
+                "Loading user details",
+                state.value?.user
+            )
+        )
         _state.postValue(
             when (val userResource = userUseCases.getUser()) {
                 is Resource.Success -> MainActivityState.LoggedIn(userResource.data!!)
                 else -> MainActivityState.LoggedOut()
             }
         )
+    }
+
+    fun signInRemoteUser(idToken: String) = viewModelScope.launch {
+        _state.postValue(MainActivityState.SigningInProgress(state.value?.user))
+        when (userUseCases.signInRemoteUser(idToken)) {
+            is Resource.Success -> {
+                _state.postValue(MainActivityState.Loading("App will be restarted to make changes"))
+                delay(1000)
+                _state.postValue(MainActivityState.SigningInSuccess())
+            }
+            else -> {
+                _state.postValue(MainActivityState.SigningInFailed(state.value?.user))
+            }
+        }
     }
 
     fun removeDataFromTables() = viewModelScope.launch {

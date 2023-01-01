@@ -1,17 +1,23 @@
 package com.studbudd.application_tracker
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
+import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -23,7 +29,6 @@ import com.studbudd.application_tracker.feature_applications_management.ui.home.
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
 import com.studbudd.application_tracker.workers.NotifyWorker
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -50,6 +55,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initializeGoogleSignInDependencies()
+
         // Disabling the center of the bottom navigation
         // to allow clicks on the Floating Action Button
         binding.bottomNavigationView.menu.findItem(R.id.menu_placeholder).isEnabled = false
@@ -58,6 +65,11 @@ class MainActivity : AppCompatActivity() {
         binding.contentScreen.visibility = View.INVISIBLE
 
         viewModel.state.observe(this) {
+            if (it is MainActivityState.SigningInSuccess) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finishAffinity()
+            }
+
             // making the screen visible only if we have a user
             binding.contentScreen.visibility = if (it.user != null) View.VISIBLE else View.INVISIBLE
 
@@ -74,6 +86,10 @@ class MainActivity : AppCompatActivity() {
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
                 finishAffinity()
             }
+
+            // showing error message
+            if (it.errorMessage != null)
+                showSnackbar(it.errorMessage)
         }
 
         appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
@@ -114,14 +130,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun showSnackbar(message: String) {
         Snackbar.make(
-            binding.root, message, Snackbar.LENGTH_INDEFINITE
-        ).show()
+            binding.root, message, Snackbar.ANIMATION_MODE_SLIDE
+        ).apply {
+            animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+        }.show()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onNavigateUp()
     }
 
+    // For handling when the app is opened from the notifications.
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         if (intent != null) {
@@ -136,11 +155,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun signInWithGoogle() {
-        // TODO - Implement Google Sign In feature
-        // googleSignInLauncher.launch(gsc.signInIntent)
-        Toast.makeText(this, "Feature not yet implemented", Toast.LENGTH_SHORT).show()
+    // Sign In with Google - Helper functions --------------------------------------
+    private fun initializeGoogleSignInDependencies() {
+        googleSignInLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    try {
+                        val idToken = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                            .getResult(ApiException::class.java).idToken
+                        if (idToken != null) {
+                            viewModel.signInRemoteUser(idToken)
+                        } else {
+                            showSnackbar("Did not get token for signing in the user.")
+                        }
+                    } catch (e: ApiException) {
+                        if (e.statusCode == GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
+                            showSnackbar("Sign in failed due to user interruption!")
+                        } else {
+                            showSnackbar("Google Sign in failed due to some internal error.")
+                        }
+                    }
+                } else {
+                    showSnackbar("Something went wrong.")
+                    Log.e(TAG, "google-sign-in-failed: $result")
+                }
+            }
     }
+
+    fun signInWithGoogle() =
+        googleSignInLauncher.launch(gsc.signInIntent)
 
     fun signOut() {
         viewModel.removeDataFromTables().invokeOnCompletion {
@@ -155,4 +198,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    // -------------------------------------------------------------------------------
 }
