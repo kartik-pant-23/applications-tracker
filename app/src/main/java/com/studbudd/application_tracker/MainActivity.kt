@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -43,6 +42,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var gsc: GoogleSignInClient
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
 
+    var isAnonymousUser = false
+
     companion object {
         const val DAYS_FOR_FLEXIBLE_UPDATES: Int = 7
         const val UPDATE_REQUEST_CODE: Int = 100
@@ -65,14 +66,6 @@ class MainActivity : AppCompatActivity() {
         binding.contentScreen.visibility = View.INVISIBLE
 
         viewModel.state.observe(this) {
-            if (it is MainActivityState.SigningInSuccess) {
-                startActivity(Intent(this, MainActivity::class.java))
-                finishAffinity()
-            }
-
-            // making the screen visible only if we have a user
-            binding.contentScreen.visibility = if (it.user != null) View.VISIBLE else View.INVISIBLE
-
             // setting up the screen state if it is loading
             binding.root.isClickable = !it.loading
             binding.loaderScreen.apply {
@@ -80,17 +73,37 @@ class MainActivity : AppCompatActivity() {
                 root.visibility = if (it.loading) View.VISIBLE else View.GONE
             }
 
-            // if user is logged out, take him to onboarding screen
+            // start connecting user's account with google
+            if (it is MainActivityState.StartConnectingWithGoogle)
+                signInWithGoogle()
+            // if the user's google account is connected, recreate the activity
+            if (it is MainActivityState.ConnectedWithGoogle) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finishAffinity()
+            }
+
+            // start the logging out process
+            if (it is MainActivityState.StartLoggingOut)
+                signOut()
+            // if user is logged out, take him to the onboarding screen
             if (it is MainActivityState.LoggedOut) {
                 startActivity(Intent(this, OnboardingActivity::class.java))
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
                 finishAffinity()
             }
 
-            // showing error message
-            if (it.errorMessage != null)
-                showSnackbar(it.errorMessage)
+            // show the error message
+            if (it is MainActivityState.Error) {
+                showSnackbar(it.errorMessage ?: "")
+            }
         }
+
+        // making the screen visible only if we have a user
+        viewModel.user.observe(this) {
+            isAnonymousUser = it?.isAnonymousUser == true
+            binding.contentScreen.visibility = if (it != null) View.VISIBLE else View.INVISIBLE
+        }
+
 
         appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
 
@@ -121,13 +134,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Handles the case when the update is available but gets failed
+     * due to some other error.
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == UPDATE_REQUEST_CODE) {
-            if (resultCode != RESULT_OK) showSnackbar("In-app update failed!");
+            if (resultCode != RESULT_OK) viewModel.showError("In-app update failed!");
         }
     }
 
+    /**
+     * This function shows a snack bar with the consistent design for
+     * any kind of error that occurs on the `MainActivity`.
+     */
     private fun showSnackbar(message: String) {
         Snackbar.make(
             binding.root, message, Snackbar.ANIMATION_MODE_SLIDE
@@ -140,7 +161,11 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onNavigateUp()
     }
 
-    // For handling when the app is opened from the notifications.
+    /**
+     * For handling when the app is opened from the notifications.
+     * If it is opened from a notification, the `applicationId` will have
+     * a value other than -1.
+     */
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         if (intent != null) {
@@ -155,7 +180,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Sign In with Google - Helper functions --------------------------------------
+    /**
+     * Sets up the Google Sign In Launcher - which will handle the users action
+     * after the user selects an account from the dialog shown.
+     */
     private fun initializeGoogleSignInDependencies() {
         googleSignInLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -166,29 +194,39 @@ class MainActivity : AppCompatActivity() {
                         if (idToken != null) {
                             viewModel.signInRemoteUser(idToken)
                         } else {
-                            showSnackbar("Did not get token for signing in the user.")
+                            viewModel.showError("Did not get token for signing in the user.")
                         }
                     } catch (e: ApiException) {
                         if (e.statusCode == GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
-                            showSnackbar("Sign in failed due to user interruption!")
+                            viewModel.showError("Sign in failed due to user interruption!")
                         } else {
-                            showSnackbar("Google Sign in failed due to some internal error.")
+                            viewModel.showError("Google Sign in failed due to some internal error.")
                         }
                     }
                 } else {
-                    showSnackbar("Something went wrong.")
+                    viewModel.showError("Something went wrong.")
                     Log.e(TAG, "google-sign-in-failed: $result")
                 }
             }
     }
 
-    fun signInWithGoogle() =
+    /**
+     * Launches the Google Sign-In intent - that is the alert dialog
+     * for creating an account chooser dialog for the user.
+     */
+    private fun signInWithGoogle() =
         googleSignInLauncher.launch(gsc.signInIntent)
 
-    fun signOut() {
+    /**
+     * Signs out the user by the following two steps -
+     * - Clear all the tables from the local SQLite database.
+     * - If the user has connected their Google Account, then it should
+     *   be removed as well. This ensures that the users can choose another
+     *   google account at the time of logging.
+     */
+    private fun signOut() {
         viewModel.removeDataFromTables().invokeOnCompletion {
-            val user = viewModel.state.value?.user
-            if (user == null || user.isAnonymousUser) {
+            if (isAnonymousUser) {
                 viewModel.setUserSignedOut()
             } else {
                 viewModel.removeGoogleIdTokens()
@@ -198,5 +236,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    // -------------------------------------------------------------------------------
 }

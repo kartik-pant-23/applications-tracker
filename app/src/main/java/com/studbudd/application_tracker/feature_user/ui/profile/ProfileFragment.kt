@@ -1,22 +1,16 @@
 package com.studbudd.application_tracker.feature_user.ui.profile
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.*
-import androidx.annotation.RequiresApi
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.MenuCompat
 import androidx.fragment.app.Fragment
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.common.ui.main_activity.MainActivityViewModel
 import com.studbudd.application_tracker.common.ui.views.loadImageFromUrl
@@ -38,8 +32,8 @@ class ProfileFragment : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        viewModel.state.observe(viewLifecycleOwner) {
-            it.user?.let { user ->
+        viewModel.user.observe(viewLifecycleOwner) {
+            it?.let { user ->
                 binding.userName.valueText = user.name
                 binding.userEmail.valueText = user.email
                 binding.userJoinedOn.valueText = user.joinedOn
@@ -63,7 +57,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.googleSignIn.setOnClickListener {
-            (requireActivity() as MainActivity).signInWithGoogle()
+            viewModel.startConnectingWithGoogle()
         }
 
         setupMenu()
@@ -109,7 +103,7 @@ class ProfileFragment : Fragment() {
                     showSignOutAlertDialog()
                 }
                 .setPositiveButton("Connect") { dialog, _ ->
-                    (requireActivity() as MainActivity).signInWithGoogle()
+                    viewModel.startConnectingWithGoogle()
                     dialog.dismiss()
                 }
                 .create()
@@ -127,7 +121,7 @@ class ProfileFragment : Fragment() {
                 }
                 .setPositiveButton("Sign Out") { dialog, _ ->
                     dialog.dismiss()
-                    (requireActivity() as MainActivity).signOut()
+                    viewModel.startLoggingOut()
                 }
                 .create()
                 .show()

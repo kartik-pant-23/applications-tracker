@@ -1,29 +1,38 @@
 package com.studbudd.application_tracker.common.ui.main_activity
 
-import com.studbudd.application_tracker.feature_user.domain.models.User
-
 sealed class MainActivityState(
     val loading: Boolean = false,
     val loaderMessage: String = "",
-    val user: User? = null,
     val errorMessage: String? = null
 ) {
 
+    class Default : MainActivityState()
+
+    /**
+     * State when the screen should show loader screen
+     */
     class Loading(
         loaderMessage: String? = null,
-        user: User? = null
-    ) : MainActivityState(true, loaderMessage ?: "Loading", user)
+    ) : MainActivityState(true, loaderMessage ?: "Loading")
 
-    class SigningInProgress(oldUser: User?) :
-        MainActivityState(true, "Creating a remote entity for you", oldUser)
+    /**
+     * State when some error needs to be displayed using the snack bar
+     */
+    class Error(errorMessage: String? = null) :
+        MainActivityState(false, "", errorMessage ?: "Something went wrong")
 
-    class SigningInFailed(oldUser: User?) :
-        MainActivityState(user = oldUser, errorMessage = "Failed to create a remote user!")
+    class StartLoggingOut: MainActivityState()
+    /**
+     * State when the user is logged by any of the following reasons -
+     * 1. Access token expired
+     * 2. Logged out from inside the app - Profile Screen
+     */
+    class LoggedOut : MainActivityState()
 
-    class SigningInSuccess() : MainActivityState()
-
-    class LoggedIn(user: User) : MainActivityState(false, "", user)
-
-    class LoggedOut : MainActivityState(false)
+    class StartConnectingWithGoogle(): MainActivityState()
+    /**
+     * State when the app gets connected with Google - Profile Screen
+     */
+    class ConnectedWithGoogle : MainActivityState()
 
 }
