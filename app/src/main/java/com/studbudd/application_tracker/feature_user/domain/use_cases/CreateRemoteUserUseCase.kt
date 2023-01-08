@@ -14,7 +14,7 @@ class CreateRemoteUserUseCase @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend operator fun invoke(token: String) : Resource<Boolean> = withContext(dispatcher) {
-        when (val res = userRepository.loginUser(token)) {
+        when (val res = userRepository.createRemoteUser(token)) {
             is Resource.Success -> {
                 preferencesManager.accessToken = res.data!!.accessToken
                 preferencesManager.refreshToken = res.data.refreshToken

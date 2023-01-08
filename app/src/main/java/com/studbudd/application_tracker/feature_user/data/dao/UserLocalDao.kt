@@ -1,11 +1,7 @@
 package com.studbudd.application_tracker.feature_user.data.dao
 
-import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
+import com.studbudd.application_tracker.feature_user.data.models.RemoteIdTuple
 import com.studbudd.application_tracker.feature_user.data.models.UserLocal
 import kotlinx.coroutines.flow.Flow
 
@@ -17,6 +13,9 @@ interface UserLocalDao {
 
     @Query("SELECT * FROM users WHERE id=1")
     fun getUser(): Flow<UserLocal>
+
+    @Query("SELECT remoteId FROM users WHERE id=1")
+    suspend fun getRemoteId(): RemoteIdTuple?
 
     @Update
     suspend fun updateUser(newUser: UserLocal)

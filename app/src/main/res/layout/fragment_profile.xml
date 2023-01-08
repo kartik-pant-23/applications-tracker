@@ -91,7 +91,7 @@
                     app:keyText="Email"
                     app:valueText="pantkartik23@gmail.com"
                     app:endIconVisibility="false"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="4dp" />
 
                 <com.studbudd.application_tracker.common.ui.views.InformationTextView
                     android:id="@+id/user_joined_on"
@@ -100,7 +100,7 @@
                     app:keyText="Joined On"
                     app:valueText="23 December, 2022"
                     app:endIconVisibility="false"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="4dp" />
 
             </LinearLayout>
 
@@ -131,7 +131,7 @@
                     app:keyText="Placeholders"
                     app:valueText="Edit"
                     app:endIconVisibility="true"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="4dp" />
 
             </LinearLayout>
 

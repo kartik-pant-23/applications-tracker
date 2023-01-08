@@ -2,8 +2,6 @@ package com.studbudd.application_tracker.feature_user.domain.repo
 
 import android.util.Log
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.studbudd.application_tracker.common.domain.GetResourceFromApiResponse
 import com.studbudd.application_tracker.common.models.Resource
 import com.studbudd.application_tracker.feature_user.data.dao.AuthUserRemoteDao
@@ -14,7 +12,6 @@ import com.studbudd.application_tracker.feature_user.data.models.UserRemote
 import com.studbudd.application_tracker.feature_user.data.models.requests.LoginRequest
 import com.studbudd.application_tracker.feature_user.data.models.response.LoginResponse
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
-import com.studbudd.application_tracker.feature_user.domain.models.User
 
 class UserRepository_Impl(
     private val userLocalDao: UserLocalDao,
@@ -23,13 +20,13 @@ class UserRepository_Impl(
 ) : UserRepository {
 
     @WorkerThread
-    override suspend fun createAnonymousUser(userLocal: UserLocal): Long {
+    override suspend fun createLocalUser(userLocal: UserLocal): Long {
         userLocal.id = 1
         return userLocalDao.insertNewUser(userLocal)
     }
 
     @WorkerThread
-    override suspend fun loginUser(token: String): Resource<LoginResponse> {
+    override suspend fun createRemoteUser(token: String): Resource<LoginResponse> {
         try {
             GetResourceFromApiResponse<LoginResponse>().let { getResponse ->
                 return getResponse(
@@ -53,7 +50,7 @@ class UserRepository_Impl(
                 TAG = TAG
             )) {
                 is Resource.Success -> res.data!!.let {
-                    createAnonymousUser(
+                    createLocalUser(
                         UserLocal(
                             remoteId = it.id,
                             name = it.name,
@@ -78,6 +75,10 @@ class UserRepository_Impl(
             Log.e(TAG, "exception: $e")
             return Resource.Failure("Possibly a connection error occurred")
         }
+    }
+
+    override suspend fun isConnectedWithRemoteDatabase(): Boolean {
+        return userLocalDao.getRemoteId()?.isConnectedWithRemoteDatabase() ?: false
     }
 
     companion object {
