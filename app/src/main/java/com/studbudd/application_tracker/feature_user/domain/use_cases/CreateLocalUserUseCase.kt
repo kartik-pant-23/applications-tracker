@@ -1,6 +1,5 @@
 package com.studbudd.application_tracker.feature_user.domain.use_cases
 
-import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_user.data.models.UserLocal
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -11,7 +10,6 @@ import java.util.*
 import javax.inject.Inject
 
 class CreateLocalUserUseCase @Inject constructor(
-    private val preferencesManager: SharedPreferencesManager,
     private val repo: UserRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
@@ -33,13 +31,12 @@ class CreateLocalUserUseCase @Inject constructor(
         val createdAtDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
 
         // creating a new user with the above data
-        repo.createAnonymousUser(
+        repo.createLocalUser(
             UserLocal(
                 name = name,
                 email = email,
                 createdAt = createdAtDateFormat.format(dateToday)
             )
         )
-        preferencesManager.refreshToken = "LOCAL"
     }
 }

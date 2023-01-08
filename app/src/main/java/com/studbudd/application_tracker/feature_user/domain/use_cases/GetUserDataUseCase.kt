@@ -1,14 +1,16 @@
 package com.studbudd.application_tracker.feature_user.domain.use_cases
 
-import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.common.models.Resource
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import com.studbudd.application_tracker.feature_user.domain.models.User
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GetUserDataUseCase(
-    private val preferencesManager: SharedPreferencesManager,
     private val userRepository: UserRepository,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
@@ -26,7 +28,7 @@ class GetUserDataUseCase(
      *          - **Some other reason** - Keep showing user details fetched from the
      *            local database.
      */
-    suspend operator fun invoke() : Flow<Resource<User>> = channelFlow {
+    suspend operator fun invoke(): Flow<Resource<User>> = channelFlow {
         withContext(defaultDispatcher) {
             launch {
                 userRepository.getLocalUser().collect {
@@ -34,10 +36,8 @@ class GetUserDataUseCase(
                     else send(Resource.LoggedOut())
                 }
             }
-            preferencesManager.refreshToken?.let {
-                if (it != "NULL") {
-                    userRepository.getRemoteUser()
-                }
+            if (userRepository.isConnectedWithRemoteDatabase()) {
+                userRepository.getRemoteUser()
             }
         }
     }

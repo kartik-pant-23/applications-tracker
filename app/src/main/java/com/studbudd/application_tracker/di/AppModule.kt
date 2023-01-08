@@ -138,8 +138,8 @@ class AppModule {
         userRepository: UserRepository
     ): UserUseCases {
         return UserUseCases(
-            GetUserDataUseCase(prefManager, userRepository, Dispatchers.IO),
-            CreateLocalUserUseCase(prefManager, userRepository, Dispatchers.IO),
+            GetUserDataUseCase(userRepository, Dispatchers.IO),
+            CreateLocalUserUseCase(userRepository, Dispatchers.IO),
             CreateRemoteUserUseCase(prefManager, userRepository, Dispatchers.IO)
         )
     }

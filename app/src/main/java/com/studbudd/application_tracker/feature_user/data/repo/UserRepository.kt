@@ -7,12 +7,14 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    suspend fun createAnonymousUser(userLocal: UserLocal): Long
+    suspend fun createLocalUser(userLocal: UserLocal): Long
 
-    suspend fun loginUser(token: String): Resource<LoginResponse>
+    suspend fun createRemoteUser(token: String): Resource<LoginResponse>
 
     fun getLocalUser(): Flow<UserLocal?>
 
     suspend fun getRemoteUser(): Resource<Boolean>
+
+    suspend fun isConnectedWithRemoteDatabase(): Boolean
 
 }
