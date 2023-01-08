@@ -16,7 +16,7 @@ class OnboardingViewModel @Inject constructor(
 
     fun signInWithGoogle(idToken: String) = viewModelScope.launch {
         _state.postValue(OnboardingState.Loading())
-        val loginResult = userUseCases.signInRemoteUser(idToken)
+        val loginResult = userUseCases.createRemoteUser(idToken)
         if (loginResult.data == true) {
             _state.postValue(OnboardingState.SignInSuccess(loginResult.message))
         } else {
@@ -26,7 +26,7 @@ class OnboardingViewModel @Inject constructor(
 
     fun signInAnonymously() = viewModelScope.launch {
         _state.postValue(OnboardingState.Loading("Creating Anonymous User"))
-        userUseCases.createAnonymousUser()
+        userUseCases.createLocalUser()
         _state.postValue(OnboardingState.SignInSuccess("Signed In anonymously!"))
     }
 

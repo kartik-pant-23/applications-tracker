@@ -103,7 +103,7 @@ class MainActivityViewModel @Inject constructor(
      */
     fun signInRemoteUser(idToken: String) = viewModelScope.launch {
         _state.postValue(MainActivityState.Loading())
-        when (val res = userUseCases.signInRemoteUser(idToken)) {
+        when (val res = userUseCases.createRemoteUser(idToken)) {
             is Resource.Success -> {
                 _state.postValue(MainActivityState.Loading("App will be restarted to make changes"))
                 delay(1000)

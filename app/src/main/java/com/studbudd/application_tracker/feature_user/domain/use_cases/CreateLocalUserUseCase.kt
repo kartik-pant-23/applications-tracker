@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class AnonymousSignInUseCase @Inject constructor(
+class CreateLocalUserUseCase @Inject constructor(
     private val preferencesManager: SharedPreferencesManager,
     private val repo: UserRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO

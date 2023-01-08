@@ -16,9 +16,9 @@ import com.studbudd.application_tracker.feature_user.data.dao.AuthUserRemoteDao
 import com.studbudd.application_tracker.feature_user.data.dao.UserRemoteDao
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import com.studbudd.application_tracker.feature_user.domain.repo.UserRepository_Impl
-import com.studbudd.application_tracker.feature_user.domain.use_cases.AnonymousSignInUseCase
+import com.studbudd.application_tracker.feature_user.domain.use_cases.CreateLocalUserUseCase
 import com.studbudd.application_tracker.feature_user.domain.use_cases.GetUserDataUseCase
-import com.studbudd.application_tracker.feature_user.domain.use_cases.RemoteSignInUseCase
+import com.studbudd.application_tracker.feature_user.domain.use_cases.CreateRemoteUserUseCase
 import com.studbudd.application_tracker.feature_user.domain.use_cases.UserUseCases
 import com.studbudd.application_tracker.utilities.DATABASE_NAME
 import com.studbudd.application_tracker.utilities.SHARED_PREFERENCES_KEY
@@ -139,8 +139,8 @@ class AppModule {
     ): UserUseCases {
         return UserUseCases(
             GetUserDataUseCase(prefManager, userRepository, Dispatchers.IO),
-            AnonymousSignInUseCase(prefManager, userRepository, Dispatchers.IO),
-            RemoteSignInUseCase(prefManager, userRepository, Dispatchers.IO)
+            CreateLocalUserUseCase(prefManager, userRepository, Dispatchers.IO),
+            CreateRemoteUserUseCase(prefManager, userRepository, Dispatchers.IO)
         )
     }
 
