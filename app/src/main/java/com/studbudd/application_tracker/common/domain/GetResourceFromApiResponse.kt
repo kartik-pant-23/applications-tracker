@@ -8,6 +8,7 @@ import retrofit2.Response
 class GetResourceFromApiResponse<T> {
     operator fun invoke(response: Response<ApiResponse<T>>, TAG: String): Resource<T> {
         return if (response.code() == 401 || response.code() == 403) {
+            // TODO - Refresh the token from here itself
             Log.e(TAG, "response: $response")
             Resource.LoggedOut()
         }

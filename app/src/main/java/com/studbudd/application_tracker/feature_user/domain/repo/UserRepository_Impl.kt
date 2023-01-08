@@ -3,6 +3,7 @@ package com.studbudd.application_tracker.feature_user.domain.repo
 import android.util.Log
 import androidx.annotation.WorkerThread
 import com.studbudd.application_tracker.common.domain.GetResourceFromApiResponse
+import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.common.models.Resource
 import com.studbudd.application_tracker.feature_user.data.dao.AuthUserRemoteDao
 import com.studbudd.application_tracker.feature_user.data.dao.UserLocalDao
@@ -16,7 +17,8 @@ import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 class UserRepository_Impl(
     private val userLocalDao: UserLocalDao,
     private val userRemoteDao: UserRemoteDao,
-    private val authUserRemoteDao: AuthUserRemoteDao
+    private val authUserRemoteDao: AuthUserRemoteDao,
+    private val preferencesManager: SharedPreferencesManager
 ) : UserRepository {
 
     @WorkerThread
@@ -25,13 +27,17 @@ class UserRepository_Impl(
         return userLocalDao.insertNewUser(userLocal)
     }
 
+    override fun getLocalUser() = userLocalDao.getUser()
+
+    @WorkerThread
+    override fun deleteLocalUser() = userLocalDao.deleteLocalUser()
+
     @WorkerThread
     override suspend fun createRemoteUser(token: String): Resource<LoginResponse> {
         try {
             GetResourceFromApiResponse<LoginResponse>().let { getResponse ->
                 return getResponse(
-                    response = userRemoteDao.loginUser(LoginRequest(token)),
-                    TAG = TAG
+                    response = userRemoteDao.loginUser(LoginRequest(token)), TAG = TAG
                 )
             }
         } catch (e: Exception) {
@@ -40,43 +46,25 @@ class UserRepository_Impl(
         }
     }
 
-    override fun getLocalUser() = userLocalDao.getUser()
-
     @WorkerThread
-    override suspend fun getRemoteUser(): Resource<Boolean> {
-        try {
-            return when (val res = GetResourceFromApiResponse<UserRemote>()(
-                response = authUserRemoteDao.getUserData(),
-                TAG = TAG
-            )) {
-                is Resource.Success -> res.data!!.let {
-                    createLocalUser(
-                        UserLocal(
-                            remoteId = it.id,
-                            name = it.name,
-                            email = it.email,
-                            photoUrl = it.photoUrl,
-                            placeholderKeys = it.placeholderKeys ?: listOf(),
-                            placeholderValues = it.placeholderValues ?: listOf(),
-                            createdAt = it.createdAt
-                        )
-                    )
-                    Resource.Success(true)
-                }
-                is Resource.LoggedOut -> {
-                    // TODO - Improve what happens when access token expires
-                    //        we should try to refresh the access token first
-                    userLocalDao.deleteLocalUser()
-                    Resource.LoggedOut()
-                }
-                else -> Resource.Failure(res.message)
-            }
+    override suspend fun getRemoteUser(): Resource<UserRemote> {
+        return try {
+            GetResourceFromApiResponse<UserRemote>()(
+                TAG = TAG,
+                response = authUserRemoteDao.getUserData()
+            )
         } catch (e: Exception) {
             Log.e(TAG, "exception: $e")
-            return Resource.Failure("Possibly a connection error occurred")
+            Resource.Failure("Possibly a connection error occurred")
         }
     }
 
+    override fun saveAuthenticationTokens(accessToken: String, refreshToken: String) {
+        preferencesManager.accessToken = accessToken
+        preferencesManager.refreshToken = refreshToken
+    }
+
+    @WorkerThread
     override suspend fun isConnectedWithRemoteDatabase(): Boolean {
         return userLocalDao.getRemoteId()?.isConnectedWithRemoteDatabase() ?: false
     }

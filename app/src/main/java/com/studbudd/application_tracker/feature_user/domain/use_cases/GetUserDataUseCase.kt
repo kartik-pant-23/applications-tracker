@@ -37,7 +37,11 @@ class GetUserDataUseCase(
                 }
             }
             if (userRepository.isConnectedWithRemoteDatabase()) {
-                userRepository.getRemoteUser()
+                val res = userRepository.getRemoteUser()
+                if (res is Resource.Success)
+                    userRepository.createLocalUser(res.data!!.localUser)
+                else if (res is Resource.LoggedOut)
+                    userRepository.deleteLocalUser()
             }
         }
     }

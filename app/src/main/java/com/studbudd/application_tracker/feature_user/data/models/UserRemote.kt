@@ -27,13 +27,24 @@ data class UserRemote(
 
     val user
         get() = User(
-            id,
-            name,
-            email,
-            photoUrl,
-            placeholderKeys ?: listOf(),
-            placeholderValues ?: listOf(),
-            createdAt
+            remoteId = id,
+            name = name,
+            email = email,
+            photoUrl = photoUrl,
+            placeholderKeys = placeholderKeys ?: listOf("resume", "experience-years"),
+            placeholderValues = placeholderValues ?: listOf("resume_link", "x_years"),
+            createdAt = createdAt
+        )
+
+    val localUser: UserLocal
+        get() = UserLocal(
+            remoteId = id,
+            name = name,
+            email = email,
+            photoUrl = photoUrl,
+            placeholderKeys = placeholderKeys ?: listOf("resume", "experience-years"),
+            placeholderValues = placeholderValues ?: listOf("resume_link", "x_years"),
+            createdAt = createdAt
         )
 
 }
