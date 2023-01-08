@@ -17,8 +17,8 @@ import com.studbudd.application_tracker.feature_user.data.dao.UserRemoteDao
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import com.studbudd.application_tracker.feature_user.domain.repo.UserRepository_Impl
 import com.studbudd.application_tracker.feature_user.domain.use_cases.CreateLocalUserUseCase
-import com.studbudd.application_tracker.feature_user.domain.use_cases.GetUserDataUseCase
 import com.studbudd.application_tracker.feature_user.domain.use_cases.CreateRemoteUserUseCase
+import com.studbudd.application_tracker.feature_user.domain.use_cases.GetUserDataUseCase
 import com.studbudd.application_tracker.feature_user.domain.use_cases.UserUseCases
 import com.studbudd.application_tracker.utilities.DATABASE_NAME
 import com.studbudd.application_tracker.utilities.SHARED_PREFERENCES_KEY
@@ -122,9 +122,15 @@ class AppModule {
     fun providesUserRepository(
         database: AppDatabase,
         userRemoteDao: UserRemoteDao,
-        authUserRemoteDao: AuthUserRemoteDao
+        authUserRemoteDao: AuthUserRemoteDao,
+        prefManager: SharedPreferencesManager
     ): UserRepository {
-        return UserRepository_Impl(database.userLocalDao(), userRemoteDao, authUserRemoteDao)
+        return UserRepository_Impl(
+            database.userLocalDao(),
+            userRemoteDao,
+            authUserRemoteDao,
+            prefManager
+        )
     }
 
     @Provides
@@ -134,13 +140,12 @@ class AppModule {
 
     @Provides
     fun providesUserUseCases(
-        prefManager: SharedPreferencesManager,
         userRepository: UserRepository
     ): UserUseCases {
         return UserUseCases(
             GetUserDataUseCase(userRepository, Dispatchers.IO),
             CreateLocalUserUseCase(userRepository, Dispatchers.IO),
-            CreateRemoteUserUseCase(prefManager, userRepository, Dispatchers.IO)
+            CreateRemoteUserUseCase(userRepository, Dispatchers.IO)
         )
     }
 
