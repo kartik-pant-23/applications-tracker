@@ -2,6 +2,8 @@ package com.studbudd.application_tracker.feature_user.domain.repo
 
 import android.util.Log
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.studbudd.application_tracker.common.domain.GetResourceFromApiResponse
 import com.studbudd.application_tracker.common.models.Resource
 import com.studbudd.application_tracker.feature_user.data.dao.AuthUserRemoteDao
@@ -13,8 +15,6 @@ import com.studbudd.application_tracker.feature_user.data.models.requests.LoginR
 import com.studbudd.application_tracker.feature_user.data.models.response.LoginResponse
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import com.studbudd.application_tracker.feature_user.domain.models.User
-import kotlinx.coroutines.delay
-import java.net.ConnectException
 
 class UserRepository_Impl(
     private val userLocalDao: UserLocalDao,
@@ -39,53 +39,44 @@ class UserRepository_Impl(
             }
         } catch (e: Exception) {
             Log.e(TAG, "exception: $e")
-            return Resource.Failure("Possible connection error occurred!")
+            return Resource.Failure("Possibly a connection error occurred!")
         }
     }
 
-    @WorkerThread
-    override suspend fun getLocalUser(): Resource<User> =
-        userLocalDao.getUser()?.let { user ->
-            Resource.Success(user.user)
-        } ?: Resource.Failure("Something went wrong!")
+    override fun getLocalUser() = userLocalDao.getUser()
 
     @WorkerThread
-    override suspend fun getRemoteUser(): Resource<User> {
+    override suspend fun getRemoteUser(): Resource<Boolean> {
         try {
-            return when (val remoteUserResource = GetResourceFromApiResponse<UserRemote>()(
+            return when (val res = GetResourceFromApiResponse<UserRemote>()(
                 response = authUserRemoteDao.getUserData(),
                 TAG = TAG
             )) {
-                is Resource.Success -> {
-                    val createdUser = remoteUserResource.data!!
+                is Resource.Success -> res.data!!.let {
                     createAnonymousUser(
                         UserLocal(
-                            createdUser.id,
-                            createdUser.name,
-                            createdUser.email,
-                            createdUser.photoUrl,
-                            createdUser.placeholderKeys ?: listOf(),
-                            createdUser.placeholderValues ?: listOf(),
-                            createdUser.createdAt
+                            remoteId = it.id,
+                            name = it.name,
+                            email = it.email,
+                            photoUrl = it.photoUrl,
+                            placeholderKeys = it.placeholderKeys ?: listOf(),
+                            placeholderValues = it.placeholderValues ?: listOf(),
+                            createdAt = it.createdAt
                         )
                     )
-                    return Resource.Success(createdUser.user)
+                    Resource.Success(true)
                 }
-                is Resource.LoggedOut -> Resource.LoggedOut()
-                else -> getLocalUser()
+                is Resource.LoggedOut -> {
+                    // TODO - Improve what happens when access token expires
+                    //        we should try to refresh the access token first
+                    userLocalDao.deleteLocalUser()
+                    Resource.LoggedOut()
+                }
+                else -> Resource.Failure(res.message)
             }
         } catch (e: Exception) {
-            return when (e) {
-                is ConnectException -> {
-                    // Case when internet connection not available
-                    Log.e(TAG, "Internet connection not available")
-                    getLocalUser()
-                }
-                else -> {
-                    Log.e(TAG, "exception: $e")
-                    Resource.Failure("Possible connection error occurred!")
-                }
-            }
+            Log.e(TAG, "exception: $e")
+            return Resource.Failure("Possibly a connection error occurred")
         }
     }
 

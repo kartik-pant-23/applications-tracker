@@ -13,6 +13,7 @@ import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.common.domain.ClearAppDataUseCase
 import com.studbudd.application_tracker.common.models.Resource
+import com.studbudd.application_tracker.feature_user.domain.models.User
 import com.studbudd.application_tracker.feature_user.domain.use_cases.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -28,10 +29,17 @@ class MainActivityViewModel @Inject constructor(
     private val _state = MutableLiveData<MainActivityState>(MainActivityState.Loading())
     val state: LiveData<MainActivityState> = _state
 
+    private val _user = MutableLiveData<User?>()
+    val user: LiveData<User?> = _user
+
     init {
         checkIfUserLoggedIn()
     }
 
+    /**
+     * This function checks if there are any pending updates.
+     * If the updates are present app updation flow is started.
+     */
     fun checkForUpdates(
         appUpdateManager: AppUpdateManager,
         startUpdate: (appUpdateInfo: AppUpdateInfo, updateType: Int) -> Unit
@@ -55,56 +63,106 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
+    /**
+     * This function is called as soon as the user opens up the app.
+     * Through this function we try to get the user's data from our
+     * **single source of truth**, the local database.
+     *
+     * If the local database does not have the user's data then we
+     * start the logging out flow - which clears up the local
+     * database.
+     */
     private fun checkIfUserLoggedIn() = viewModelScope.launch {
         _state.postValue(
-            MainActivityState.Loading(
-                "Loading user details",
-                state.value?.user
-            )
+            MainActivityState.Loading("Loading user details")
         )
-        _state.postValue(
-            when (val userResource = userUseCases.getUser()) {
-                is Resource.Success -> MainActivityState.LoggedIn(userResource.data!!)
-                else -> MainActivityState.LoggedOut()
-            }
-        )
-    }
-
-    fun signInRemoteUser(idToken: String) = viewModelScope.launch {
-        _state.postValue(MainActivityState.SigningInProgress(state.value?.user))
-        when (userUseCases.signInRemoteUser(idToken)) {
-            is Resource.Success -> {
-                _state.postValue(MainActivityState.Loading("App will be restarted to make changes"))
-                delay(1000)
-                _state.postValue(MainActivityState.SigningInSuccess())
-            }
-            else -> {
-                _state.postValue(MainActivityState.SigningInFailed(state.value?.user))
+        userUseCases.getUser().collect {
+            if (it is Resource.LoggedOut) {
+                startLoggingOut()
+            } else {
+                _user.postValue(it.data)
+                if (it is Resource.Success)
+                    _state.postValue(MainActivityState.Default())
+                else
+                    _state.postValue(MainActivityState.Error(it.message))
             }
         }
     }
 
+    /**
+     * This function marks the starting of connecting the user's account
+     * with their google account by setting main activity's state to
+     * [MainActivityState.StartConnectingWithGoogle]
+     */
+    fun startConnectingWithGoogle() =
+        _state.postValue(MainActivityState.StartConnectingWithGoogle())
+
+    /**
+     * This function connects the user's account with Google account
+     * allowing them to save their data over the remote database.
+     */
+    fun signInRemoteUser(idToken: String) = viewModelScope.launch {
+        _state.postValue(MainActivityState.Loading())
+        when (val res = userUseCases.signInRemoteUser(idToken)) {
+            is Resource.Success -> {
+                _state.postValue(MainActivityState.Loading("App will be restarted to make changes"))
+                delay(1000)
+                _state.postValue(MainActivityState.ConnectedWithGoogle())
+            }
+            else -> {
+                _state.postValue(MainActivityState.Error(res.message))
+            }
+        }
+    }
+
+    /**
+     * This function removes all the data stored in the local database, it deletes
+     * all the tables from the database, but not the sequences *(this is not
+     * required in our case as well)*.
+     *
+     * Earlier we were showing a message on the loader screen, but that would be somewhat
+     * incorrect in the case when the app is opened up for the first time. So removed
+     * that loader screen message.
+     */
     fun removeDataFromTables() = viewModelScope.launch {
-        _state.postValue(
-            MainActivityState.Loading(
-                "Removing your data from your device",
-                state.value?.user
-            )
-        )
         clearAppDataUseCase()
     }
 
+    /**
+     * This function is just to change the loader screen message,
+     * actual deletion of google sign-in tokens happen in the
+     * activity itself.
+     */
     fun removeGoogleIdTokens() {
         _state.postValue(
-            MainActivityState.Loading(
-                "Deleting Google Sign In credentials from your device",
-                state.value?.user
-            )
+            MainActivityState.Loading("Deleting Google Sign In credentials from your device")
         )
     }
 
-    fun setUserSignedOut() {
-        _state.postValue(MainActivityState.LoggedOut())
-    }
+    /**
+     * This function starts the sign out process for the user
+     * which includes the following steps -
+     * 1. Clearing out all the tables from the local database.
+     * 2. Removing the Google Id tokens from the device to allow user
+     *    for signing in again from a different account.
+     *
+     * This function changes the [MainActivityState.StartLoggingOut] to mark that sign out
+     * process has started and rest of the functions are called from the
+     * [MainActivity] itself.
+     */
+    fun startLoggingOut() = _state.postValue(MainActivityState.StartLoggingOut())
+
+    /**
+     * This function marks the finish of the logging out process
+     * by setting the main activity's state a [MainActivityState.LoggedOut].
+     */
+    fun setUserSignedOut() = _state.postValue(MainActivityState.LoggedOut())
+
+    /**
+     * This functions sets an error message so it will trigger showing the snack bar.
+     */
+    fun showError(message: String? = null) =
+        _state.postValue(MainActivityState.Error(message ?: "Something went wrong"))
+
 
 }
