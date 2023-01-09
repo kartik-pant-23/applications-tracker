@@ -41,7 +41,7 @@ class GetUserDataUseCase(
                 if (res is Resource.Success)
                     userRepository.createLocalUser(res.data!!.localUser)
                 else if (res is Resource.LoggedOut)
-                    userRepository.deleteLocalUser()
+                    send(Resource.LoggedOut())
             }
         }
     }

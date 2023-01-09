@@ -20,6 +20,6 @@ class SharedPreferencesManager @Inject constructor(
         }
 
     fun clearAllData() =
-        sharedPreferences.edit().clear().apply()
+        sharedPreferences.edit().clear().commit()
 
 }
