@@ -1,7 +1,6 @@
 package com.studbudd.application_tracker.feature_user.domain.use_cases
 
 import com.studbudd.application_tracker.common.models.Resource
-import com.studbudd.application_tracker.feature_user.data.models.UserLocal
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,6 @@ class CreateRemoteUserUseCase @Inject constructor(
     suspend operator fun invoke(token: String): Resource<Boolean> = withContext(dispatcher) {
         when (val res = userRepository.createRemoteUser(token)) {
             is Resource.Success -> {
-                launch {  }
                 val authTokens = res.data!!
                 userRepository.saveAuthenticationTokens(
                     accessToken = authTokens.accessToken,

@@ -18,8 +18,8 @@ sealed class MainActivityState(
     /**
      * State when some error needs to be displayed using the snack bar
      */
-    class Error(errorMessage: String? = null) :
-        MainActivityState(false, "", errorMessage ?: "Something went wrong")
+    class Info(message: String? = null) :
+        MainActivityState(false, "", message ?: "Something went wrong")
 
     class StartLoggingOut: MainActivityState()
     /**

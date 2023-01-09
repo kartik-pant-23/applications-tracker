@@ -14,29 +14,42 @@ class CreateLocalUserUseCase @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    private val firstNames = listOf("Awesome", "Powerful", "Diligent", "Smart")
-    private val lastNames =
-        listOf("Coder", "Developer", "Orator", "Designer", "Analyst", "Engineer")
-
     suspend operator fun invoke() = withContext(dispatcher) {
-        // Creating random names for anonymous users
+        // Creating random name and email for anonymous users
         // somewhat adding fun to the app
-        val firstName = firstNames.random()
-        val lastName = lastNames.random()
-        val name = "$firstName $lastName"
-        val email = "${firstName.lowercase()}@${lastName.lowercase()}.com"
+        val name = getRandomName()
+        val email = getEmailFromName(name)
+        val createdAt = getCurrentTimestamp()
 
-        // adding created at date
-        val dateToday = Calendar.getInstance().time
-        val createdAtDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-
-        // creating a new user with the above data
         repo.createLocalUser(
             UserLocal(
                 name = name,
                 email = email,
-                createdAt = createdAtDateFormat.format(dateToday)
+                createdAt = createdAt
             )
         )
+    }
+
+    private fun getRandomName(): String {
+        val firstNames = listOf("Awesome", "Powerful", "Diligent", "Smart")
+        val lastNames =
+            listOf("Coder", "Developer", "Orator", "Designer", "Analyst", "Engineer")
+
+        val firstName = firstNames.random()
+        val lastName = lastNames.random()
+        return "$firstName $lastName"
+    }
+
+    private fun getEmailFromName(name: String): String {
+        val nameParts = name.split(' ')
+        val userName = nameParts.first().lowercase()
+        val domain = nameParts.last().lowercase()
+        return "$userName@$domain.com"
+    }
+
+    private fun getCurrentTimestamp(): String {
+        val currentTime = Calendar.getInstance().time
+        val createdAtDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+        return createdAtDateFormat.format(currentTime)
     }
 }

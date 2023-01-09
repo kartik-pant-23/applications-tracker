@@ -64,9 +64,8 @@ class UserRepository_Impl(
         preferencesManager.refreshToken = refreshToken
     }
 
-    @WorkerThread
-    override suspend fun isConnectedWithRemoteDatabase(): Boolean {
-        return userLocalDao.getRemoteId()?.isConnectedWithRemoteDatabase() ?: false
+    override fun isConnectedWithRemoteDatabase(): Boolean {
+        return preferencesManager.accessToken != null && preferencesManager.refreshToken != null
     }
 
     companion object {

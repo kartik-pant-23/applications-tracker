@@ -84,7 +84,7 @@ class MainActivityViewModel @Inject constructor(
                 if (it is Resource.Success)
                     _state.postValue(MainActivityState.Default())
                 else
-                    _state.postValue(MainActivityState.Error(it.message))
+                    _state.postValue(MainActivityState.Info(it.message))
             }
         }
     }
@@ -102,7 +102,6 @@ class MainActivityViewModel @Inject constructor(
      * allowing them to save their data over the remote database.
      */
     fun signInRemoteUser(idToken: String) = viewModelScope.launch {
-        _state.postValue(MainActivityState.Loading())
         when (val res = userUseCases.createRemoteUser(idToken)) {
             is Resource.Success -> {
                 _state.postValue(MainActivityState.Loading("App will be restarted to make changes"))
@@ -110,7 +109,7 @@ class MainActivityViewModel @Inject constructor(
                 _state.postValue(MainActivityState.ConnectedWithGoogle())
             }
             else -> {
-                _state.postValue(MainActivityState.Error(res.message))
+                _state.postValue(MainActivityState.Info(res.message))
             }
         }
     }
@@ -140,6 +139,13 @@ class MainActivityViewModel @Inject constructor(
     }
 
     /**
+     * This function will set the state of main activity to
+     * [MainActivityState.Loading]
+     */
+    fun setLoading(message: String? = null) =
+        _state.postValue(MainActivityState.Loading(message))
+
+    /**
      * This function starts the sign out process for the user
      * which includes the following steps -
      * 1. Clearing out all the tables from the local database.
@@ -162,7 +168,7 @@ class MainActivityViewModel @Inject constructor(
      * This functions sets an error message so it will trigger showing the snack bar.
      */
     fun showError(message: String? = null) =
-        _state.postValue(MainActivityState.Error(message ?: "Something went wrong"))
+        _state.postValue(MainActivityState.Info(message ?: "Something went wrong"))
 
 
 }

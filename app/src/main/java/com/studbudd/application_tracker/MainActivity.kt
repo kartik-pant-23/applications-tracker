@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             // show the error message
-            if (it is MainActivityState.Error) {
+            if (it is MainActivityState.Info) {
                 showSnackbar(it.errorMessage ?: "")
             }
         }
@@ -214,8 +214,10 @@ class MainActivity : AppCompatActivity() {
      * Launches the Google Sign-In intent - that is the alert dialog
      * for creating an account chooser dialog for the user.
      */
-    private fun signInWithGoogle() =
+    private fun signInWithGoogle() {
+        viewModel.setLoading()
         googleSignInLauncher.launch(gsc.signInIntent)
+    }
 
     /**
      * Signs out the user by the following two steps -

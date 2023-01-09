@@ -19,6 +19,6 @@ interface UserRepository {
 
     fun saveAuthenticationTokens(accessToken: String, refreshToken: String)
 
-    suspend fun isConnectedWithRemoteDatabase(): Boolean
+    fun isConnectedWithRemoteDatabase(): Boolean
 
 }
