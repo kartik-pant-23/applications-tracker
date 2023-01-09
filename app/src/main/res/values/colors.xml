@@ -26,4 +26,6 @@
     <color name="card_color">#F0F0F0</color>
     <color name="text_input_layout">#401F2933</color>
 
+    <color name="snackbar_color">#EFEFEF</color>
+
 </resources>

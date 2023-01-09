@@ -18,5 +18,7 @@
     <color name="card_color">#323A50</color>
     <color name="text_input_layout">@color/card_color</color>
 
+    <color name="snackbar_color">#222735</color>
+
     <bool name="status_icon_color">false</bool>
 </resources>

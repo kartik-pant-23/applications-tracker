@@ -61,20 +61,23 @@
     </style>
 
     <!-- Button Styles -->
-    <style name="FilledButton">
-        <item name="android:background">@drawable/card_background</item>
-        <item name="fontFamily">@font/montserrat_bold</item>
-        <item name="android:textSize">16sp</item>
-        <item name="textAllCaps">false</item>
+    <style name="FilledButton" parent="Widget.MaterialComponents.Button">
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:letterSpacing">0</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:minHeight">0dp</item>
     </style>
     
     <!-- Snackbar Style -->
     <style name="Snackbar" parent="@style/Widget.MaterialComponents.Snackbar">
         <item name="android:layout_margin">24dp</item>
-        <item name="android:background">@drawable/card_background</item>
-        <item name="android:backgroundTint">@color/card_color</item>
+        <item name="android:background">@drawable/snackbar_background</item>
+        <item name="android:backgroundTint">@color/snackbar_color</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
         <item name="android:paddingTop">0dp</item>

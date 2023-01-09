@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.studbudd.application_tracker.BuildConfig
 import com.studbudd.application_tracker.MainActivity
@@ -63,7 +64,7 @@ class OnboardingActivity : AppCompatActivity() {
                 finishAffinity()
             } else if (state is OnboardingState.SignInFailure) {
                 state.snackBarMessage?.let {
-                    Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
+                    showSnackbar(it)
                 }
             }
         }
@@ -102,6 +103,17 @@ class OnboardingActivity : AppCompatActivity() {
                 viewModel.signInFailed("Some internal error occurred")
             }
         }
+    }
+
+    /**
+     * This function shows a snack bar with the consistent design across the app
+     */
+    private fun showSnackbar(message: String) {
+        Snackbar.make(
+            binding.root, message, Snackbar.ANIMATION_MODE_SLIDE
+        ).apply {
+            animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+        }.show()
     }
 
     companion object {
