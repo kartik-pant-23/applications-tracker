@@ -6,11 +6,10 @@ import androidx.work.*
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
-import com.studbudd.application_tracker.feature_applications_management.data.JobApplication
-import com.studbudd.application_tracker.feature_applications_management.data.ApplicationsRepository
+import com.studbudd.application_tracker.feature_applications_management.data.entity.JobApplication
+import com.studbudd.application_tracker.feature_applications_management.data.repo.ApplicationsRepository
 import com.studbudd.application_tracker.workers.NotifyWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

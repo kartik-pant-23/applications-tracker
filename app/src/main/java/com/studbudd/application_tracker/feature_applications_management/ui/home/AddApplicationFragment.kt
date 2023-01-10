@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications_management.data.JobApplication
+import com.studbudd.application_tracker.feature_applications_management.data.entity.JobApplication
 import com.studbudd.application_tracker.databinding.FragmentAddApplicationBinding
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
 

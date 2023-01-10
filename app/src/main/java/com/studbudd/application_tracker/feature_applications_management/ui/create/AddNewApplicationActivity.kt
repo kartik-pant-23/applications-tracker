@@ -3,17 +3,18 @@ package com.studbudd.application_tracker.feature_applications_management.ui.crea
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ActivityNavigator
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.databinding.ActivityAddNewApplicationBinding
-import com.studbudd.application_tracker.feature_applications_management.data.JobApplication
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddNewApplicationActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAddNewApplicationBinding
+    private val viewModel by viewModels<AddNewApplicationViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +46,11 @@ class AddNewApplicationActivity : AppCompatActivity() {
             jobRole.error = if (jobRole.text.isNullOrBlank()) errorMessage else null
 
             if (!companyName.text.isNullOrBlank() && !jobRole.text.isNullOrBlank() && !jobLink.text.isNullOrBlank()) {
-                val jobApplication = JobApplication(
-                    company_name = companyName.text!!.toString(),
+                viewModel.addNewApplication(
+                    company = companyName.text!!.toString(),
                     role = jobRole.text!!.toString(),
-                    notes = notes.text?.toString(),
                     jobLink = jobLink.text!!.toString(),
+                    notes = notes.text?.toString(),
                     status = jobStatus.selectedItemPosition
                 )
                 Toast.makeText(

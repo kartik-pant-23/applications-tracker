@@ -4,14 +4,14 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import com.studbudd.application_tracker.common.domain.GetResourceFromApiResponse
 import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
-import com.studbudd.application_tracker.common.models.Resource
+import com.studbudd.application_tracker.common.data.models.Resource
 import com.studbudd.application_tracker.feature_user.data.dao.AuthUserRemoteDao
 import com.studbudd.application_tracker.feature_user.data.dao.UserLocalDao
 import com.studbudd.application_tracker.feature_user.data.dao.UserRemoteDao
-import com.studbudd.application_tracker.feature_user.data.models.UserLocal
-import com.studbudd.application_tracker.feature_user.data.models.UserRemote
-import com.studbudd.application_tracker.feature_user.data.models.requests.LoginRequest
-import com.studbudd.application_tracker.feature_user.data.models.response.LoginResponse
+import com.studbudd.application_tracker.feature_user.data.entity.UserLocal
+import com.studbudd.application_tracker.feature_user.data.entity.UserRemote
+import com.studbudd.application_tracker.feature_user.data.entity.requests.LoginRequest
+import com.studbudd.application_tracker.feature_user.data.entity.response.LoginResponse
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 
 class UserRepository_Impl(

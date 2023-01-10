@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications_management.data.JobApplication
+import com.studbudd.application_tracker.feature_applications_management.data.entity.JobApplication
 import com.studbudd.application_tracker.databinding.FragmentApplicationDetailsBinding
 import com.studbudd.application_tracker.utilities.ARG_APPLICATION_ID
 import com.studbudd.application_tracker.utilities.DATE_FORMAT

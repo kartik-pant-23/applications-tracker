@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications_management.data.JobApplication
+import com.studbudd.application_tracker.feature_applications_management.data.entity.JobApplication
 import com.studbudd.application_tracker.databinding.ItemApplicationBinding
 import com.studbudd.application_tracker.utilities.DATE_FORMAT
 

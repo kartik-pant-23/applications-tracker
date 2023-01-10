@@ -1,8 +1,8 @@
 package com.studbudd.application_tracker.common.domain
 
 import android.util.Log
-import com.studbudd.application_tracker.common.models.ApiResponse
-import com.studbudd.application_tracker.common.models.Resource
+import com.studbudd.application_tracker.common.data.models.ApiResponse
+import com.studbudd.application_tracker.common.data.models.Resource
 import retrofit2.Response
 
 class GetResourceFromApiResponse<T> {

@@ -12,7 +12,7 @@ import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
 import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.common.domain.ClearAppDataUseCase
-import com.studbudd.application_tracker.common.models.Resource
+import com.studbudd.application_tracker.common.data.models.Resource
 import com.studbudd.application_tracker.feature_user.domain.models.User
 import com.studbudd.application_tracker.feature_user.domain.use_cases.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel

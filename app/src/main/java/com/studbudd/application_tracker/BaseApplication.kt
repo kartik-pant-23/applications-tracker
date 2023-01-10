@@ -5,8 +5,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import com.studbudd.application_tracker.feature_applications_management.data.AppDatabase
-import com.studbudd.application_tracker.feature_applications_management.data.ApplicationsRepository
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
