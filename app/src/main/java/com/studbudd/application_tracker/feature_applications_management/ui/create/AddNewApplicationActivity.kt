@@ -58,6 +58,7 @@ class AddNewApplicationActivity : AppCompatActivity() {
                     "Application successfully added!",
                     Toast.LENGTH_LONG
                 ).show()
+                finish()
             }
         }
     }

@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.studbudd.application_tracker.common.domain.ListConverterUseCase
-import com.studbudd.application_tracker.feature_applications_management.data.dao.ApplicationsDao
+import com.studbudd.application_tracker.feature_applications_management.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_applications_management.data.entity.JobApplication
 import com.studbudd.application_tracker.feature_user.data.dao.UserLocalDao
 import com.studbudd.application_tracker.feature_user.data.entity.UserLocal
@@ -16,7 +16,7 @@ import com.studbudd.application_tracker.utilities.DateConverter
 @TypeConverters(DateConverter::class, ListConverterUseCase::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun applicationsDao(): ApplicationsDao
+    abstract fun applicationsDao(): JobApplicationsDao
     abstract fun userLocalDao(): UserLocalDao
 
     companion object {
