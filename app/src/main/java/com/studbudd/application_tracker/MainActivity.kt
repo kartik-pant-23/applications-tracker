@@ -24,6 +24,7 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.studbudd.application_tracker.common.ui.main_activity.MainActivityState
 import com.studbudd.application_tracker.common.ui.main_activity.MainActivityViewModel
 import com.studbudd.application_tracker.databinding.ActivityMainBinding
+import com.studbudd.application_tracker.feature_applications_management.ui.create.AddNewApplicationActivity
 import com.studbudd.application_tracker.feature_applications_management.ui.home.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
 import com.studbudd.application_tracker.workers.NotifyWorker
@@ -114,7 +115,8 @@ class MainActivity : AppCompatActivity() {
         onNewIntent(intent)
 
         binding.addApplicationButton.setOnClickListener {
-            navController.navigate(R.id.action_applicationsFragment_to_addApplicationFragment)
+            startActivity(Intent(this, AddNewApplicationActivity::class.java))
+            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         }
     }
 

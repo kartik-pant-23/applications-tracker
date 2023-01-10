@@ -21,9 +21,18 @@
     <string name="label_details_header">️Application\nDetails</string>
 
     <!-- Add new applications -->
+    <string name="add_new_application_back_button_text">Home</string>
     <string name="label_add_application">Add New Application</string>
     <string name="label_add_application_header">Add New\nApplication</string>
     <string name="content_desc_add_application">Takes user to a new screen where he can add a new application</string>
+    <string name="add_application">Start Managing</string>
+    <string-array name="job_status">
+        <item>Waiting For Referral</item>
+        <item>Applied</item>
+        <item>Applied With Referral</item>
+        <item>Rejected</item>
+        <item>Selected</item>
+    </string-array>
 
     <!-- Explore Screen -->
     <string name="label_explore">Explore</string>
@@ -38,9 +47,9 @@
     <!-- Alert screen -->
     <string name="label_alert">Alert</string>
 
-    <string name="hint_company_name">Company Name</string>
-    <string name="hint_role">Job Role</string>
-    <string name="hint_job_link">Job URL</string>
+    <string name="hint_company_name">Company</string>
+    <string name="hint_role">Role</string>
+    <string name="hint_job_link">Job Link</string>
     <string name="hint_job_status">Job Status</string>
     <string name="hint_notes">Notes</string>
     <string name="hint_search_view">Search company, job title</string>
@@ -50,8 +59,6 @@
     <string name="hint_placeholder_college">&lt;college&gt;</string>
     <string name="hint_placeholder_experience">&lt;experience&gt;</string>
     <string name="hint_placeholder_resume">&lt;resume&gt;</string>
-
-    <string name="add_application">Add Application</string>
 
     <string name="placeholder_notes">Notes</string>
     <string name="placeholder_job_url">Job URL</string>
@@ -82,11 +89,4 @@
     <string name="content_desc_info_text_view">arrow on information text view</string>
     <string name="content_desc_user_dp">Display picture of the user</string>
 
-    <string-array name="job_status">
-        <item>Waiting For Referral</item>
-        <item>Applied</item>
-        <item>Applied With Referral</item>
-        <item>Rejected</item>
-        <item>Selected</item>
-    </string-array>
 </resources>

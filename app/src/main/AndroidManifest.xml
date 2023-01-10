@@ -14,6 +14,13 @@
         android:theme="@style/Theme.Applicationtracker"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".feature_applications_management.ui.create.AddNewApplicationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".feature_user.ui.placeholder.UpdatePlaceholderActivity"
             android:exported="false">
             <meta-data

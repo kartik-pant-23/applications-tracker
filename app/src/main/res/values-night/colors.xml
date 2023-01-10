@@ -2,7 +2,7 @@
 <resources>
     <color name="primary_dark">#EFEFEF</color>
 
-    <color name="light_text">#D0D0D0</color>
+    <color name="light_text">#80FAFAFA</color>
     <color name="dark_text">#FAFAFA</color>
 
     <color name="window_background">#282F41</color>
