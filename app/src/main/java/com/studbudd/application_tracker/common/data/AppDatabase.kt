@@ -34,6 +34,10 @@ abstract class AppDatabase : RoomDatabase() {
                             "`placeholderValues` TEXT NOT NULL, " +
                             "PRIMARY KEY(`id`))"
                 )
+                database.execSQL(
+                    "ALTER TABLE `applications`" +
+                            "ADD COLUMN `remote_id` TEXT"
+                )
             }
         }
     }

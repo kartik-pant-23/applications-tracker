@@ -52,7 +52,7 @@ class ApplicationDetailsFragment : Fragment() {
                     editJobLink.setText(application.jobLink)
 
                     applicationCreatedAt.text =
-                        DATE_FORMAT.format(application.created_at.timeInMillis).toString()
+                        DATE_FORMAT.format(application.createdAt.timeInMillis).toString()
                     jobStatus.text =
                         resources.getStringArray(R.array.job_status)[application.status]
 
@@ -139,10 +139,13 @@ class ApplicationDetailsFragment : Fragment() {
             if (editJobLink.text.isNullOrBlank()) {
                 editJobLink.error = "Field cannot be empty!"
             } else {
-                _Job_application.notes = editNotes.text.toString()
-                _Job_application.jobLink = editJobLink.text.toString()
-                _Job_application.status = editJobStatus.selectedItemPosition
-                viewModel.updateApplication(_Job_application)
+                viewModel.updateApplication(JobApplication(
+                    companyName = _Job_application.companyName,
+                    role = _Job_application.role,
+                    jobLink = editJobLink.text.toString(),
+                    notes = editNotes.text.toString(),
+                    status = editJobStatus.selectedItemPosition
+                ))
                 viewModel.changeEditMode(false)
                 Toast.makeText(this@ApplicationDetailsFragment.requireContext(), "Changes saved!", Toast.LENGTH_LONG).show()
             }

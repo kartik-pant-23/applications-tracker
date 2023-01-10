@@ -1,29 +1,34 @@
 package com.studbudd.application_tracker.feature_applications_management.data.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "applications")
 data class JobApplication(
-    val company_name: String,
+    @ColumnInfo(name = "company_name") val companyName: String,
     val role: String,
-    var notes: String?,
-    var jobLink: String,
-    val created_at: Calendar = Calendar.getInstance(),
-    var modified_at: Calendar = Calendar.getInstance(),
-    var status: Int = 0
+    val notes: String?,
+    val jobLink: String,
+    @ColumnInfo(name = "created_at") val createdAt: Calendar = Calendar.getInstance(),
+    val status: Int = 0,
+    @ColumnInfo(name = "remote_id") val remoteId: String? = null
 ) {
 
     @PrimaryKey(autoGenerate = true)
-    var application_id: Int = 0
+    @ColumnInfo(name = "application_id")
+    var id: Int = 0
+
+    @ColumnInfo(name = "modified_at")
+    var modifiedAt: Calendar = Calendar.getInstance()
 
     val title
-        get() = company_name.plus(" - ").plus(role)
+        get() = companyName.plus(" - ").plus(role)
 
     override fun toString(): String {
         return """
-            { "_id": ${application_id} "title": ${title}, "jobLink": ${jobLink}, "status": ${status}
+            { "_id": $id "title": ${title}, "jobLink": ${jobLink}, "status": $status
         """.trimIndent()
     }
 

@@ -57,7 +57,7 @@ class ApplicationViewModel @Inject constructor(
     // Insert New Application
     fun insertApplication(jobApplication: JobApplication) = viewModelScope.launch {
         val id = repository.insertApplication(jobApplication)
-        jobApplication.application_id = id.toInt()
+        jobApplication.id = id.toInt()
         createNotification(jobApplication)
 
         firebaseAnalytics.logEvent("application_created") {
@@ -74,13 +74,13 @@ class ApplicationViewModel @Inject constructor(
 
     // Delete Application
     fun deleteApplication(jobApplication: JobApplication) = viewModelScope.launch {
-        workManager.cancelUniqueWork("application${jobApplication.application_id}")
+        workManager.cancelUniqueWork("application${jobApplication.id}")
         repository.deleteApplication(jobApplication)
     }
 
     private fun createNotification(jobApplication: JobApplication) {
         if (jobApplication.status > 2) {
-            workManager.cancelUniqueWork("application${jobApplication.application_id}")
+            workManager.cancelUniqueWork("application${jobApplication.id}")
         } else {
             val contentTitle: String = when (jobApplication.status) {
                 0 -> "Still waiting?"
@@ -88,9 +88,9 @@ class ApplicationViewModel @Inject constructor(
                 else -> "More expectations, more excitement!!"
             }
             val contentText: String = when (jobApplication.status) {
-                0 -> "Did you get a referral for ${jobApplication.role} role at ${jobApplication.company_name}?"
-                1 -> "Any updates on your application at ${jobApplication.company_name} for role of ${jobApplication.role}?"
-                else -> "You applied with a referral at ${jobApplication.company_name}, ${jobApplication.role} role. Any good news?"
+                0 -> "Did you get a referral for ${jobApplication.role} role at ${jobApplication.companyName}?"
+                1 -> "Any updates on your application at ${jobApplication.companyName} for role of ${jobApplication.role}?"
+                else -> "You applied with a referral at ${jobApplication.companyName}, ${jobApplication.role} role. Any good news?"
             }
             val duration: Long = when (jobApplication.status) {
                 0 -> 6
@@ -103,7 +103,7 @@ class ApplicationViewModel @Inject constructor(
             }
 
             val inputData = Data.Builder()
-                .putInt(NotifyWorker.applicationIdKey, jobApplication.application_id)
+                .putInt(NotifyWorker.applicationIdKey, jobApplication.id)
                 .putString(NotifyWorker.contentTitleKey, contentTitle)
                 .putString(NotifyWorker.contentTextKey, contentText)
                 .build()
@@ -117,7 +117,7 @@ class ApplicationViewModel @Inject constructor(
                 .setInputData(inputData)
                 .build()
             workManager.enqueueUniquePeriodicWork(
-                "application${jobApplication.application_id}",
+                "application${jobApplication.id}",
                 ExistingPeriodicWorkPolicy.REPLACE,
                 workRequest
             )

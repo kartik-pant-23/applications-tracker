@@ -53,7 +53,7 @@ class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
 
             // Setting date
             applicationCreatedAt.text =
-                DATE_FORMAT.format(application.created_at.timeInMillis).toString()
+                DATE_FORMAT.format(application.createdAt.timeInMillis).toString()
 
             // Setting background depending on status
             status.text = holder.itemView.context.resources
@@ -62,7 +62,7 @@ class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
 
             // Adding on click listener
             root.setOnClickListener{
-                OnItemClickListener(it, application.application_id)
+                OnItemClickListener(it, application.id)
             }
         }
     }

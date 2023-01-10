@@ -52,7 +52,7 @@ class AddApplicationFragment : Fragment() {
 
             if (!companyName.text.isNullOrBlank() && !jobRole.text.isNullOrBlank() && !jobLink.text.isNullOrBlank()) {
                 val jobApplication = JobApplication(
-                    company_name = companyName.text!!.toString(),
+                    companyName = companyName.text!!.toString(),
                     role = jobRole.text!!.toString(),
                     notes = notes.text?.toString(),
                     jobLink = jobLink.text!!.toString(),
