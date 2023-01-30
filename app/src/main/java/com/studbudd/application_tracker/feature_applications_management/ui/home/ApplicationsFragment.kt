@@ -1,14 +1,14 @@
 package com.studbudd.application_tracker.feature_applications_management.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.studbudd.application_tracker.R
+import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.adapters.ApplicationAdapter
 import com.studbudd.application_tracker.databinding.FragmentApplicationsBinding
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
@@ -49,13 +49,11 @@ class ApplicationsFragment : Fragment() {
 
         binding?.let {
             val applicationsList = it.rcvScroller.applicationsRcv
-            applicationsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            // applicationsList.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            applicationsList.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             applicationsList.adapter = adapter
 
-            it.addApplicationButton.setOnClickListener { view ->
-                 view.findNavController().navigate(R.id.action_applicationsFragment_to_addApplicationFragment)
-            }
+            it.addApplicationButton.setOnClickListener { (requireActivity() as MainActivity).openAddNewApplicationActivity() }
 
             it.applyFilter.setOnClickListener { getFilteredApplications() }
         }

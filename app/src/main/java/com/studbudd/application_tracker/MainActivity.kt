@@ -63,12 +63,8 @@ class MainActivity : AppCompatActivity() {
         // to allow clicks on the Floating Action Button
         binding.bottomNavigationView.menu.findItem(R.id.menu_placeholder).isEnabled = false
 
-        // making the content invisible in the beginning
-        binding.contentScreen.visibility = View.INVISIBLE
-
         viewModel.state.observe(this) {
             // setting up the screen state if it is loading
-            binding.root.isClickable = !it.loading
             binding.loaderScreen.apply {
                 progressText.text = it.loaderMessage
                 root.visibility = if (it.loading) View.VISIBLE else View.GONE
@@ -102,7 +98,6 @@ class MainActivity : AppCompatActivity() {
         // making the screen visible only if we have a user
         viewModel.user.observe(this) {
             isAnonymousUser = it?.isAnonymousUser == true
-            binding.contentScreen.visibility = if (it != null) View.VISIBLE else View.INVISIBLE
         }
 
 
@@ -114,10 +109,12 @@ class MainActivity : AppCompatActivity() {
 
         onNewIntent(intent)
 
-        binding.addApplicationButton.setOnClickListener {
-            startActivity(Intent(this, AddNewApplicationActivity::class.java))
-            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
-        }
+        binding.addApplicationButton.setOnClickListener { openAddNewApplicationActivity() }
+    }
+
+    fun openAddNewApplicationActivity() {
+        startActivity(Intent(this, AddNewApplicationActivity::class.java))
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
     }
 
     private fun startUpdate(appUpdateInfo: AppUpdateInfo, updateType: Int) {

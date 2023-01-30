@@ -73,7 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="visible"
+        android:visibility="gone"
         layout="@layout/applications_rcv_scroller" />
 
     <androidx.cardview.widget.CardView
@@ -81,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_large"
-        android:visibility="gone"
+        android:visibility="visible"
         app:cardBackgroundColor="@color/card_color"
         app:cardElevation="8dp">
         <LinearLayout
@@ -95,15 +95,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/no_applications_title"
-                style="@style/PageHeaderTextStyle"
-                android:alpha="0.50" />
+                style="@style/Title" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/no_applications_message"
                 android:textAlignment="center"
                 android:fontFamily="@font/montserrat"
-                android:textColor="@color/light_text" />
+                style="@style/Body" />
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,10 +110,7 @@
                 android:layout_marginTop="@dimen/margin_xlarge"
                 android:layout_marginHorizontal="@dimen/margin_large"
                 android:text="@string/add_application"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/primary"
-                app:cornerRadius="24dp" />
+                style="@style/FilledTonalButton" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
