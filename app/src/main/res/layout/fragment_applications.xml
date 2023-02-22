@@ -90,7 +90,8 @@
             android:layout_marginVertical="@dimen/margin"
             android:layout_marginHorizontal="@dimen/margin_large"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:clipToPadding="false">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,6 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/add_application_button"
+                android:layout_marginBottom="8dp"
                 android:layout_marginTop="@dimen/margin_xlarge"
                 android:layout_marginHorizontal="@dimen/margin_large"
                 android:text="@string/add_application"
