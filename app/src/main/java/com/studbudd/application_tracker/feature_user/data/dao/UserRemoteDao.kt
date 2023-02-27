@@ -11,7 +11,7 @@ import retrofit2.http.POST
 
 interface UserRemoteDao {
 
-    @POST("login")
+    @POST("users/login")
     suspend fun loginUser(@Body token: LoginRequest): Response<ApiResponse<LoginResponse>>
 
 }
