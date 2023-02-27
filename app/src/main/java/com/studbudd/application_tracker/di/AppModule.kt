@@ -87,7 +87,9 @@ class AppModule {
         val token = prefManager.accessToken ?: ""
         val authClient = OkHttpClient.Builder().addInterceptor { chain ->
             val request =
-                chain.request().newBuilder().addHeader("authorization", token).build()
+                chain.request().newBuilder()
+                    .addHeader("token", "Bearer $token")
+                    .addHeader("x-device-type", "android").build()
             chain.proceed(request)
         }.build()
         return Retrofit.Builder()
@@ -101,9 +103,15 @@ class AppModule {
     @Provides
     @Singleton
     fun providesRetrofitObject(): Retrofit {
+        val client = OkHttpClient.Builder().addInterceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("x-device-type", "android").build()
+            chain.proceed(request)
+        }.build()
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
+            .client(client)
             .build()
     }
 

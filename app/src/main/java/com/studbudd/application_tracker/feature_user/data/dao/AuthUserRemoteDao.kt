@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 interface AuthUserRemoteDao {
 
-    @GET("user")
+    @GET("users/details")
     suspend fun getUserData(): Response<ApiResponse<UserRemote>>
 
 }

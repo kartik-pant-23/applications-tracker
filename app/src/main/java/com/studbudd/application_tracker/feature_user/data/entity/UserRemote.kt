@@ -7,20 +7,20 @@ import com.studbudd.application_tracker.feature_user.domain.models.User
 
 @JsonClass(generateAdapter = true)
 data class UserRemote(
-    @Json(name = "createdAt")
-    val createdAt: String,
-    @Json(name = "email")
-    val email: String,
-    @Json(name = "_id")
+    @Json(name = "id")
     val id: String,
     @Json(name = "name")
     val name: String,
+    @Json(name = "email")
+    val email: String,
     @Json(name = "photoUrl")
-    val photoUrl: String,
+    val photoUrl: String?,
     @Json(name = "placeholderKeys")
     val placeholderKeys: List<String>?,
     @Json(name = "placeholderValues")
-    val placeholderValues: List<String>?
+    val placeholderValues: List<String>?,
+    @Json(name = "createdAt")
+    val createdAt: String,
 ) {
 
     val user
