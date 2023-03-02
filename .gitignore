@@ -1,1 +1,4 @@
 apikey.properties
+.idea
+.gradle
+local.properties
