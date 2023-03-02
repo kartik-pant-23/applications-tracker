@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -50,9 +52,13 @@ class AppModule {
     @Provides
     @Singleton
     fun providesSharedPreferences(application: Application): SharedPreferences {
-        return application.applicationContext.getSharedPreferences(
-            SHARED_PREFERENCES_KEY,
-            Context.MODE_PRIVATE
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        return EncryptedSharedPreferences.create(
+            BuildConfig.SHARED_PREF_FILE_NAME,
+            masterKeyAlias,
+            application.applicationContext,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
 

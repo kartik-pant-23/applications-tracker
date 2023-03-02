@@ -26,6 +26,7 @@ android {
 
         buildConfigField("String", "BASE_URL", apiKeyProperties["BASE_URL"])
         buildConfigField("String", "GOOGLE_SIGN_IN_CLIENT_ID", apiKeyProperties["GOOGLE_SIGN_IN_CLIENT_ID"])
+        buildConfigField("String", "SHARED_PREF_FILE_NAME", apiKeyProperties["SHARED_PREF_FILE_NAME"])
     }
 
     buildTypes {
@@ -100,6 +101,9 @@ dependencies {
     // Glide - For loading image from URL
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+
+    // For Encrypted Shared Preferences
+    implementation "androidx.security:security-crypto:$androidSecurityVersion"
 
     // Test implementation
     testImplementation 'junit:junit:4.+'
