@@ -14,7 +14,7 @@ class DaoModule {
 
     @Provides
     @Singleton
-    fun providesJobApplicationsRemoteDao(@AppModule.AuthRetrofitObject retrofit: Retrofit): JobApplicationsRemoteDao {
+    fun providesJobApplicationsRemoteDao(@RetrofitModule.AuthRetrofitObject retrofit: Retrofit): JobApplicationsRemoteDao {
         return retrofit.create(JobApplicationsRemoteDao::class.java)
     }
 

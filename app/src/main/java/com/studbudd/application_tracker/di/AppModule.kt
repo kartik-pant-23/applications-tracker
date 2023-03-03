@@ -1,9 +1,10 @@
 package com.studbudd.application_tracker.di
 
 import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -21,16 +22,12 @@ import com.studbudd.application_tracker.feature_user.domain.use_cases.CreateRemo
 import com.studbudd.application_tracker.feature_user.domain.use_cases.GetUserDataUseCase
 import com.studbudd.application_tracker.feature_user.domain.use_cases.UserUseCases
 import com.studbudd.application_tracker.utilities.DATABASE_NAME
-import com.studbudd.application_tracker.utilities.SHARED_PREFERENCES_KEY
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -50,9 +47,13 @@ class AppModule {
     @Provides
     @Singleton
     fun providesSharedPreferences(application: Application): SharedPreferences {
-        return application.applicationContext.getSharedPreferences(
-            SHARED_PREFERENCES_KEY,
-            Context.MODE_PRIVATE
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        return EncryptedSharedPreferences.create(
+            BuildConfig.SHARED_PREF_FILE_NAME,
+            masterKeyAlias,
+            application.applicationContext,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
 
@@ -81,48 +82,14 @@ class AppModule {
         return ClearAppDataUseCase(prefManager, database)
     }
 
-    @AuthRetrofitObject
-    @Provides
-    fun providesAuthRetrofitObject(prefManager: SharedPreferencesManager): Retrofit {
-        val token = prefManager.accessToken ?: ""
-        val authClient = OkHttpClient.Builder().addInterceptor { chain ->
-            val request =
-                chain.request().newBuilder()
-                    .addHeader("token", "Bearer $token")
-                    .addHeader("x-device-type", "android").build()
-            chain.proceed(request)
-        }.build()
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
-            .client(authClient)
-            .build()
-    }
-
-    @RetrofitObject
     @Provides
     @Singleton
-    fun providesRetrofitObject(): Retrofit {
-        val client = OkHttpClient.Builder().addInterceptor { chain ->
-            val request = chain.request().newBuilder()
-                .addHeader("x-device-type", "android").build()
-            chain.proceed(request)
-        }.build()
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
-            .client(client)
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun providesUserRemoteDao(@RetrofitObject retrofit: Retrofit): UserRemoteDao {
+    fun providesUserRemoteDao(@RetrofitModule.RetrofitObject retrofit: Retrofit): UserRemoteDao {
         return retrofit.create(UserRemoteDao::class.java)
     }
 
     @Provides
-    fun providesAuthUserRemoteDao(@AuthRetrofitObject retrofit: Retrofit): AuthUserRemoteDao {
+    fun providesAuthUserRemoteDao(@RetrofitModule.AuthRetrofitObject retrofit: Retrofit): AuthUserRemoteDao {
         return retrofit.create(AuthUserRemoteDao::class.java)
     }
 
@@ -157,12 +124,5 @@ class AppModule {
         )
     }
 
-    @Qualifier
-    @Retention(AnnotationRetention.BINARY)
-    annotation class AuthRetrofitObject
-
-    @Qualifier
-    @Retention(AnnotationRetention.BINARY)
-    annotation class RetrofitObject
 
 }
