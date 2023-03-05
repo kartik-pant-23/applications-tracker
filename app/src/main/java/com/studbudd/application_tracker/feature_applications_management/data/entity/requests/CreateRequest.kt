@@ -15,6 +15,8 @@ data class CreateApplicationRequest(
 ) {
     @JsonClass(generateAdapter = true)
     data class JobDetails(
+        @Json(name = "id")
+        val id: String?,
         @Json(name = "company")
         val company: String,
         @Json(name = "role")
