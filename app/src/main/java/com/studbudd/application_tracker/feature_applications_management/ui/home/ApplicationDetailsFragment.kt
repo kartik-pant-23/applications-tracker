@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications_management.data.entity.JobApplication
+import com.studbudd.application_tracker.feature_applications_management.data.entity.LocalJobApplication
 import com.studbudd.application_tracker.databinding.FragmentApplicationDetailsBinding
 import com.studbudd.application_tracker.utilities.ARG_APPLICATION_ID
 import com.studbudd.application_tracker.utilities.DATE_FORMAT
@@ -22,7 +22,7 @@ class ApplicationDetailsFragment : Fragment() {
     private var binding: FragmentApplicationDetailsBinding? = null
     private val viewModel by viewModels<ApplicationViewModel>()
     private var applicationId: Int = 1
-    private lateinit var _Job_application: JobApplication
+    private lateinit var _Job_application: LocalJobApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,7 +139,7 @@ class ApplicationDetailsFragment : Fragment() {
             if (editJobLink.text.isNullOrBlank()) {
                 editJobLink.error = "Field cannot be empty!"
             } else {
-                viewModel.updateApplication(JobApplication(
+                viewModel.updateApplication(LocalJobApplication(
                     companyName = _Job_application.companyName,
                     role = _Job_application.role,
                     jobLink = editJobLink.text.toString(),

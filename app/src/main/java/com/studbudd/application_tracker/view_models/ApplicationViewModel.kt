@@ -6,7 +6,7 @@ import androidx.work.*
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
-import com.studbudd.application_tracker.feature_applications_management.data.entity.JobApplication
+import com.studbudd.application_tracker.feature_applications_management.data.entity.LocalJobApplication
 import com.studbudd.application_tracker.feature_applications_management.data.repo.ApplicationsRepository
 import com.studbudd.application_tracker.workers.NotifyWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,8 +21,8 @@ class ApplicationViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val workManager = WorkManager.getInstance(application.applicationContext)
-    private val _applicationsList: MutableLiveData<List<JobApplication>> = MutableLiveData()
-    val applicationsList: LiveData<List<JobApplication>> = _applicationsList
+    private val _applicationsList: MutableLiveData<List<LocalJobApplication>> = MutableLiveData()
+    val applicationsList: LiveData<List<LocalJobApplication>> = _applicationsList
     private val firebaseAnalytics = Firebase.analytics
 
     private val _editMode: MutableLiveData<Boolean> = MutableLiveData()
@@ -52,10 +52,10 @@ class ApplicationViewModel @Inject constructor(
     // }
 
     // Get details of a particular application
-    fun getApplication(id: Int): LiveData<JobApplication> = repository.getApplication(id).asLiveData()
+    fun getApplication(id: Int): LiveData<LocalJobApplication> = repository.getApplication(id).asLiveData()
 
     // Insert New Application
-    fun insertApplication(jobApplication: JobApplication) = viewModelScope.launch {
+    fun insertApplication(jobApplication: LocalJobApplication) = viewModelScope.launch {
         val id = repository.insertApplication(jobApplication)
         jobApplication.id = id.toInt()
         createNotification(jobApplication)
@@ -67,18 +67,18 @@ class ApplicationViewModel @Inject constructor(
     }
 
     // Update Application
-    fun updateApplication(newJobApplication: JobApplication) = viewModelScope.launch {
+    fun updateApplication(newJobApplication: LocalJobApplication) = viewModelScope.launch {
         repository.updateApplication(newJobApplication)
         createNotification(newJobApplication)
     }
 
     // Delete Application
-    fun deleteApplication(jobApplication: JobApplication) = viewModelScope.launch {
+    fun deleteApplication(jobApplication: LocalJobApplication) = viewModelScope.launch {
         workManager.cancelUniqueWork("application${jobApplication.id}")
         repository.deleteApplication(jobApplication)
     }
 
-    private fun createNotification(jobApplication: JobApplication) {
+    private fun createNotification(jobApplication: LocalJobApplication) {
         if (jobApplication.status > 2) {
             workManager.cancelUniqueWork("application${jobApplication.id}")
         } else {

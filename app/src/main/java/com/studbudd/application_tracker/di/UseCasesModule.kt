@@ -1,7 +1,9 @@
 package com.studbudd.application_tracker.di
 
+import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_applications_management.data.repo.JobApplicationsRepository
-import com.studbudd.application_tracker.feature_applications_management.domain.use_cases.AddJobApplicationUseCase
+import com.studbudd.application_tracker.feature_applications_management.domain.use_cases.ApplicationsUseCase
+import com.studbudd.application_tracker.feature_applications_management.domain.use_cases.CreateJobApplicationUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,8 +16,16 @@ class UseCasesModule {
 
     @Provides
     @Singleton
-    fun providesAddJobApplicationUseCase(repository: JobApplicationsRepository): AddJobApplicationUseCase {
-        return AddJobApplicationUseCase(repository)
+    fun providesApplicationsUseCase(
+        repo: JobApplicationsRepository,
+        prefs: SharedPreferencesManager
+    ): ApplicationsUseCase {
+        return ApplicationsUseCase(
+            create = CreateJobApplicationUseCase(
+                repo,
+                prefs.accessToken != null && prefs.refreshToken != null
+            )
+        )
     }
 
 }

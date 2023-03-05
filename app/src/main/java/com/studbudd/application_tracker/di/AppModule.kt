@@ -1,6 +1,7 @@
 package com.studbudd.application_tracker.di
 
 import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences

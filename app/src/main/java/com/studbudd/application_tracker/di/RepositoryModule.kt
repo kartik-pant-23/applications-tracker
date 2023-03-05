@@ -1,6 +1,8 @@
 package com.studbudd.application_tracker.di
 
 import com.studbudd.application_tracker.common.data.AppDatabase
+import com.studbudd.application_tracker.feature_applications_management.data.dao.JobApplicationsDao
+import com.studbudd.application_tracker.feature_applications_management.data.dao.JobApplicationsRemoteDao
 import com.studbudd.application_tracker.feature_applications_management.data.repo.JobApplicationsRepository
 import com.studbudd.application_tracker.feature_applications_management.domain.repo.JobApplicationsRepository_Impl
 import dagger.Module
@@ -15,8 +17,11 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideJobApplicationsRepository(database: AppDatabase): JobApplicationsRepository {
-        return JobApplicationsRepository_Impl(database.applicationsDao())
+    fun provideJobApplicationsRepository(
+        localDao: JobApplicationsDao,
+        remoteDao: JobApplicationsRemoteDao
+    ): JobApplicationsRepository {
+        return JobApplicationsRepository_Impl(localDao, remoteDao)
     }
 
 }

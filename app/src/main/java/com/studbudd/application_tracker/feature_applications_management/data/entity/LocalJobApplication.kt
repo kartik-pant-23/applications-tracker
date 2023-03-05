@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "applications")
-data class JobApplication(
+data class LocalJobApplication(
     @ColumnInfo(name = "company_name") val companyName: String,
     val role: String,
     val notes: String?,

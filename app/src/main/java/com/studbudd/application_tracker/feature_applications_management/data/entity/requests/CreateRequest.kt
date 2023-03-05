@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CreateApplicationRequest(
+data class CreateRequest(
     @Json(name = "description")
     val description: String?,
     @Json(name = "job_details")
@@ -16,7 +16,7 @@ data class CreateApplicationRequest(
     @JsonClass(generateAdapter = true)
     data class JobDetails(
         @Json(name = "id")
-        val id: String?,
+        val id: String? = null,
         @Json(name = "company")
         val company: String,
         @Json(name = "role")

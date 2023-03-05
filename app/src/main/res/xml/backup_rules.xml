@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<full-backup-content xmlns:android="http://schemas.android.com/apk/res/android">
+<full-backup-content>
+    <!-- Exclude the shared preferences folder -->
     <include domain="sharedpref" path="." />
-    <exclude domain="sharedpref" path="secret_prefs" />
+<!--    <exclude domain="file" path="shared_prefs/secret_prefs.xml" />-->
+    <exclude domain="sharedpref" path="secret_prefs.xml" />
 </full-backup-content>

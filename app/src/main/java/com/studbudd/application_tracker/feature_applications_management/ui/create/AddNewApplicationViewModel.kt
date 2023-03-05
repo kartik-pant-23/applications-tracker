@@ -3,14 +3,14 @@ package com.studbudd.application_tracker.feature_applications_management.ui.crea
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.studbudd.application_tracker.common.data.models.Resource
-import com.studbudd.application_tracker.feature_applications_management.domain.use_cases.AddJobApplicationUseCase
+import com.studbudd.application_tracker.feature_applications_management.domain.use_cases.ApplicationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddNewApplicationViewModel @Inject constructor(
-    private val addJobApplication: AddJobApplicationUseCase
+    private val useCase: ApplicationsUseCase
 ) : ViewModel() {
 
     fun addNewApplication(
@@ -21,11 +21,11 @@ class AddNewApplicationViewModel @Inject constructor(
         status: Int
     ) = viewModelScope.launch {
 
-        when (addJobApplication(
-            companyName = company,
+        when (useCase.create(
+            company = company,
             role = role,
-            jobLink = jobLink,
-            notes = notes,
+            url = jobLink,
+            description = notes,
             status = status
         )) {
             is Resource.Success -> println("application added")

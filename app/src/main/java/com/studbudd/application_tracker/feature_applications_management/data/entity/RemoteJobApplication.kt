@@ -1,11 +1,11 @@
-package com.studbudd.application_tracker.feature_applications_management.data.entity.responses
+package com.studbudd.application_tracker.feature_applications_management.data.entity
 
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CreateApplicationResponse(
+data class RemoteJobApplication(
     @Json(name = "applicationStatus")
     val applicationStatus: ApplicationStatus,
     @Json(name = "createdAt")
