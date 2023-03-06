@@ -41,7 +41,7 @@
             app:layout_constraintBottom_toBottomOf="@id/progress_bar"
             app:layout_constraintStart_toEndOf="@id/progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            style="@style/SubHeading"
+            style="@style/Heading"
             android:textColor="#fff" />
 
     </LinearLayout>

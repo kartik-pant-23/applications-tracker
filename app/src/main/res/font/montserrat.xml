@@ -5,16 +5,16 @@
     <font
         app:fontStyle="normal"
         app:fontWeight="400"
-        app:font="@font/montserrat_regular"
+        app:font="@font/montserrat_medium_font"
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/montserrat_regular" />
+        android:font="@font/montserrat_medium_font" />
     <font
         app:fontStyle="italic"
         app:fontWeight="400"
-        app:font="@font/montserrat_italic"
+        app:font="@font/montserrat_medium_italic"
         android:fontStyle="italic"
         android:fontWeight="400"
-        android:font="@font/montserrat_italic" />
+        android:font="@font/montserrat_medium_italic" />
 
 </font-family>

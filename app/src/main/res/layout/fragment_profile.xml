@@ -158,6 +158,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/google_sign_in_layout_text"
                     android:textAlignment="center"
+                    android:textColor="@color/light_text"
                     style="@style/Body" />
 
                 <Button

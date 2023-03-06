@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         tools:text="Name"
         android:ellipsize="end"
-        android:fontFamily="@font/montserrat"
+        style="@style/Body"
         android:textColor="@color/light_text" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:fadingEdge="horizontal"
         android:maxLines="1"
         android:ellipsize="end"
-        android:fontFamily="@font/montserrat_medium"
+        style="@style/Body"
         android:textColor="@color/dark_text" />
 
     <ImageView

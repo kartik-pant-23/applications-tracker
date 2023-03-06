@@ -102,7 +102,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/no_applications_message"
                 android:textAlignment="center"
-                android:fontFamily="@font/montserrat"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/light_text"
                 style="@style/Body" />
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
