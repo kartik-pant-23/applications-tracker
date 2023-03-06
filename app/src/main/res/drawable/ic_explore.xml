@@ -1,9 +1,4 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-  <path
-      android:pathData="M19.3,16.9C19.88,15.89 20.25,14.67 19.81,13.25C19.28,11.53 17.77,10.2 15.97,10.03C15.302,9.959 14.627,10.038 13.995,10.261C13.362,10.485 12.787,10.847 12.312,11.322C11.837,11.797 11.475,12.372 11.251,13.005C11.028,13.637 10.949,14.313 11.02,14.98C11.2,16.77 12.52,18.29 14.24,18.82C15.67,19.26 16.88,18.89 17.89,18.31L20.39,20.81C20.78,21.2 21.4,21.2 21.79,20.81C21.883,20.719 21.956,20.61 22.006,20.489C22.057,20.369 22.082,20.24 22.082,20.11C22.082,19.98 22.057,19.851 22.006,19.731C21.956,19.611 21.883,19.501 21.79,19.41L19.3,16.9ZM15.5,17C14.1,17 13,15.9 13,14.5C13,13.1 14.1,12 15.5,12C16.9,12 18,13.1 18,14.5C18,15.9 16.9,17 15.5,17ZM12,20V22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2C16.84,2 20.87,5.44 21.8,10H19.73C19.418,8.792 18.828,7.673 18.007,6.734C17.185,5.795 16.156,5.06 15,4.59V5C15,6.1 14.1,7 13,7H11V9C11,9.55 10.55,10 10,10H8V12H10V15H9L4.21,10.21C4.08,10.79 4,11.38 4,12C4,16.41 7.59,20 12,20Z"
-      android:fillColor="#FAFAFA" />
-</vector>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/ic_explore_checked" android:state_checked="true" />
+  <item android:drawable="@drawable/ic_explore_unchecked" android:state_checked="false" />
+</selector>
