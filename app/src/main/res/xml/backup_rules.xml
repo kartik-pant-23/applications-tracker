@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude the shared preferences folder -->
+    <include domain="sharedpref" path="." />
+<!--    <exclude domain="file" path="shared_prefs/secret_prefs.xml" />-->
+    <exclude domain="sharedpref" path="secret_prefs.xml" />
+</full-backup-content>

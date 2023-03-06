@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.feature_user.data.models
+package com.studbudd.application_tracker.feature_user.data.entity
 
 data class RemoteIdTuple(
     val remoteId: String?

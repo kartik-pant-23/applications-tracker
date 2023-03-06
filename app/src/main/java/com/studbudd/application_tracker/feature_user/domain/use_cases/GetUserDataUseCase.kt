@@ -1,6 +1,6 @@
 package com.studbudd.application_tracker.feature_user.domain.use_cases
 
-import com.studbudd.application_tracker.common.models.Resource
+import com.studbudd.application_tracker.common.data.models.Resource
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import com.studbudd.application_tracker.feature_user.domain.models.User
 import kotlinx.coroutines.CoroutineDispatcher

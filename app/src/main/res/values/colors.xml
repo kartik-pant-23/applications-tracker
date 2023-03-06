@@ -6,6 +6,7 @@
 
     <!-- Button Colors -->
     <color name="blue_button_color">#346EF1</color>
+    <color name="tonal_button_color">#D8E5E4</color>
 
     <!-- Text color -->
     <color name="light_text">#303030</color>

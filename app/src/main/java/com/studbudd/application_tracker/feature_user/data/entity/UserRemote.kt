@@ -1,11 +1,9 @@
-package com.studbudd.application_tracker.feature_user.data.models
+package com.studbudd.application_tracker.feature_user.data.entity
 
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.studbudd.application_tracker.feature_user.domain.models.User
-import java.text.SimpleDateFormat
-import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class UserRemote(

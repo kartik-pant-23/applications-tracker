@@ -1,8 +1,8 @@
 package com.studbudd.application_tracker.feature_user.data.dao
 
 import androidx.room.*
-import com.studbudd.application_tracker.feature_user.data.models.RemoteIdTuple
-import com.studbudd.application_tracker.feature_user.data.models.UserLocal
+import com.studbudd.application_tracker.feature_user.data.entity.RemoteIdTuple
+import com.studbudd.application_tracker.feature_user.data.entity.UserLocal
 import kotlinx.coroutines.flow.Flow
 
 @Dao

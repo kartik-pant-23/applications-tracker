@@ -1,6 +1,7 @@
 package com.studbudd.application_tracker.di
 
 import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -11,8 +12,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.studbudd.application_tracker.BuildConfig
 import com.studbudd.application_tracker.common.domain.ClearAppDataUseCase
 import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
-import com.studbudd.application_tracker.feature_applications_management.data.AppDatabase
-import com.studbudd.application_tracker.feature_applications_management.data.ApplicationsRepository
+import com.studbudd.application_tracker.common.data.AppDatabase
+import com.studbudd.application_tracker.feature_applications_management.data.repo.ApplicationsRepository
 import com.studbudd.application_tracker.feature_user.data.dao.AuthUserRemoteDao
 import com.studbudd.application_tracker.feature_user.data.dao.UserRemoteDao
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository

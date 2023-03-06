@@ -10,17 +10,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications_management.data.JobApplication
+import com.studbudd.application_tracker.feature_applications_management.data.entity.LocalJobApplication
 import com.studbudd.application_tracker.databinding.ItemApplicationBinding
 import com.studbudd.application_tracker.utilities.DATE_FORMAT
 
 class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
-    ListAdapter<JobApplication, ApplicationAdapter.ApplicationsViewHolder>(
-        object : DiffUtil.ItemCallback<JobApplication>() {
-            override fun areItemsTheSame(oldItem: JobApplication, newItem: JobApplication): Boolean {
+    ListAdapter<LocalJobApplication, ApplicationAdapter.ApplicationsViewHolder>(
+        object : DiffUtil.ItemCallback<LocalJobApplication>() {
+            override fun areItemsTheSame(oldItem: LocalJobApplication, newItem: LocalJobApplication): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: JobApplication, newItem: JobApplication): Boolean {
+            override fun areContentsTheSame(oldItem: LocalJobApplication, newItem: LocalJobApplication): Boolean {
                 return oldItem.toString() == newItem.toString()
             }
 
@@ -53,7 +53,7 @@ class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
 
             // Setting date
             applicationCreatedAt.text =
-                DATE_FORMAT.format(application.created_at.timeInMillis).toString()
+                DATE_FORMAT.format(application.createdAt.timeInMillis).toString()
 
             // Setting background depending on status
             status.text = holder.itemView.context.resources
@@ -62,7 +62,7 @@ class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
 
             // Adding on click listener
             root.setOnClickListener{
-                OnItemClickListener(it, application.application_id)
+                OnItemClickListener(it, application.id)
             }
         }
     }

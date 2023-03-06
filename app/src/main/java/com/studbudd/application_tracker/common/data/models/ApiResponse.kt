@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.common.models
+package com.studbudd.application_tracker.common.data.models
 
 
 import com.squareup.moshi.Json

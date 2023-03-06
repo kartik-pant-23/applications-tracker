@@ -1,6 +1,6 @@
 package com.studbudd.application_tracker.common.domain
 
-import com.studbudd.application_tracker.feature_applications_management.data.AppDatabase
+import com.studbudd.application_tracker.common.data.AppDatabase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

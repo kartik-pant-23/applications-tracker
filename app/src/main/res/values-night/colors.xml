@@ -2,7 +2,10 @@
 <resources>
     <color name="primary_dark">#EFEFEF</color>
 
-    <color name="light_text">#D0D0D0</color>
+    <!-- Button color -->
+    <color name="tonal_button_color">#2D4154</color>
+
+    <color name="light_text">#A6FAFAFA</color>
     <color name="dark_text">#FAFAFA</color>
 
     <color name="window_background">#282F41</color>
