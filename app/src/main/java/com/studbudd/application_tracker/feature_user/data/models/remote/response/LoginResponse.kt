@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.feature_user.data.entity.response
+package com.studbudd.application_tracker.feature_user.data.models.remote.response
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

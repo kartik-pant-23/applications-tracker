@@ -1,21 +1,21 @@
 package com.studbudd.application_tracker.feature_user.data.repo
 
 import com.studbudd.application_tracker.common.data.models.Resource
-import com.studbudd.application_tracker.feature_user.data.entity.UserLocal
-import com.studbudd.application_tracker.feature_user.data.entity.UserRemote
-import com.studbudd.application_tracker.feature_user.data.entity.response.LoginResponse
+import com.studbudd.application_tracker.feature_user.data.models.local.UserEntity
+import com.studbudd.application_tracker.feature_user.data.models.remote.UserDto
+import com.studbudd.application_tracker.feature_user.data.models.remote.response.LoginResponse
+import com.studbudd.application_tracker.feature_user.domain.models.User
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    // CRUD operations for local user
-    suspend fun createLocalUser(userLocal: UserLocal): Long
-    fun getLocalUser(): Flow<UserLocal?>
+    suspend fun createLocalUser(userEntity: UserEntity): Long
+
+    fun getUser(): Flow<Resource<User>>
+
     fun deleteLocalUser()
 
-    // CRUD operations for remote user
-    suspend fun createRemoteUser(token: String): Resource<LoginResponse>
-    suspend fun getRemoteUser(): Resource<UserRemote>
+    suspend fun connectWithRemoteDatabase(token: String): Resource<LoginResponse>
 
     fun saveAuthenticationTokens(accessToken: String, refreshToken: String)
 

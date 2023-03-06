@@ -1,12 +1,13 @@
-package com.studbudd.application_tracker.feature_user.data.entity
+package com.studbudd.application_tracker.feature_user.data.models.remote
 
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import com.studbudd.application_tracker.feature_user.data.models.local.UserEntity
 import com.studbudd.application_tracker.feature_user.domain.models.User
 
 @JsonClass(generateAdapter = true)
-data class UserRemote(
+data class UserDto(
     @Json(name = "id")
     val id: String,
     @Json(name = "name")
@@ -23,26 +24,16 @@ data class UserRemote(
     val createdAt: String,
 ) {
 
-    val user
-        get() = User(
+    fun toUserEntity(): UserEntity {
+        return UserEntity(
             remoteId = id,
             name = name,
             email = email,
             photoUrl = photoUrl,
-            placeholderKeys = placeholderKeys ?: listOf("resume", "experience-years"),
-            placeholderValues = placeholderValues ?: listOf("resume_link", "x_years"),
+            placeholderKeys = placeholderKeys ?: emptyList(),
+            placeholderValues = placeholderValues ?: emptyList(),
             createdAt = createdAt
         )
-
-    val localUser: UserLocal
-        get() = UserLocal(
-            remoteId = id,
-            name = name,
-            email = email,
-            photoUrl = photoUrl,
-            placeholderKeys = placeholderKeys ?: listOf("resume", "experience-years"),
-            placeholderValues = placeholderValues ?: listOf("resume_link", "x_years"),
-            createdAt = createdAt
-        )
+    }
 
 }
