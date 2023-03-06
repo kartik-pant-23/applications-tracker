@@ -6,7 +6,7 @@ import com.studbudd.application_tracker.feature_user.data.models.local.UserEntit
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface UserLocalDao {
+interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNewUser(user: UserEntity): Long
@@ -21,6 +21,6 @@ interface UserLocalDao {
     suspend fun updateUser(newUser: UserEntity)
 
     @Query("DELETE FROM users WHERE id=1")
-    fun deleteLocalUser()
+    suspend fun deleteLocalUser()
 
 }

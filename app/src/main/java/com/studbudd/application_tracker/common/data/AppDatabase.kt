@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.studbudd.application_tracker.common.domain.ListConverterUseCase
 import com.studbudd.application_tracker.feature_applications_management.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_applications_management.data.entity.LocalJobApplication
-import com.studbudd.application_tracker.feature_user.data.dao.UserLocalDao
+import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.feature_user.data.models.local.UserEntity
 import com.studbudd.application_tracker.utilities.DateConverter
 
@@ -17,7 +17,7 @@ import com.studbudd.application_tracker.utilities.DateConverter
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun applicationsDao(): JobApplicationsDao
-    abstract fun userLocalDao(): UserLocalDao
+    abstract fun userLocalDao(): UserDao
 
     companion object {
         val Migration_2_3 = object : Migration(2, 3) {

@@ -6,7 +6,7 @@ import com.studbudd.application_tracker.feature_user.data.models.remote.response
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface AuthUserRemoteDao {
+interface AuthUserApi {
 
     @GET("users/details")
     suspend fun getUserData(): Response<ApiResponse<UserDto>>

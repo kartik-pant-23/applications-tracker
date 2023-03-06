@@ -13,8 +13,6 @@ interface UserRepository {
 
     fun getUser(): Flow<Resource<User>>
 
-    fun deleteLocalUser()
-
     suspend fun connectWithRemoteDatabase(token: String): Resource<LoginResponse>
 
     fun saveAuthenticationTokens(accessToken: String, refreshToken: String)

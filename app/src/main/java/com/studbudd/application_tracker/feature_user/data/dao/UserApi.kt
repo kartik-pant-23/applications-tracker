@@ -7,7 +7,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface UserRemoteDao {
+interface UserApi {
 
     @POST("users/login")
     suspend fun loginUser(@Body token: LoginRequest): Response<ApiResponse<LoginResponse>>

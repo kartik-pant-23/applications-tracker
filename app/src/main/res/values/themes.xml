@@ -51,12 +51,12 @@
         <item name="android:textSize">@dimen/text_heading</item>
     </style>
     <style name="Body" parent="AppTextRegular">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/text_body1</item>
         <item name="android:textColor">@color/dark_text</item>
     </style>
     <style name="Caption" parent="AppTextBold">
         <item name="android:fontFamily">@font/montserrat_bold</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/text_body1</item>
         <item name="android:textColor">@color/light_text</item>
         <item name="android:layout_marginBottom">16dp</item>
         <item name="textAllCaps">true</item>

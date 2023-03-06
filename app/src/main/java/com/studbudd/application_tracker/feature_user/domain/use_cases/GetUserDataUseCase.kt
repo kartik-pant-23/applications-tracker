@@ -12,7 +12,6 @@ import kotlinx.coroutines.withContext
 
 class GetUserDataUseCase(
     private val userRepository: UserRepository,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
     operator fun invoke(): Flow<Resource<User>> = userRepository.getUser()

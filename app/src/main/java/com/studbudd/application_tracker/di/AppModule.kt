@@ -1,7 +1,6 @@
 package com.studbudd.application_tracker.di
 
 import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -13,9 +12,11 @@ import com.studbudd.application_tracker.BuildConfig
 import com.studbudd.application_tracker.common.domain.ClearAppDataUseCase
 import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.common.data.AppDatabase
+import com.studbudd.application_tracker.common.domain.HandleApiCall
 import com.studbudd.application_tracker.feature_applications_management.data.repo.ApplicationsRepository
-import com.studbudd.application_tracker.feature_user.data.dao.AuthUserRemoteDao
-import com.studbudd.application_tracker.feature_user.data.dao.UserRemoteDao
+import com.studbudd.application_tracker.feature_user.data.dao.AuthUserApi
+import com.studbudd.application_tracker.feature_user.data.dao.UserApi
+import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import com.studbudd.application_tracker.feature_user.domain.repo.UserRepository_Impl
 import com.studbudd.application_tracker.feature_user.domain.use_cases.CreateLocalUserUseCase
@@ -84,45 +85,14 @@ class AppModule {
     }
 
     @Provides
-    @Singleton
-    fun providesUserRemoteDao(@RetrofitModule.RetrofitObject retrofit: Retrofit): UserRemoteDao {
-        return retrofit.create(UserRemoteDao::class.java)
-    }
-
-    @Provides
-    fun providesAuthUserRemoteDao(@RetrofitModule.AuthRetrofitObject retrofit: Retrofit): AuthUserRemoteDao {
-        return retrofit.create(AuthUserRemoteDao::class.java)
-    }
-
-    @Provides
-    fun providesUserRepository(
-        database: AppDatabase,
-        userRemoteDao: UserRemoteDao,
-        authUserRemoteDao: AuthUserRemoteDao,
-        prefManager: SharedPreferencesManager
-    ): UserRepository {
-        return UserRepository_Impl(
-            database.userLocalDao(),
-            userRemoteDao,
-            authUserRemoteDao,
-            prefManager
-        )
-    }
-
-    @Provides
     fun providesApplicationRepository(database: AppDatabase): ApplicationsRepository {
         return ApplicationsRepository(database.applicationsDao())
     }
 
     @Provides
-    fun providesUserUseCases(
-        userRepository: UserRepository
-    ): UserUseCases {
-        return UserUseCases(
-            GetUserDataUseCase(userRepository, Dispatchers.IO),
-            CreateLocalUserUseCase(userRepository, Dispatchers.IO),
-            CreateRemoteUserUseCase(userRepository, Dispatchers.IO)
-        )
+    @Singleton
+    fun provideHandleApiCallUseCase(userDao: UserDao): HandleApiCall {
+        return HandleApiCall(userDao)
     }
 
 

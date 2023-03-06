@@ -1,7 +1,7 @@
 package com.studbudd.application_tracker.feature_applications_management.domain.repo
 
 import com.studbudd.application_tracker.common.data.models.Resource
-import com.studbudd.application_tracker.common.domain.GetResourceFromApiResponse
+import com.studbudd.application_tracker.common.domain.HandleApiCall
 import com.studbudd.application_tracker.common.domain.HandleException
 import com.studbudd.application_tracker.feature_applications_management.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_applications_management.data.dao.JobApplicationsRemoteDao
@@ -13,7 +13,8 @@ import javax.inject.Inject
 
 class JobApplicationsRepository_Impl @Inject constructor(
     private val localDao: JobApplicationsDao,
-    private val remoteDao: JobApplicationsRemoteDao
+    private val remoteDao: JobApplicationsRemoteDao,
+    private val handleApiCall: HandleApiCall
 ) : JobApplicationsRepository {
 
     private val handleException = HandleException()
@@ -63,25 +64,19 @@ class JobApplicationsRepository_Impl @Inject constructor(
         status: Int,
         description: String?
     ): Resource<RemoteJobApplication> {
-        return try {
-            GetResourceFromApiResponse<RemoteJobApplication>()(
-                response = remoteDao.createApplication(
-                    CreateRequest(
-                        description = description,
-                        jobDetails = CreateRequest.JobDetails(
-                            company = company,
-                            role = role,
-                            url = jobUrl
-                        ),
-                        status = status
-                    )
-                ),
-                TAG = TAG
-            )
-        } catch (e: Exception) {
-            handleException(TAG, e)
-            Resource.Failure("Failed to add to remote database")
-        }
+        val requestParams = CreateRequest(
+            description = description,
+            jobDetails = CreateRequest.JobDetails(
+                company = company,
+                role = role,
+                url = jobUrl
+            ),
+            status = status
+        )
+        return handleApiCall(
+            apiCall = { remoteDao.createApplication(requestParams) },
+            TAG = TAG
+        )
     }
 
     companion object {

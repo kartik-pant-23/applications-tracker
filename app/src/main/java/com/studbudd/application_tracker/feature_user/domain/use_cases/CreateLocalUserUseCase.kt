@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class CreateLocalUserUseCase @Inject constructor(
+class CreateLocalUserUseCase (
     private val repo: UserRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {

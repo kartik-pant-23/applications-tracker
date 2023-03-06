@@ -76,7 +76,7 @@ class MainActivityViewModel @Inject constructor(
         _state.postValue(
             MainActivityState.Loading("Loading user details")
         )
-        userUseCases.getUser().collect {
+        userUseCases.get().collect {
             if (it is Resource.LoggedOut) {
                 startLoggingOut()
             } else {
@@ -102,7 +102,7 @@ class MainActivityViewModel @Inject constructor(
      * allowing them to save their data over the remote database.
      */
     fun signInRemoteUser(idToken: String) = viewModelScope.launch {
-        when (val res = userUseCases.createRemoteUser(idToken)) {
+        when (val res = userUseCases.login(idToken)) {
             is Resource.Success -> {
                 _state.postValue(MainActivityState.Loading("App will be restarted to make changes"))
                 delay(1000)
