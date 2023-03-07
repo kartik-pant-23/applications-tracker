@@ -1,8 +1,8 @@
 package com.studbudd.application_tracker.di
 
-import com.studbudd.application_tracker.common.data.AppDatabase
-import com.studbudd.application_tracker.common.domain.HandleApiCall
-import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.core.data.AppDatabase
+import com.studbudd.application_tracker.core.domain.HandleApiCall
+import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_user.data.dao.AuthUserApi
 import com.studbudd.application_tracker.feature_user.data.dao.UserApi
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao

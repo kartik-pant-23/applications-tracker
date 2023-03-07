@@ -6,8 +6,8 @@ import androidx.work.*
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
-import com.studbudd.application_tracker.feature_applications_management.data.entity.LocalJobApplication
-import com.studbudd.application_tracker.feature_applications_management.data.repo.ApplicationsRepository
+import com.studbudd.application_tracker.feature_applications.data.entity.LocalJobApplication
+import com.studbudd.application_tracker.feature_applications.data.repo.ApplicationsRepository
 import com.studbudd.application_tracker.workers.NotifyWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

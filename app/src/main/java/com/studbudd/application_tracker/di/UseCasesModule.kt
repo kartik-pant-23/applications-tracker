@@ -1,9 +1,9 @@
 package com.studbudd.application_tracker.di
 
-import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
-import com.studbudd.application_tracker.feature_applications_management.data.repo.JobApplicationsRepository
-import com.studbudd.application_tracker.feature_applications_management.domain.use_cases.ApplicationsUseCase
-import com.studbudd.application_tracker.feature_applications_management.domain.use_cases.CreateJobApplicationUseCase
+import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
+import com.studbudd.application_tracker.feature_applications.domain.use_cases.ApplicationsUseCase
+import com.studbudd.application_tracker.feature_applications.domain.use_cases.CreateJobApplicationUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

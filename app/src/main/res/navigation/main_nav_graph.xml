@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/applicationsFragment"
-        android:name="com.studbudd.application_tracker.feature_applications_management.ui.home.ApplicationsFragment"
+        android:name="com.studbudd.application_tracker.feature_applications.ui.home.ApplicationsFragment"
         android:label="@string/label_home"
         tools:layout="@layout/fragment_applications" >
         <action
@@ -19,13 +19,13 @@
     </fragment>
     <fragment
         android:id="@+id/addApplicationFragment"
-        android:name="com.studbudd.application_tracker.feature_applications_management.ui.home.AddApplicationFragment"
+        android:name="com.studbudd.application_tracker.feature_applications.ui.home.AddApplicationFragment"
         android:label="@string/label_add_application"
         tools:layout="@layout/fragment_add_application" >
     </fragment>
     <fragment
         android:id="@+id/applicationDetailsFragment"
-        android:name="com.studbudd.application_tracker.feature_applications_management.ui.home.ApplicationDetailsFragment"
+        android:name="com.studbudd.application_tracker.feature_applications.ui.home.ApplicationDetailsFragment"
         android:label="@string/label_details"
         tools:layout="@layout/fragment_application_details" >
         <argument
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/draftMessageFragment"
-        android:name="com.studbudd.application_tracker.feature_applications_management.ui.home.DraftMessageFragment"
+        android:name="com.studbudd.application_tracker.feature_applications.ui.home.DraftMessageFragment"
         android:label="fragment_draft_message"
         tools:layout="@layout/fragment_draft_message">
         <argument
@@ -53,7 +53,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/alertFragment"
-        android:name="com.studbudd.application_tracker.feature_applications_management.ui.alert.AlertFragment"
+        android:name="com.studbudd.application_tracker.feature_applications.ui.alert.AlertFragment"
         android:label="fragment_alert"
         tools:layout="@layout/fragment_alert" />
     <fragment

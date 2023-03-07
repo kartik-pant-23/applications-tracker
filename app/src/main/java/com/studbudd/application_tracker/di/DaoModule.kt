@@ -1,8 +1,8 @@
 package com.studbudd.application_tracker.di
 
-import com.studbudd.application_tracker.common.data.AppDatabase
-import com.studbudd.application_tracker.feature_applications_management.data.dao.JobApplicationsDao
-import com.studbudd.application_tracker.feature_applications_management.data.dao.JobApplicationsRemoteDao
+import com.studbudd.application_tracker.core.data.AppDatabase
+import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
+import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsRemoteDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

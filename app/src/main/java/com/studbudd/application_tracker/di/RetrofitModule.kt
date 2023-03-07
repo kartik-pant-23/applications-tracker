@@ -1,9 +1,8 @@
 package com.studbudd.application_tracker.di
 
-import android.util.Log
 import com.studbudd.application_tracker.BuildConfig
-import com.studbudd.application_tracker.common.dao.RefreshTokenDao
-import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.core.dao.RefreshTokenDao
+import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.*
 import okhttp3.Headers
 import okhttp3.OkHttpClient
-import okhttp3.internal.http.RetryAndFollowUpInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Qualifier

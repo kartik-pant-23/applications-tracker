@@ -9,27 +9,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.studbudd.application_tracker.BuildConfig
-import com.studbudd.application_tracker.common.domain.ClearAppDataUseCase
-import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
-import com.studbudd.application_tracker.common.data.AppDatabase
-import com.studbudd.application_tracker.common.domain.HandleApiCall
-import com.studbudd.application_tracker.feature_applications_management.data.repo.ApplicationsRepository
-import com.studbudd.application_tracker.feature_user.data.dao.AuthUserApi
-import com.studbudd.application_tracker.feature_user.data.dao.UserApi
+import com.studbudd.application_tracker.core.domain.ClearAppDataUseCase
+import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.core.data.AppDatabase
+import com.studbudd.application_tracker.core.domain.HandleApiCall
+import com.studbudd.application_tracker.feature_applications.data.repo.ApplicationsRepository
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
-import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
-import com.studbudd.application_tracker.feature_user.domain.repo.UserRepository_Impl
-import com.studbudd.application_tracker.feature_user.domain.use_cases.CreateLocalUserUseCase
-import com.studbudd.application_tracker.feature_user.domain.use_cases.CreateRemoteUserUseCase
-import com.studbudd.application_tracker.feature_user.domain.use_cases.GetUserDataUseCase
-import com.studbudd.application_tracker.feature_user.domain.use_cases.UserUseCases
-import com.studbudd.application_tracker.utilities.DATABASE_NAME
+import com.studbudd.application_tracker.core.utils.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
-import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module

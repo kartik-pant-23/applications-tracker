@@ -1,0 +1,17 @@
+package com.studbudd.application_tracker.core.data.models
+
+sealed class Resource<T>(
+    val message: String,
+    val data: T? = null
+) {
+
+    class Success<T>(data: T, message: String? = null):
+        Resource<T>(message ?: "Task Successful", data)
+
+    class Failure<T>(message: String, data: T? = null): Resource<T>(message, data)
+
+    class Loading<T>(message: String? = null, data: T? = null): Resource<T>(message = "Loading", data)
+
+    class LoggedOut<T>(): Resource<T>("Login Required")
+
+}

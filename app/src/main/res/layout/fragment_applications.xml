@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center_vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature_applications_management.ui.home.ApplicationsFragment">
+    tools:context=".feature_applications.ui.home.ApplicationsFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

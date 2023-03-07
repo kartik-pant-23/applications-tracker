@@ -1,6 +1,6 @@
 package com.studbudd.application_tracker.feature_user.domain.models
 
-import com.studbudd.application_tracker.common.domain.ParseTimestampUseCase
+import com.studbudd.application_tracker.core.domain.ParseTimestampUseCase
 
 data class User(
     private val remoteId: String? = null,

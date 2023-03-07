@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.common.ui.main_activity.MainActivityViewModel
-import com.studbudd.application_tracker.common.ui.views.loadImageFromUrl
+import com.studbudd.application_tracker.core.ui.main_activity.MainActivityViewModel
+import com.studbudd.application_tracker.core.ui.views.loadImageFromUrl
 import com.studbudd.application_tracker.databinding.FragmentProfileBinding
 import com.studbudd.application_tracker.feature_user.ui.placeholder.UpdatePlaceholderActivity
 

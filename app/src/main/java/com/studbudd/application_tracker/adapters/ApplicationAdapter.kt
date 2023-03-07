@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications_management.data.entity.LocalJobApplication
+import com.studbudd.application_tracker.feature_applications.data.entity.LocalJobApplication
 import com.studbudd.application_tracker.databinding.ItemApplicationBinding
-import com.studbudd.application_tracker.utilities.DATE_FORMAT
+import com.studbudd.application_tracker.core.utils.DATE_FORMAT
 
 class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
     ListAdapter<LocalJobApplication, ApplicationAdapter.ApplicationsViewHolder>(

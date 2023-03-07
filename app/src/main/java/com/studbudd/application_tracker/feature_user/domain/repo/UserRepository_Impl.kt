@@ -1,9 +1,9 @@
 package com.studbudd.application_tracker.feature_user.domain.repo
 
 import androidx.annotation.WorkerThread
-import com.studbudd.application_tracker.common.domain.HandleApiCall
-import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
-import com.studbudd.application_tracker.common.data.models.Resource
+import com.studbudd.application_tracker.core.domain.HandleApiCall
+import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_user.data.dao.AuthUserApi
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.feature_user.data.dao.UserApi
@@ -14,7 +14,6 @@ import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import com.studbudd.application_tracker.feature_user.domain.models.User
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class UserRepository_Impl(
     private val dao: UserDao,
