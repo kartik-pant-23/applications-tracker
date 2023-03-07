@@ -21,11 +21,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.studbudd.application_tracker.common.ui.main_activity.MainActivityState
-import com.studbudd.application_tracker.common.ui.main_activity.MainActivityViewModel
+import com.studbudd.application_tracker.core.ui.main_activity.MainActivityState
+import com.studbudd.application_tracker.core.ui.main_activity.MainActivityViewModel
 import com.studbudd.application_tracker.databinding.ActivityMainBinding
-import com.studbudd.application_tracker.feature_applications_management.ui.create.AddNewApplicationActivity
-import com.studbudd.application_tracker.feature_applications_management.ui.home.ApplicationsFragmentDirections
+import com.studbudd.application_tracker.feature_applications.ui.create.AddNewApplicationActivity
+import com.studbudd.application_tracker.feature_applications.ui.home.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
 import com.studbudd.application_tracker.workers.NotifyWorker
 import dagger.hilt.android.AndroidEntryPoint

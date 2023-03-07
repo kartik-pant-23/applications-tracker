@@ -1,62 +1,76 @@
 package com.studbudd.application_tracker.feature_user.domain.repo
 
-import android.util.Log
 import androidx.annotation.WorkerThread
-import com.studbudd.application_tracker.common.domain.GetResourceFromApiResponse
-import com.studbudd.application_tracker.common.domain.SharedPreferencesManager
-import com.studbudd.application_tracker.common.data.models.Resource
-import com.studbudd.application_tracker.feature_user.data.dao.AuthUserRemoteDao
-import com.studbudd.application_tracker.feature_user.data.dao.UserLocalDao
-import com.studbudd.application_tracker.feature_user.data.dao.UserRemoteDao
-import com.studbudd.application_tracker.feature_user.data.entity.UserLocal
-import com.studbudd.application_tracker.feature_user.data.entity.UserRemote
-import com.studbudd.application_tracker.feature_user.data.entity.requests.LoginRequest
-import com.studbudd.application_tracker.feature_user.data.entity.response.LoginResponse
+import com.studbudd.application_tracker.core.domain.HandleApiCall
+import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.core.data.models.Resource
+import com.studbudd.application_tracker.feature_user.data.dao.AuthUserApi
+import com.studbudd.application_tracker.feature_user.data.dao.UserDao
+import com.studbudd.application_tracker.feature_user.data.dao.UserApi
+import com.studbudd.application_tracker.feature_user.data.models.local.UserEntity
+import com.studbudd.application_tracker.feature_user.data.models.remote.requests.LoginRequest
+import com.studbudd.application_tracker.feature_user.data.models.remote.response.LoginResponse
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
+import com.studbudd.application_tracker.feature_user.domain.models.User
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class UserRepository_Impl(
-    private val userLocalDao: UserLocalDao,
-    private val userRemoteDao: UserRemoteDao,
-    private val authUserRemoteDao: AuthUserRemoteDao,
-    private val preferencesManager: SharedPreferencesManager
+    private val dao: UserDao,
+    private val api: UserApi,
+    private val authApi: AuthUserApi,
+    private val preferencesManager: SharedPreferencesManager,
+    private val handleApiCall: HandleApiCall
 ) : UserRepository {
 
     @WorkerThread
-    override suspend fun createLocalUser(userLocal: UserLocal): Long {
-        userLocal.id = 1
-        return userLocalDao.insertNewUser(userLocal)
+    override suspend fun createLocalUser(userEntity: UserEntity): Long {
+        userEntity.id = 1
+        return dao.insertNewUser(userEntity)
     }
 
-    override fun getLocalUser() = userLocalDao.getUser()
-
-    @WorkerThread
-    override fun deleteLocalUser() = userLocalDao.deleteLocalUser()
-
-    @WorkerThread
-    override suspend fun createRemoteUser(token: String): Resource<LoginResponse> {
-        try {
-            GetResourceFromApiResponse<LoginResponse>().let { getResponse ->
-                return getResponse(
-                    response = userRemoteDao.loginUser(LoginRequest(token)), TAG = TAG
-                )
+    /**
+     * ### Strategy for sending back the user data
+     * 1. Send the data you have taken from the local database.
+     * 2. If the user is a remote user, then try to get the data from the remote database.
+     * There are following three scenarios, we can run into -
+     *      1. Request successful - the new user would be updated in the database and will
+     *         automatically get updated through the local database.
+     *      2. Request failed -
+     *          - **User logged out** - In such a case we should send back the logged
+     *            out response, and should be handled appropriately.
+     *          - **Some other reason** - Keep showing user details fetched from the
+     *            local database.
+     */
+    override fun getUser(): Flow<Resource<User>> = channelFlow {
+        launch {
+            dao.getUser().collect {
+                if (it != null)
+                    send(Resource.Success(it.toUser()))
+                else
+                    send(Resource.LoggedOut())
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "exception: $e")
-            return Resource.Failure("Possibly a connection error occurred!")
+        }
+
+        if (isConnectedWithRemoteDatabase()) {
+            val res = handleApiCall(
+                apiCall = { authApi.getUserData() },
+                TAG = TAG
+            )
+            if (res is Resource.Success) {
+                val newUser = res.data!!.toUserEntity()
+                newUser.id = 1
+                dao.updateUser(newUser)
+            }
         }
     }
 
     @WorkerThread
-    override suspend fun getRemoteUser(): Resource<UserRemote> {
-        return try {
-            GetResourceFromApiResponse<UserRemote>()(
-                TAG = TAG,
-                response = authUserRemoteDao.getUserData()
-            )
-        } catch (e: Exception) {
-            Log.e(TAG, "exception: $e")
-            Resource.Failure("Possibly a connection error occurred")
-        }
+    override suspend fun connectWithRemoteDatabase(token: String): Resource<LoginResponse> {
+        return handleApiCall(
+            apiCall = { api.loginUser(LoginRequest(token = token)) },
+            TAG = TAG
+        )
     }
 
     override fun saveAuthenticationTokens(accessToken: String, refreshToken: String) {

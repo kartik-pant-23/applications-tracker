@@ -10,17 +10,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications_management.data.entity.LocalJobApplication
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
 import com.studbudd.application_tracker.databinding.ItemApplicationBinding
-import com.studbudd.application_tracker.utilities.DATE_FORMAT
+import com.studbudd.application_tracker.core.utils.DATE_FORMAT
+import com.studbudd.application_tracker.core.utils.TimestampHelper
 
 class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
-    ListAdapter<LocalJobApplication, ApplicationAdapter.ApplicationsViewHolder>(
-        object : DiffUtil.ItemCallback<LocalJobApplication>() {
-            override fun areItemsTheSame(oldItem: LocalJobApplication, newItem: LocalJobApplication): Boolean {
+    ListAdapter<JobApplicationEntity, ApplicationAdapter.ApplicationsViewHolder>(
+        object : DiffUtil.ItemCallback<JobApplicationEntity>() {
+            override fun areItemsTheSame(oldItem: JobApplicationEntity, newItem: JobApplicationEntity): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: LocalJobApplication, newItem: LocalJobApplication): Boolean {
+            override fun areContentsTheSame(oldItem: JobApplicationEntity, newItem: JobApplicationEntity): Boolean {
                 return oldItem.toString() == newItem.toString()
             }
 
@@ -53,7 +54,7 @@ class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
 
             // Setting date
             applicationCreatedAt.text =
-                DATE_FORMAT.format(application.createdAt.timeInMillis).toString()
+                TimestampHelper.getFormattedString(application.createdAt ?: "", TimestampHelper.DETAILED)
 
             // Setting background depending on status
             status.text = holder.itemView.context.resources

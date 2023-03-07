@@ -1,6 +1,6 @@
 package com.studbudd.application_tracker.feature_user.domain.models
 
-import com.studbudd.application_tracker.common.domain.ParseTimestampUseCase
+import com.studbudd.application_tracker.core.utils.TimestampHelper
 
 data class User(
     private val remoteId: String? = null,
@@ -13,7 +13,7 @@ data class User(
 ) {
 
     val joinedOn: String
-        get() = ParseTimestampUseCase(createdAt ?: "")()
+        get() = createdAt?.let { TimestampHelper.getFormattedString(it) } ?: "-"
 
     val isAnonymousUser = remoteId == null
 

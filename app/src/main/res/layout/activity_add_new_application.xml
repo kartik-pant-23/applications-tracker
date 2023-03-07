@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".feature_applications_management.ui.create.AddNewApplicationActivity">
+    tools:context=".feature_applications.ui.create.AddNewApplicationActivity">
 
     <Button
         android:id="@+id/back_button"

@@ -1,19 +1,18 @@
 package com.studbudd.application_tracker.feature_user.domain.use_cases
 
-import com.studbudd.application_tracker.common.data.models.Resource
-import com.studbudd.application_tracker.feature_user.data.entity.UserLocal
+import com.studbudd.application_tracker.core.data.models.Resource
+import com.studbudd.application_tracker.feature_user.data.models.local.UserEntity
 import com.studbudd.application_tracker.feature_user.data.repo.UserRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class CreateRemoteUserUseCase @Inject constructor(
+class CreateRemoteUserUseCase (
     private val userRepository: UserRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend operator fun invoke(token: String): Resource<Boolean> = withContext(dispatcher) {
-        when (val res = userRepository.createRemoteUser(token)) {
+        when (val res = userRepository.connectWithRemoteDatabase(token)) {
             is Resource.Success -> {
                 val authTokens = res.data!!
                 userRepository.saveAuthenticationTokens(
@@ -25,7 +24,7 @@ class CreateRemoteUserUseCase @Inject constructor(
                 // must have at least a dummy user to begin
                 // in case we are not able to fetch the user created
                 // on remote database.
-                userRepository.createLocalUser(UserLocal(name = "Dummy User"))
+                userRepository.createLocalUser(UserEntity(name = "Dummy User"))
 
                 Resource.Success(true, "User logged in successfully")
             }

@@ -76,7 +76,7 @@
                     android:text="@string/user_details_header"
                     style="@style/Caption" />
 
-                <com.studbudd.application_tracker.common.ui.views.InformationTextView
+                <com.studbudd.application_tracker.core.ui.views.InformationTextView
                     android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                     app:endIconVisibility="false"
                     app:valueText="Kartik Pant" />
 
-                <com.studbudd.application_tracker.common.ui.views.InformationTextView
+                <com.studbudd.application_tracker.core.ui.views.InformationTextView
                     android:id="@+id/user_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                     app:endIconVisibility="false"
                     android:layout_marginTop="4dp" />
 
-                <com.studbudd.application_tracker.common.ui.views.InformationTextView
+                <com.studbudd.application_tracker.core.ui.views.InformationTextView
                     android:id="@+id/user_joined_on"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                     android:text="@string/settings_header"
                     style="@style/Caption" />
 
-                <com.studbudd.application_tracker.common.ui.views.InformationTextView
+                <com.studbudd.application_tracker.core.ui.views.InformationTextView
                     android:id="@+id/theme_mode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                     app:endIconVisibility="true"
                     app:valueText="System Default" />
 
-                <com.studbudd.application_tracker.common.ui.views.InformationTextView
+                <com.studbudd.application_tracker.core.ui.views.InformationTextView
                     android:id="@+id/user_placeholders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
