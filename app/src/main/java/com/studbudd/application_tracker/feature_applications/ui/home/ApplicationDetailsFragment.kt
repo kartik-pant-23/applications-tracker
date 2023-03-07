@@ -17,7 +17,9 @@ import com.studbudd.application_tracker.core.utils.ARG_APPLICATION_ID
 import com.studbudd.application_tracker.core.utils.DATE_FORMAT
 import com.studbudd.application_tracker.core.utils.TimestampHelper
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ApplicationDetailsFragment : Fragment() {
 
     private var binding: FragmentApplicationDetailsBinding? = null

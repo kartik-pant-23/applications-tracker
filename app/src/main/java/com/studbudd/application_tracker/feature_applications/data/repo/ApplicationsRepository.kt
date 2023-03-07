@@ -22,7 +22,6 @@ class ApplicationsRepository(private val applicationsDao: JobApplicationsDao) {
 
     @WorkerThread
     suspend fun updateApplication(jobApplication: JobApplicationEntity) {
-        jobApplication.modifiedAtCalendar = Calendar.getInstance()
         applicationsDao.update(jobApplication)
     }
 

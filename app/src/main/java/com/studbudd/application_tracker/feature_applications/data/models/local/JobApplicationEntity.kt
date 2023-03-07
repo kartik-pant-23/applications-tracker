@@ -17,20 +17,24 @@ data class JobApplicationEntity(
     val createdAtCalendar: Calendar = Calendar.getInstance(),
     val status: Int = 0,
     @ColumnInfo(name = "remote_id")
-    val remoteId: String? = null
+    val remoteId: String? = null,
+    @ColumnInfo(name = "company_logo")
+    val companyLogo: String? = null,
+    @ColumnInfo(name = "application_deadline")
+    val applicationDeadline: String? = null,
+    @ColumnInfo(name = "modified_at")
+    val modifiedAtCalendar: Calendar = Calendar.getInstance()
+
 ) {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "application_id")
     var id: Int = 0
 
-    @ColumnInfo(name = "modified_at")
-    var modifiedAtCalendar: Calendar = Calendar.getInstance()
-
-    val modifiedAt
+    val createdAt
         get() = TimestampHelper.getDateString(createdAtCalendar.time)
 
-    val createdAt
+    val modifiedAt
         get() = TimestampHelper.getDateString(modifiedAtCalendar.time)
 
     val title

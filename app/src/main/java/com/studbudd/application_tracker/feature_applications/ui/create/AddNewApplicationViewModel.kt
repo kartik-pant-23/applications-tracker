@@ -25,7 +25,7 @@ class AddNewApplicationViewModel @Inject constructor(
             company = company,
             role = role,
             url = jobLink,
-            description = notes,
+            notes = notes,
             status = status
         )) {
             is Resource.Success -> println("application added")

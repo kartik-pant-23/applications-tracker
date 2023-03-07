@@ -36,6 +36,13 @@ object TimestampHelper {
         }
     }
 
+    fun getCalendar(timestamp: String, format: String = FORMAT): Calendar? {
+        val date = getDate(timestamp, format) ?: return null
+        return Calendar.getInstance().apply {
+            time = date
+        }
+    }
+
     fun getFormattedString(timestamp: String, format: String = DEFAULT): String {
         return getDateString(getDate(timestamp), format) ?: "-"
     }

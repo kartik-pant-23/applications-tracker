@@ -30,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userLocalDao(): UserDao
 
     companion object {
-        const val DB_VERSION = 3
+        const val DB_VERSION = 4
 
         // Adding users table
         val Migration_2_3 = object : Migration(2, 3) {
@@ -51,6 +51,14 @@ abstract class AppDatabase : RoomDatabase() {
                     "ALTER TABLE `applications`" +
                             "ADD COLUMN `remote_id` TEXT"
                 )
+            }
+        }
+
+        // Adding companyLogo, and applicationDeadline in the table
+        val Migration_3_4 = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE `applications` ADD COLUMN `company_logo` TEXT")
+                database.execSQL("ALTER TABLE `applications` ADD COLUMN `application_deadline` TEXT")
             }
         }
     }

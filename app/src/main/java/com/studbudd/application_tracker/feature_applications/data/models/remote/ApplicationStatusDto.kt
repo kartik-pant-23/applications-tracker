@@ -5,6 +5,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ApplicationStatus(
+    @Json(name = "id")
+    val id: Int,
     @Json(name = "color")
     val color: String,
     @Json(name = "tag")

@@ -2,28 +2,16 @@ package com.studbudd.application_tracker.feature_applications.data.repo
 
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_applications.data.models.remote.JobApplicationDto
+import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
 
 interface JobApplicationsRepository {
 
-    suspend fun createLocalApplication(
+    suspend fun create(
         company: String,
         role: String,
         jobUrl: String,
         status: Int,
-        description: String?
-    ): Resource<Long>
-
-    suspend fun updateRemoteIdOfLocalEntity(
-        localApplicationId: Long,
-        remoteId: String
-    )
-
-    suspend fun createRemoteApplication(
-        company: String,
-        role: String,
-        jobUrl: String,
-        status: Int,
-        description: String?
-    ): Resource<JobApplicationDto>
+        notes: String?
+    ): Resource<Unit>
 
 }
