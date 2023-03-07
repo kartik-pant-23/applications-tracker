@@ -1,8 +1,8 @@
-package com.studbudd.application_tracker.di
+package com.studbudd.application_tracker.core.di
 
 import com.studbudd.application_tracker.core.data.AppDatabase
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
-import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsRemoteDao
+import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,8 +22,8 @@ class DaoModule {
 
     @Provides
     @Singleton
-    fun providesJobApplicationsRemoteDao(@RetrofitModule.AuthRetrofitObject retrofit: Retrofit): JobApplicationsRemoteDao {
-        return retrofit.create(JobApplicationsRemoteDao::class.java)
+    fun providesJobApplicationsRemoteDao(@RetrofitModule.AuthRetrofitObject retrofit: Retrofit): JobApplicationsApi {
+        return retrofit.create(JobApplicationsApi::class.java)
     }
 
 }

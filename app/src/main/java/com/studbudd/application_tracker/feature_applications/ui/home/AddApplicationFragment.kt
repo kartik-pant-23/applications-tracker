@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications.data.entity.LocalJobApplication
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
 import com.studbudd.application_tracker.databinding.FragmentAddApplicationBinding
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
 
@@ -51,7 +51,7 @@ class AddApplicationFragment : Fragment() {
             jobRole.error = if (jobRole.text.isNullOrBlank()) errorMessage else null
 
             if (!companyName.text.isNullOrBlank() && !jobRole.text.isNullOrBlank() && !jobLink.text.isNullOrBlank()) {
-                val jobApplication = LocalJobApplication(
+                val jobApplication = JobApplicationEntity(
                     companyName = companyName.text!!.toString(),
                     role = jobRole.text!!.toString(),
                     notes = notes.text?.toString(),

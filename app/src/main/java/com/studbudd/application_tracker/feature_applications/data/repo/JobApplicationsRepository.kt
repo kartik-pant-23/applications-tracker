@@ -1,7 +1,7 @@
 package com.studbudd.application_tracker.feature_applications.data.repo
 
 import com.studbudd.application_tracker.core.data.models.Resource
-import com.studbudd.application_tracker.feature_applications.data.entity.RemoteJobApplication
+import com.studbudd.application_tracker.feature_applications.data.models.remote.JobApplicationDto
 
 interface JobApplicationsRepository {
 
@@ -24,6 +24,6 @@ interface JobApplicationsRepository {
         jobUrl: String,
         status: Int,
         description: String?
-    ): Resource<RemoteJobApplication>
+    ): Resource<JobApplicationDto>
 
 }

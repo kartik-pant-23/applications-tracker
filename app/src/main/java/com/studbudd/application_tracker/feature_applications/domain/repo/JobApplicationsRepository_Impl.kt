@@ -4,16 +4,16 @@ import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.core.domain.HandleApiCall
 import com.studbudd.application_tracker.core.domain.HandleException
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
-import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsRemoteDao
-import com.studbudd.application_tracker.feature_applications.data.entity.LocalJobApplication
-import com.studbudd.application_tracker.feature_applications.data.entity.RemoteJobApplication
-import com.studbudd.application_tracker.feature_applications.data.entity.requests.CreateRequest
+import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsApi
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
+import com.studbudd.application_tracker.feature_applications.data.models.remote.JobApplicationDto
+import com.studbudd.application_tracker.feature_applications.data.models.remote.requests.CreateRequest
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
 import javax.inject.Inject
 
 class JobApplicationsRepository_Impl @Inject constructor(
     private val localDao: JobApplicationsDao,
-    private val remoteDao: JobApplicationsRemoteDao,
+    private val remoteDao: JobApplicationsApi,
     private val handleApiCall: HandleApiCall
 ) : JobApplicationsRepository {
 
@@ -28,7 +28,7 @@ class JobApplicationsRepository_Impl @Inject constructor(
     ): Resource<Long> {
         return try {
             val id = localDao.insert(
-                LocalJobApplication(
+                JobApplicationEntity(
                     companyName = company,
                     role = role,
                     jobLink = jobUrl,
@@ -63,7 +63,7 @@ class JobApplicationsRepository_Impl @Inject constructor(
         jobUrl: String,
         status: Int,
         description: String?
-    ): Resource<RemoteJobApplication> {
+    ): Resource<JobApplicationDto> {
         val requestParams = CreateRequest(
             description = description,
             jobDetails = CreateRequest.JobDetails(

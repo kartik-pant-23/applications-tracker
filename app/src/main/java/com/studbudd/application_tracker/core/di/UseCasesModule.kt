@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.di
+package com.studbudd.application_tracker.core.di
 
 import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository

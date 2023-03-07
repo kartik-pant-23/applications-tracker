@@ -1,8 +1,8 @@
-package com.studbudd.application_tracker.di
+package com.studbudd.application_tracker.core.di
 
 import com.studbudd.application_tracker.core.domain.HandleApiCall
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
-import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsRemoteDao
+import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsApi
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
 import com.studbudd.application_tracker.feature_applications.domain.repo.JobApplicationsRepository_Impl
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
@@ -20,7 +20,7 @@ class RepositoryModule {
     @Singleton
     fun provideJobApplicationsRepository(
         localDao: JobApplicationsDao,
-        remoteDao: JobApplicationsRemoteDao,
+        remoteDao: JobApplicationsApi,
         userDao: UserDao
     ): JobApplicationsRepository {
         return JobApplicationsRepository_Impl(localDao, remoteDao, HandleApiCall(userDao))

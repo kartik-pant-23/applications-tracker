@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.feature_applications.data.entity.requests
+package com.studbudd.application_tracker.feature_applications.data.models.remote.requests
 
 
 import com.squareup.moshi.Json

@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.di
+package com.studbudd.application_tracker.core.di
 
 import com.studbudd.application_tracker.BuildConfig
 import com.studbudd.application_tracker.core.dao.RefreshTokenDao
