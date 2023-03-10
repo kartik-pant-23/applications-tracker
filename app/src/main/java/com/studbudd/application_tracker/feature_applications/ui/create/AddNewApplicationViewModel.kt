@@ -47,6 +47,10 @@ class AddNewApplicationViewModel @Inject constructor(
 
     }
 
+    fun requestNotificationPermission() {
+        _uiState.postValue(AddNewApplicationUiState.RequestNotificationPermission())
+    }
+
     private fun loadListOfApplicationStatus() {
         _applicationStatus.postValue(
             listOf(

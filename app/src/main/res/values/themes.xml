@@ -12,8 +12,6 @@
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
 
         <item name="actionOverflowButtonStyle">@style/MenuButtonStyle</item>
-
-        <item name="errorTextAppearance">@style/Body</item>
     </style>
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -150,17 +148,26 @@
         <item name="android:textColor">@color/dark_text</item>
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="AlertDialog.MessageText">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">@dimen/text_body1</item>
+        <item name="android:textColor">@color/light_text</item>
+    </style>
     <style name="AlertDialog.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textColor">@color/primary</item>
+    </style>
+    <style name="AlertDialog.IconTint" parent="MaterialAlertDialog.MaterialComponents.Title.Icon">
+        <item name="android:tint">@color/dark_text</item>
     </style>
     <style name="AlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="android:background">@color/bottom_navigation_bar</item>
         <item name="colorOnSurface">@color/dark_text</item>
         <item name="materialAlertDialogTitleTextStyle">@style/AlertDialog.TitleText</item>
-        <item name="materialAlertDialogBodyTextStyle">@style/Body</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AlertDialog.MessageText</item>
         <item name="buttonBarPositiveButtonStyle">@style/AlertDialog.Button</item>
         <item name="buttonBarNegativeButtonStyle">@style/AlertDialog.Button</item>
+        <item name="materialAlertDialogTitleIconStyle">@style/AlertDialog.IconTint</item>
     </style>
 
     <!-- Spinner Style -->
