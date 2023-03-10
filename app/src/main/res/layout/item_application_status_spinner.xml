@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:minHeight="48dp"
+    android:paddingVertical="12dp"
+    android:paddingHorizontal="16dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+    <View
+        android:id="@+id/job_status_bullet"
+        android:layout_width="@dimen/text_body1"
+        android:layout_height="@dimen/text_body1"
+        android:background="@drawable/bg_round_button"
+        android:backgroundTint="@color/dark_text" />
+
+    <TextView
+        android:id="@+id/job_status_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Waiting For Referral"
+        style="@style/Body"
+        android:layout_marginStart="8dp" />
+
+</LinearLayout>

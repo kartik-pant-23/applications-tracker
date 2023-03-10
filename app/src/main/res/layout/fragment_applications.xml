@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_rounded_corner"
+                android:background="@drawable/bg_round_button"
                 android:paddingVertical="@dimen/padding_large"
                 android:backgroundTint="@color/grey_background">
 

@@ -1,37 +1,48 @@
 package com.studbudd.application_tracker.feature_applications.ui.create
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ActivityNavigator
 import com.studbudd.application_tracker.R
+import com.studbudd.application_tracker.core.ui.views.showError
+import com.studbudd.application_tracker.core.ui.views.showErrorIfNullOrBlank
+import com.studbudd.application_tracker.core.ui.views.showInfoSnackbar
 import com.studbudd.application_tracker.databinding.ActivityAddNewApplicationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddNewApplicationActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityAddNewApplicationBinding
     private val viewModel by viewModels<AddNewApplicationViewModel>()
+    lateinit var binding: ActivityAddNewApplicationBinding
+    lateinit var adapter: ApplicationStatusAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewApplicationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.job_status,
-            R.layout.item_spinner
-        ).also { adapter ->
-            adapter.setDropDownViewResource(R.layout.item_spinner)
+        viewModel.applicationStatus.observe(this) {
+            adapter = ApplicationStatusAdapter(this, it)
             binding.jobStatus.adapter = adapter
         }
 
-        // as soon as the screen comes in focus
-        // company name is focused and keyboard comes out
+        viewModel.uiState.observe(this) {
+            if (it is AddNewApplicationUiState.Info)
+                binding.root.showInfoSnackbar(it.message)
+            else if (it is AddNewApplicationUiState.Success) {
+                Toast.makeText(
+                    this,
+                    it.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
+        }
+
         binding.companyName.requestFocus()
 
         binding.submitButton.setOnClickListener { addNewApplication() }
@@ -39,13 +50,8 @@ class AddNewApplicationActivity : AppCompatActivity() {
     }
 
     private fun addNewApplication() {
-        val errorMessage = "This field is mandatory!"
         binding.apply {
-            companyName.error = if (companyName.text.isNullOrBlank()) errorMessage else null
-            jobLink.error = if (jobLink.text.isNullOrBlank()) errorMessage else null
-            jobRole.error = if (jobRole.text.isNullOrBlank()) errorMessage else null
-
-            if (!companyName.text.isNullOrBlank() && !jobRole.text.isNullOrBlank() && !jobLink.text.isNullOrBlank()) {
+            if (validateInputFields()) {
                 viewModel.addNewApplication(
                     company = companyName.text!!.toString(),
                     role = jobRole.text!!.toString(),
@@ -53,14 +59,34 @@ class AddNewApplicationActivity : AppCompatActivity() {
                     notes = notes.text?.toString(),
                     status = jobStatus.selectedItemPosition
                 )
-                Toast.makeText(
-                    this@AddNewApplicationActivity,
-                    "Application successfully added!",
-                    Toast.LENGTH_LONG
-                ).show()
-                finish()
             }
         }
+    }
+
+    private fun validateInputFields(): Boolean {
+        var isValid: Boolean
+        binding.apply {
+            companyName.showErrorIfNullOrBlank(
+                getString(
+                    R.string.empty_field_error_text,
+                    "Company Name"
+                )
+            )
+            jobRole.showErrorIfNullOrBlank(getString(R.string.empty_field_error_text, "Job Role"))
+            jobLink.showErrorIfNullOrBlank(getString(R.string.empty_field_error_text, "Job Link"))
+
+            val isNotValidUrl =
+                !jobLink.text.isNullOrBlank() && !URLUtil.isValidUrl(jobLink.text.toString().trim())
+            if (isNotValidUrl) {
+                jobLink.showError("Invalid URL")
+            }
+
+            isValid = !companyName.text.isNullOrBlank() &&
+                        !jobRole.text.isNullOrBlank() &&
+                        !jobLink.text.isNullOrBlank() &&
+                        !isNotValidUrl
+        }
+        return isValid
     }
 
     override fun finish() {

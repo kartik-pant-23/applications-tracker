@@ -10,6 +10,10 @@
 
         <item name="snackbarStyle">@style/Snackbar</item>
         <item name="snackbarTextViewStyle">@style/SnackbarTextStyle</item>
+
+        <item name="actionOverflowButtonStyle">@style/MenuButtonStyle</item>
+
+        <item name="errorTextAppearance">@style/Body</item>
     </style>
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -56,9 +60,8 @@
     </style>
     <style name="Caption" parent="AppTextBold">
         <item name="android:fontFamily">@font/montserrat_bold</item>
-        <item name="android:textSize">@dimen/text_body1</item>
+        <item name="android:textSize">@dimen/text_small</item>
         <item name="android:textColor">@color/light_text</item>
-        <item name="android:layout_marginBottom">16dp</item>
         <item name="textAllCaps">true</item>
     </style>
 
@@ -67,7 +70,7 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textSize">@dimen/text_body2</item>
         <item name="minHeight">48dp</item>
-        <item name="android:background">@drawable/button_background</item>
+        <item name="android:background">@drawable/bg_round_corners</item>
         <item name="textAllCaps">false</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:letterSpacing">0</item>
@@ -136,9 +139,9 @@
     <!-- Popup Menu -->
     <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
         <item name="android:itemTextAppearance">@style/Body</item>
-        <item name="popupMenuBackground">@color/bottom_navigation_bar</item>
+        <item name="popupMenuBackground">@drawable/bg_spinner</item>
         <item name="android:popupElevation">16dp</item>
-        <item name="android:listDivider">@color/light_text</item>
+        <item name="android:listDivider">@color/divider_color</item>
     </style>
     
     <!-- Alert Dialog -->
@@ -158,6 +161,24 @@
         <item name="materialAlertDialogBodyTextStyle">@style/Body</item>
         <item name="buttonBarPositiveButtonStyle">@style/AlertDialog.Button</item>
         <item name="buttonBarNegativeButtonStyle">@style/AlertDialog.Button</item>
+    </style>
+
+    <!-- Spinner Style -->
+    <style name="SpinnerStyle" parent="android:Widget.Material.Spinner.Underlined">
+        <item name="android:background">@drawable/bg_spinner</item>
+        <item name="android:popupBackground">@drawable/bg_spinner</item>
+    </style>
+
+    <!-- Menu button style -->
+    <style name="MenuButtonStyle">
+        <item name="android:background">@drawable/bg_round_button</item>
+        <item name="android:backgroundTint">@color/card_color</item>
+        <item name="android:src">@drawable/ic_menu</item>
+        <item name="tint">@color/dark_text</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
     </style>
 
 </resources>
