@@ -8,7 +8,7 @@ import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
 import com.studbudd.application_tracker.feature_applications.data.repo.ApplicationsRepository
-import com.studbudd.application_tracker.workers.NotifyWorker
+import com.studbudd.application_tracker.core.data.workers.NotifyWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit

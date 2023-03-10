@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.workers
+package com.studbudd.application_tracker.core.data.workers
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent

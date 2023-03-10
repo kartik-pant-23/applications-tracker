@@ -27,7 +27,7 @@ import com.studbudd.application_tracker.databinding.ActivityMainBinding
 import com.studbudd.application_tracker.feature_applications.ui.create.AddNewApplicationActivity
 import com.studbudd.application_tracker.feature_applications.ui.home.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
-import com.studbudd.application_tracker.workers.NotifyWorker
+import com.studbudd.application_tracker.core.data.workers.NotifyWorker
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
