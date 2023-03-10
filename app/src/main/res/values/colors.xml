@@ -9,7 +9,7 @@
     <color name="tonal_button_color">#D8E5E4</color>
 
     <!-- Text color -->
-    <color name="light_text">#A62D2D2D</color>
+    <color name="light_text">#BF2D2D2D</color>
     <color name="dark_text">#2d2d2d</color>
 
     <!-- Window color -->
@@ -28,5 +28,7 @@
     <color name="text_input_layout">#401F2933</color>
 
     <color name="snackbar_color">#EFEFEF</color>
+
+    <color name="divider_color">#1A303030</color>
 
 </resources>

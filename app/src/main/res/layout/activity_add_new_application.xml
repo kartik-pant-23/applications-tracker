@@ -8,16 +8,18 @@
     android:orientation="vertical"
     tools:context=".feature_applications.ui.create.AddNewApplicationActivity">
 
-    <Button
+    <ImageView
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/add_new_application_back_button_text"
-        android:drawableLeft="@drawable/ic_arrow_back"
-        style="@style/TextButton"
-        android:drawableTint="@color/dark_text" />
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginVertical="8dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="@color/dark_text"
+        android:background="@drawable/bg_round_button"
+        android:backgroundTint="@color/card_color"
+        android:contentDescription="@string/content_description_back_button"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,91 +30,71 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
+            android:layout_marginTop="8dp"
             android:clipToPadding="false"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
                 android:text="@string/label_add_application_header"
                 style="@style/Title" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/company_name"
+                style="@style/Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_round_corners"
+                android:backgroundTint="@color/card_color"
+                android:drawableStart="@drawable/ic_company"
+                android:drawablePadding="12dp"
+                android:drawableTint="@color/dark_text"
                 android:hint="@string/hint_company_name"
-                android:textColorHint="@color/light_text"
-                android:layout_marginTop="24dp"
-                style="@style/TextInputLayoutStyle">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/company_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/dark_text"
-                    android:inputType="textCapWords|textShortMessage"
-                    android:fontFamily="@font/montserrat" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:inputType="textCapWords|textShortMessage"
+                android:minHeight="48dp" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/job_role"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextInputLayoutStyle"
+                android:minHeight="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_round_corners"
+                android:backgroundTint="@color/card_color"
                 android:hint="@string/hint_role"
-                android:textColorHint="@color/light_text"
-                android:layout_marginTop="@dimen/margin">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/job_role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/dark_text"
-                    android:inputType="textCapWords"
-                    android:fontFamily="@font/montserrat" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:drawableStart="@drawable/ic_job_role"
+                android:drawablePadding="12dp"
+                android:drawableTint="@color/dark_text"
+                android:inputType="textCapWords"
+                style="@style/Body" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/job_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_round_corners"
+                android:backgroundTint="@color/card_color"
                 android:hint="@string/hint_job_link"
-                android:textColorHint="@color/light_text"
-                style="@style/TextInputLayoutStyle"
-                android:layout_marginTop="@dimen/margin">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/job_link"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/dark_text"
-                    android:fontFamily="@font/montserrat"
-                    android:inputType="textUri" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                style="@style/TextInputLayoutStyle"
-                android:textColorHint="@color/light_text"
-                android:hint="@string/hint_notes"
-                android:layout_marginTop="@dimen/margin">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/notes"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/dark_text"
-                    android:gravity="top"
-                    android:fontFamily="@font/montserrat"
-                    android:inputType="textMultiLine|textCapSentences"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:drawableStart="@drawable/ic_link"
+                android:drawablePadding="12dp"
+                android:drawableTint="@color/dark_text"
+                android:inputType="textUri"
+                style="@style/Body" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
+                android:layout_marginVertical="24dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginEnd="16dp"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat"
                     android:textColor="@color/light_text"
@@ -120,27 +102,48 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-
+                    android:layout_weight="1">
                     <Spinner
                         android:id="@+id/job_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:background="@color/bottom_navigation_bar" />
+                        android:minHeight="48dp"
+                        style="@style/SpinnerStyle"
+                        android:contentDescription="@string/content_description_job_status" />
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:padding="12dp"
                         android:src="@drawable/ic_drop_down"
                         app:tint="@color/dark_text"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:background="@android:color/transparent"
-                        android:layout_marginEnd="@dimen/margin_small"
-                        android:scaleType="fitCenter"
-                        android:contentDescription="@string/spinner_desc"/>
+                        android:layout_centerVertical="true" />
                 </RelativeLayout>
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp"
+                    android:gravity="top"
+                    android:background="@drawable/bg_round_corners"
+                    android:backgroundTint="@color/card_color"
+                    android:hint="@string/hint_notes"
+                    android:paddingVertical="14dp"
+                    android:paddingStart="48dp"
+                    android:drawableTint="@color/dark_text"
+                    android:inputType="textCapSentences|textMultiLine"
+                    style="@style/Body" />
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_description"
+                    app:tint="@color/dark_text" />
+            </RelativeLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/submitButton"
@@ -148,7 +151,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/add_application"
                 style="@style/FilledButton"
-                android:layout_marginVertical="64dp" />
+                android:layout_marginTop="64dp"
+                android:layout_marginBottom="32dp"/>
 
         </LinearLayout>
 

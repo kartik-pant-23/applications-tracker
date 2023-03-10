@@ -5,12 +5,11 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.studbudd.application_tracker.core.utils.TimestampHelper
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
-import java.util.Calendar
 
 @JsonClass(generateAdapter = true)
 data class JobApplicationDto(
     @Json(name = "applicationStatus")
-    val applicationStatus: ApplicationStatus,
+    val applicationStatus: ApplicationStatusDto,
     @Json(name = "createdAt")
     val createdAt: String,
     @Json(name = "description")

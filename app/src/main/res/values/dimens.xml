@@ -20,11 +20,11 @@
     <dimen name="item_application_padding_horizontal">12dp</dimen>
     <dimen name="padding_image_button">10dp</dimen>
 
-    <dimen name="text_display">36.65dp</dimen>
-    <dimen name="text_heading">22.65dp</dimen>
-    <dimen name="text_body2">16dp</dimen>
-    <dimen name="text_body1">14dp</dimen>
-    <dimen name="text_small">12dp</dimen>
+    <dimen name="text_display">36.65sp</dimen>
+    <dimen name="text_heading">22.65sp</dimen>
+    <dimen name="text_body2">18sp</dimen>
+    <dimen name="text_body1">16sp</dimen>
+    <dimen name="text_small">14sp</dimen>
 
     <integer name="slide_transition_duration">300</integer>
 
