@@ -46,9 +46,9 @@ class JobApplicationsRepository_Impl (
                     status = status,
                     notes = notes
                 )
-            )
+            ) ?: return Resource.Failure("Oops.. Something went wrong!")
 
-            return if (id != null && isRemoteUser) {
+            if (isRemoteUser) {
                 GlobalScope.launch {
                     val reqParams = CreateRequest(
                         description = notes,
@@ -61,10 +61,8 @@ class JobApplicationsRepository_Impl (
                     )
                     createRemoteApplication(reqParams, id)
                 }
-                Resource.Success(Unit)
-            } else {
-                Resource.Failure("Oops.. Something went wrong!")
             }
+            Resource.Success(Unit)
         } catch (e: Exception) {
             handleException(TAG, e)
             Resource.Failure("Failed to insert application..")
