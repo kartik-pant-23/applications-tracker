@@ -6,12 +6,10 @@ import androidx.work.*
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
-import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
 import com.studbudd.application_tracker.feature_applications.data.repo.ApplicationsRepository
-import com.studbudd.application_tracker.core.data.workers.NotifyWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,8 +19,8 @@ class ApplicationViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val workManager = WorkManager.getInstance(application.applicationContext)
-    private val _applicationsList: MutableLiveData<List<JobApplicationEntity>> = MutableLiveData()
-    val applicationsList: LiveData<List<JobApplicationEntity>> = _applicationsList
+    private val _applicationsList: MutableLiveData<List<JobApplicationEntity_Old>> = MutableLiveData()
+    val applicationsList: LiveData<List<JobApplicationEntity_Old>> = _applicationsList
     private val firebaseAnalytics = Firebase.analytics
 
     private val _editMode: MutableLiveData<Boolean> = MutableLiveData()
@@ -52,12 +50,12 @@ class ApplicationViewModel @Inject constructor(
     // }
 
     // Get details of a particular application
-    fun getApplication(id: Int): LiveData<JobApplicationEntity> = repository.getApplication(id).asLiveData()
+    fun getApplication(id: Int): LiveData<JobApplicationEntity_Old> = repository.getApplication(id).asLiveData()
 
     // Insert New Application
-    fun insertApplication(jobApplication: JobApplicationEntity) = viewModelScope.launch {
+    fun insertApplication(jobApplication: JobApplicationEntity_Old) = viewModelScope.launch {
         val id = repository.insertApplication(jobApplication)
-        jobApplication.id = id.toInt()
+        jobApplication.id = id
         createNotification(jobApplication)
 
         firebaseAnalytics.logEvent("application_created") {
@@ -67,60 +65,60 @@ class ApplicationViewModel @Inject constructor(
     }
 
     // Update Application
-    fun updateApplication(newJobApplication: JobApplicationEntity) = viewModelScope.launch {
+    fun updateApplication(newJobApplication: JobApplicationEntity_Old) = viewModelScope.launch {
         repository.updateApplication(newJobApplication)
         createNotification(newJobApplication)
     }
 
     // Delete Application
-    fun deleteApplication(jobApplication: JobApplicationEntity) = viewModelScope.launch {
+    fun deleteApplication(jobApplication: JobApplicationEntity_Old) = viewModelScope.launch {
         workManager.cancelUniqueWork("application${jobApplication.id}")
         repository.deleteApplication(jobApplication)
     }
 
-    private fun createNotification(jobApplication: JobApplicationEntity) {
+    private fun createNotification(jobApplication: JobApplicationEntity_Old) {
         if (jobApplication.status > 2) {
             workManager.cancelUniqueWork("application${jobApplication.id}")
         } else {
-            val contentTitle: String = when (jobApplication.status) {
-                0 -> "Still waiting?"
-                1 -> "Are there any updates?"
-                else -> "More expectations, more excitement!!"
-            }
-            val contentText: String = when (jobApplication.status) {
-                0 -> "Did you get a referral for ${jobApplication.role} role at ${jobApplication.companyName}?"
-                1 -> "Any updates on your application at ${jobApplication.companyName} for role of ${jobApplication.role}?"
-                else -> "You applied with a referral at ${jobApplication.companyName}, ${jobApplication.role} role. Any good news?"
-            }
-            val duration: Long = when (jobApplication.status) {
-                0 -> 6
-                1 -> 7
-                else -> 15
-            }
-            val unit: TimeUnit = when (jobApplication.status) {
-                0 -> TimeUnit.HOURS
-                else -> TimeUnit.DAYS
-            }
-
-            val inputData = Data.Builder()
-                .putInt(NotifyWorker.applicationIdKey, jobApplication.id)
-                .putString(NotifyWorker.contentTitleKey, contentTitle)
-                .putString(NotifyWorker.contentTextKey, contentText)
-                .build()
-
-            val workRequest = PeriodicWorkRequest.Builder(
-                NotifyWorker::class.java,
-                duration,
-                unit
-            )
-                .setInitialDelay(duration, unit)
-                .setInputData(inputData)
-                .build()
-            workManager.enqueueUniquePeriodicWork(
-                "application${jobApplication.id}",
-                ExistingPeriodicWorkPolicy.REPLACE,
-                workRequest
-            )
+//            val contentTitle: String = when (jobApplication.status) {
+//                0 -> "Still waiting?"
+//                1 -> "Are there any updates?"
+//                else -> "More expectations, more excitement!!"
+//            }
+//            val contentText: String = when (jobApplication.status) {
+//                0 -> "Did you get a referral for ${jobApplication.role} role at ${jobApplication.companyName}?"
+//                1 -> "Any updates on your application at ${jobApplication.companyName} for role of ${jobApplication.role}?"
+//                else -> "You applied with a referral at ${jobApplication.companyName}, ${jobApplication.role} role. Any good news?"
+//            }
+//            val duration: Long = when (jobApplication.status) {
+//                0 -> 6
+//                1 -> 7
+//                else -> 15
+//            }
+//            val unit: TimeUnit = when (jobApplication.status) {
+//                0 -> TimeUnit.HOURS
+//                else -> TimeUnit.DAYS
+//            }
+//
+//            val inputData = Data.Builder()
+//                .putInt(NotifyWorker.applicationIdKey, jobApplication.id)
+//                .putString(NotifyWorker.contentTitleKey, contentTitle)
+//                .putString(NotifyWorker.contentTextKey, contentText)
+//                .build()
+//
+//            val workRequest = PeriodicWorkRequest.Builder(
+//                NotifyWorker::class.java,
+//                duration,
+//                unit
+//            )
+//                .setInitialDelay(duration, unit)
+//                .setInputData(inputData)
+//                .build()
+//            workManager.enqueueUniquePeriodicWork(
+//                "application${jobApplication.id}",
+//                ExistingPeriodicWorkPolicy.REPLACE,
+//                workRequest
+//            )
         }
     }
 

@@ -1,6 +1,7 @@
 package com.studbudd.application_tracker.feature_applications.domain.use_cases
 
 import android.webkit.URLUtil
+import androidx.work.WorkManager
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
 import kotlinx.coroutines.*
@@ -8,6 +9,7 @@ import javax.inject.Inject
 
 class CreateJobApplicationUseCase (
     private val repo: JobApplicationsRepository,
+    private val createNotification: CreatePeriodicNotifications
 ) {
 
     /**
@@ -22,21 +24,25 @@ class CreateJobApplicationUseCase (
         role: String,
         url: String,
         notes: String?,
-        status: Int
+        status: Long
     ): Resource<Unit> {
-        println(URLUtil.guessUrl(url))
         return if (company.isBlank() || role.isBlank() || url.isBlank())
             Resource.Failure("Some mandatory fields were empty..")
         else if (!URLUtil.isValidUrl(url.trim())) {
             Resource.Failure("Invalid job link added..")
         } else {
-            repo.create(
+            return when (val res = repo.create(
                 company = company.trim(),
                 role = role.trim(),
                 jobUrl = url.trim(),
                 notes = notes,
                 status = status
-            )
+            )) {
+                is Resource.Success -> {
+                    createNotification(res.data!!)
+                }
+                else -> Resource.Failure("Failed to add application!")
+            }
         }
     }
 

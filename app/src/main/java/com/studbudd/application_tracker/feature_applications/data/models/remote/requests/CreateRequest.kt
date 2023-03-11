@@ -11,7 +11,7 @@ data class CreateRequest(
     @Json(name = "job_details")
     val jobDetails: JobDetails,
     @Json(name = "status")
-    val status: Int
+    val status: Long
 ) {
     @JsonClass(generateAdapter = true)
     data class JobDetails(

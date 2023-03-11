@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -35,7 +34,7 @@ class NotifyWorker(
             .getActivity(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notification =
-            NotificationCompat.Builder(applicationContext, BaseApplication.CHANNEL_ID)
+            NotificationCompat.Builder(applicationContext, BaseApplication.PERIODIC_NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(contentTitle)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(contentText))
                 .setContentText(contentText)

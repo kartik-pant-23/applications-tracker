@@ -11,10 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
 import com.studbudd.application_tracker.databinding.FragmentApplicationDetailsBinding
 import com.studbudd.application_tracker.core.utils.ARG_APPLICATION_ID
-import com.studbudd.application_tracker.core.utils.DATE_FORMAT
 import com.studbudd.application_tracker.core.utils.TimestampHelper
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +24,7 @@ class ApplicationDetailsFragment : Fragment() {
     private var binding: FragmentApplicationDetailsBinding? = null
     private val viewModel by viewModels<ApplicationViewModel>()
     private var applicationId: Int = 1
-    private lateinit var _Job_application: JobApplicationEntity
+    private lateinit var _Job_application: JobApplicationEntity_Old
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +56,7 @@ class ApplicationDetailsFragment : Fragment() {
                     applicationCreatedAt.text =
                         TimestampHelper.getFormattedString(application.createdAt ?: "", TimestampHelper.DETAILED)
                     jobStatus.text =
-                        resources.getStringArray(R.array.job_status)[application.status]
+                        resources.getStringArray(R.array.job_status)[application.status.toInt()]
 
                     ArrayAdapter.createFromResource(
                         this@ApplicationDetailsFragment.requireContext(),
@@ -67,7 +66,7 @@ class ApplicationDetailsFragment : Fragment() {
                         adapter.setDropDownViewResource(R.layout.item_spinner)
                         editJobStatus.adapter = adapter
                     }
-                    editJobStatus.setSelection(application.status, true)
+                    editJobStatus.setSelection(application.status.toInt(), true)
                 }
             }
         }
@@ -143,12 +142,12 @@ class ApplicationDetailsFragment : Fragment() {
                 editJobLink.error = "Field cannot be empty!"
             } else {
                 viewModel.updateApplication(
-                    JobApplicationEntity(
+                    JobApplicationEntity_Old(
                     companyName = _Job_application.companyName,
                     role = _Job_application.role,
                     jobLink = editJobLink.text.toString(),
                     notes = editNotes.text.toString(),
-                    status = editJobStatus.selectedItemPosition
+                    status = editJobStatus.selectedItemPosition.toLong()
                 )
                 )
                 viewModel.changeEditMode(false)

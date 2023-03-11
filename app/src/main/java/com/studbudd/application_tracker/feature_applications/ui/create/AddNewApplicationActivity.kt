@@ -107,7 +107,7 @@ class AddNewApplicationActivity : AppCompatActivity() {
                 role = jobRole.text!!.toString(),
                 jobLink = jobLink.text!!.toString(),
                 notes = notes.text?.toString(),
-                status = jobStatus.selectedItemPosition
+                status = jobStatus.selectedItemPosition.toLong()
             )
         }
     }

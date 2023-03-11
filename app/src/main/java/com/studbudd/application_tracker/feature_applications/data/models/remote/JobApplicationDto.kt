@@ -4,7 +4,7 @@ package com.studbudd.application_tracker.feature_applications.data.models.remote
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.studbudd.application_tracker.core.utils.TimestampHelper
-import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
 
 @JsonClass(generateAdapter = true)
 data class JobApplicationDto(
@@ -22,8 +22,8 @@ data class JobApplicationDto(
     val updatedAt: String
 ) {
 
-    fun toJobApplicationEntity(): JobApplicationEntity {
-        return JobApplicationEntity(
+    fun toJobApplicationEntity(): JobApplicationEntity_Old {
+        return JobApplicationEntity_Old(
             companyName = job.company,
             companyLogo = job.companyLogo,
             role = job.role,
