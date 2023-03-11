@@ -18,12 +18,13 @@ import com.studbudd.application_tracker.feature_user.data.models.local.UserEntit
 import com.studbudd.application_tracker.core.utils.DateConverter
 import com.studbudd.application_tracker.core.utils.TimestampHelper
 import com.studbudd.application_tracker.feature_applications.data.models.local.ApplicationStatusEntity
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
 import java.util.Calendar
 import java.util.Date
 
 @Database(
     entities = [
-        JobApplicationEntity_Old::class,
+        JobApplicationEntity::class,
         ApplicationStatusEntity::class,
         UserEntity::class
     ],

@@ -7,19 +7,19 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface JobApplicationsDao {
 
-    @Query("SELECT * FROM applications_old WHERE status in (:status) ORDER BY " +
-            "CASE WHEN :latest_first = 1 THEN created_at END DESC, " +
-            "CASE WHEN :latest_first = 0 THEN created_at END ASC "
+    @Query("SELECT * FROM applications WHERE status in (:status) ORDER BY " +
+            "CASE WHEN :latest_first = 1 THEN createdAt END DESC, " +
+            "CASE WHEN :latest_first = 0 THEN createdAt END ASC "
     )
     suspend fun getApplicationsByCreatedDate(latest_first: Boolean, status: List<Int>): List<JobApplicationEntity_Old>
 
-    @Query("SELECT * FROM applications_old WHERE status in (:status) ORDER BY " +
-            "CASE WHEN :latest_first = 1 THEN modified_at END DESC, " +
-            "CASE WHEN :latest_first = 0 THEN modified_at END ASC "
+    @Query("SELECT * FROM applications WHERE status in (:status) ORDER BY " +
+            "CASE WHEN :latest_first = 1 THEN modifiedAt END DESC, " +
+            "CASE WHEN :latest_first = 0 THEN modifiedAt END ASC "
     )
     suspend fun getApplicationsByModifiedDate(latest_first: Boolean, status: List<Int>): List<JobApplicationEntity_Old>
 
-    @Query("SELECT * FROM applications_old WHERE application_id=:id")
+    @Query("SELECT * FROM applications WHERE id=:id")
     fun getApplication(id: Long): Flow<JobApplicationEntity_Old>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -28,7 +28,7 @@ interface JobApplicationsDao {
     @Update
     suspend fun update(jobApplication: JobApplicationEntity_Old)
 
-    @Query("UPDATE applications_old SET remote_id=(:remoteId) WHERE application_id=(:id)")
+    @Query("UPDATE applications SET remoteId=(:remoteId) WHERE id=(:id)")
     suspend fun updateRemoteId(id: Long, remoteId: String)
 
     @Delete
