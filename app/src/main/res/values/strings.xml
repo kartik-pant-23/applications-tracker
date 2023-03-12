@@ -3,7 +3,7 @@
 
     <!-- Landing Screen -->
     <string name="landing_screen_heading">Manage Your Applications Easily</string>
-    <string name="important_notes_text"><b>IMPORTANT</b>\n\u2022 Your data isn’t tracked unless you choose to save you progress.\n\u2022 This also means that if you choose to delete the app, all your data will be lost.\n\u2022 Checkout the app anonymously, and save your progress only if you like the app :)</string>
+    <string name="important_notes_text"><b>IMPORTANT</b>\n\u2022 Your data isn’t tracked unless you choose to save your progress.\n\u2022 This also means that if you choose to delete the app, all your data will be lost.\n\u2022 Checkout the app anonymously, and save your progress only if you like the app :)</string>
     <string name="signin_button_text">Going Anonymously</string>
     <string name="already_login_label">Already have an account?</string>
     <string name="google_signin_button_text">Sign In With Google</string>
@@ -65,7 +65,7 @@
     <string name="placeholder_created_at">Created At</string>
     <string name="placeholder_null_notes">~~Consider adding notes!!\nThey can help you remember who you approached for referral.~~</string>
     <string name="no_applications_title">Oops!</string>
-    <string name="no_applications_message">You have not added any applications!!\nAdd an application and get started.</string>
+    <string name="no_applications_message">No matching applications found!\nHow about adding a new application :)</string>
     <string name="show_preview">Show Preview</string>
 
     <string name="button_update">Update</string>
@@ -95,5 +95,7 @@
     <string name="content_description_back_button">Back button</string>
 
     <string name="empty_field_error_text">%1$s is a mandatory field!</string>
+    <string name="content_description_company_logo">Company Logo</string>
+    <string name="hint_search_applications">Search by company, role</string>
 
 </resources>

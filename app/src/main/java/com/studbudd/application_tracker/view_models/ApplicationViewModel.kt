@@ -20,9 +20,6 @@ class ApplicationViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val workManager = WorkManager.getInstance(application.applicationContext)
-    private val _applicationsList: MutableLiveData<List<JobApplicationEntity_Old>> = MutableLiveData()
-    val applicationsList: LiveData<List<JobApplicationEntity_Old>> = _applicationsList
-    private val firebaseAnalytics = Firebase.analytics
 
     private val _editMode: MutableLiveData<Boolean> = MutableLiveData()
     val editMode: LiveData<Boolean> = _editMode
@@ -30,40 +27,8 @@ class ApplicationViewModel @Inject constructor(
         _editMode.postValue(isEditMode)
     }
 
-    // Adding variables to apply filters while showing applications
-    private var _status: List<Int> = listOf(0, 1, 2, 3, 4)
-    private var _orderByCreated: Boolean = true
-    private var _latestFirst: Boolean = true
-
-    // Getting all applications list
-    fun getAllApplications() = viewModelScope.launch {
-        _applicationsList.postValue(
-            repository.getAllApplications(
-                _orderByCreated,
-                _latestFirst,
-                _status
-            )
-        )
-    }
-
-    // TODO: Apply filters before showing applications list
-    // fun applyFilters() {
-    // }
-
     // Get details of a particular application
-    fun getApplication(id: Int): LiveData<JobApplicationWithStatus> = repository.getApplication(id).asLiveData()
-
-    // Insert New Application
-    fun insertApplication(jobApplication: JobApplicationEntity_Old) = viewModelScope.launch {
-        val id = repository.insertApplication(jobApplication)
-        jobApplication.id = id
-        createNotification(jobApplication)
-
-        firebaseAnalytics.logEvent("application_created") {
-            param("status", jobApplication.status.toLong())
-            param("has_notes", if (jobApplication.notes.isNullOrBlank()) "true" else "false")
-        }
-    }
+    fun getApplication(id: Long): LiveData<JobApplicationWithStatus> = repository.getApplication(id.toInt()).asLiveData()
 
     // Update Application
     fun updateApplication(newJobApplication: JobApplicationEntity_Old) = viewModelScope.launch {

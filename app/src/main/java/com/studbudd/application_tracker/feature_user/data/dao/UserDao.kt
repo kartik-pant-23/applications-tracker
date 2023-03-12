@@ -20,7 +20,7 @@ interface UserDao {
     @Update
     suspend fun updateUser(newUser: UserEntity)
 
-    @Query("DELETE FROM users WHERE id=1")
-    suspend fun deleteLocalUser()
+    @Query("DELETE FROM users")
+    suspend fun delete()
 
 }

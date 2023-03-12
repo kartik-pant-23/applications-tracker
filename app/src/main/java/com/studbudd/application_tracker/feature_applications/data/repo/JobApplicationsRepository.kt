@@ -2,6 +2,7 @@ package com.studbudd.application_tracker.feature_applications.data.repo
 
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
+import kotlinx.coroutines.flow.Flow
 
 interface JobApplicationsRepository {
 
@@ -12,5 +13,10 @@ interface JobApplicationsRepository {
         status: Long,
         notes: String?
     ): Resource<JobApplication>
+
+    suspend fun getApplications(
+        pageSize: Int,
+        pageNum: Int
+    ): Flow<Resource<List<JobApplication>>>
 
 }

@@ -169,8 +169,8 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         if (intent != null) {
-            val applicationId: Int = intent.getIntExtra(NotifyWorker.applicationIdKey, -1)
-            if (applicationId != -1) {
+            val applicationId: Long = intent.getLongExtra(NotifyWorker.applicationIdKey, -1)
+            if (applicationId != -1L) {
                 navController.navigate(
                     ApplicationsFragmentDirections.actionApplicationsFragmentToApplicationDetailsFragment(
                         applicationId

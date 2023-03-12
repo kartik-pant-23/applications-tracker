@@ -22,6 +22,10 @@ interface JobApplicationsDao {
     suspend fun getApplicationsByModifiedDate(latest_first: Boolean, status: List<Int>): List<JobApplicationEntity_Old>
 
     @Transaction
+    @Query("SELECT * FROM applications ORDER BY createdAt DESC LIMIT (:limit) OFFSET (:offset)")
+    fun getApplications(limit: Int, offset: Int): Flow<List<JobApplicationWithStatus>>
+
+    @Transaction
     @Query("SELECT * FROM applications WHERE id=:id")
     fun getApplication(id: Long): Flow<JobApplicationWithStatus>
 
@@ -38,5 +42,8 @@ interface JobApplicationsDao {
 
     @Delete
     suspend fun delete(jobApplication: JobApplicationEntity_Old)
+
+    @Query("DELETE FROM applications")
+    suspend fun deleteAllApplications()
 
 }

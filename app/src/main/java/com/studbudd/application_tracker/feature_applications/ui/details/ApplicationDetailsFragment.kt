@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.feature_applications.ui.home
+package com.studbudd.application_tracker.feature_applications.ui.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -24,13 +24,13 @@ class ApplicationDetailsFragment : Fragment() {
 
     private var binding: FragmentApplicationDetailsBinding? = null
     private val viewModel by viewModels<ApplicationViewModel>()
-    private var applicationId: Int = 1
+    private var applicationId: Long = 1
     private lateinit var _Job_application: JobApplicationEntity_Old
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            applicationId = it.getInt(ARG_APPLICATION_ID)
+            applicationId = it.getLong(ARG_APPLICATION_ID)
         }
     }
 
