@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.core.dao
+package com.studbudd.application_tracker.core.data.dao
 
 import com.studbudd.application_tracker.core.data.models.ApiResponse
 import com.studbudd.application_tracker.feature_user.data.models.remote.response.LoginResponse

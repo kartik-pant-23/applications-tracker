@@ -6,12 +6,14 @@ import com.studbudd.application_tracker.core.domain.HandleException
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsApi
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
-import com.studbudd.application_tracker.feature_applications.data.models.remote.JobApplicationDto
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationWithStatus
 import com.studbudd.application_tracker.feature_applications.data.models.remote.requests.CreateRequest
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
+import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class JobApplicationsRepository_Impl (
     private val dao: JobApplicationsDao,
@@ -34,13 +36,13 @@ class JobApplicationsRepository_Impl (
         company: String,
         role: String,
         jobUrl: String,
-        status: Int,
+        status: Long,
         notes: String?
-    ): Resource<Unit> {
+    ): Resource<JobApplication> {
         return try {
             val id = dao.insert(
                 JobApplicationEntity(
-                    companyName = company,
+                    company = company,
                     role = role,
                     jobLink = jobUrl,
                     status = status,
@@ -48,25 +50,28 @@ class JobApplicationsRepository_Impl (
                 )
             ) ?: return Resource.Failure("Oops.. Something went wrong!")
 
-            if (isRemoteUser) {
-                GlobalScope.launch {
-                    val reqParams = CreateRequest(
-                        description = notes,
-                        jobDetails = CreateRequest.JobDetails(
-                            company = company,
-                            role = role,
-                            url = jobUrl
-                        ),
-                        status = status + 1 // TODO - fix when final implementation
-                    )
-                    createRemoteApplication(reqParams, id)
-                }
-            }
-            Resource.Success(Unit)
+            val createdApplication = dao.getApplication(id).firstOrNull()
+                ?: return Resource.Failure("Oops.. Something went wrong!")
+
+            if (isRemoteUser) { createApplicationInGlobalScope(createdApplication) }
+            return Resource.Success(createdApplication.toJobApplication())
         } catch (e: Exception) {
             handleException(TAG, e)
             Resource.Failure("Failed to insert application..")
         }
+    }
+
+    private suspend fun createApplicationInGlobalScope(data: JobApplicationWithStatus) {
+        val reqParams = CreateRequest(
+            description = data.application.notes,
+            jobDetails = CreateRequest.JobDetails(
+                company = data.application.company,
+                role = data.application.role,
+                url = data.application.jobLink
+            ),
+            status = data.status.id // TODO - fix when final implementation
+        )
+        GlobalScope.launch { createRemoteApplication(reqParams, data.application.id) }
     }
 
     private suspend fun createRemoteApplication(

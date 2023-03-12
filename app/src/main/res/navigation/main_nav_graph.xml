@@ -11,17 +11,8 @@
         android:label="@string/label_home"
         tools:layout="@layout/fragment_applications" >
         <action
-            android:id="@+id/action_applicationsFragment_to_addApplicationFragment"
-            app:destination="@id/addApplicationFragment" />
-        <action
             android:id="@+id/action_applicationsFragment_to_applicationDetailsFragment"
             app:destination="@id/applicationDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addApplicationFragment"
-        android:name="com.studbudd.application_tracker.feature_applications.ui.home.AddApplicationFragment"
-        android:label="@string/label_add_application"
-        tools:layout="@layout/fragment_add_application" >
     </fragment>
     <fragment
         android:id="@+id/applicationDetailsFragment"

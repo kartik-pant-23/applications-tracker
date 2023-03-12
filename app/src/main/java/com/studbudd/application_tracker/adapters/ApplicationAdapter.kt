@@ -10,18 +10,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
 import com.studbudd.application_tracker.databinding.ItemApplicationBinding
-import com.studbudd.application_tracker.core.utils.DATE_FORMAT
 import com.studbudd.application_tracker.core.utils.TimestampHelper
 
 class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
-    ListAdapter<JobApplicationEntity, ApplicationAdapter.ApplicationsViewHolder>(
-        object : DiffUtil.ItemCallback<JobApplicationEntity>() {
-            override fun areItemsTheSame(oldItem: JobApplicationEntity, newItem: JobApplicationEntity): Boolean {
+    ListAdapter<JobApplicationEntity_Old, ApplicationAdapter.ApplicationsViewHolder>(
+        object : DiffUtil.ItemCallback<JobApplicationEntity_Old>() {
+            override fun areItemsTheSame(oldItem: JobApplicationEntity_Old, newItem: JobApplicationEntity_Old): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: JobApplicationEntity, newItem: JobApplicationEntity): Boolean {
+            override fun areContentsTheSame(oldItem: JobApplicationEntity_Old, newItem: JobApplicationEntity_Old): Boolean {
                 return oldItem.toString() == newItem.toString()
             }
 
@@ -58,12 +57,12 @@ class ApplicationAdapter(private val OnItemClickListener: (View, Int) -> Unit) :
 
             // Setting background depending on status
             status.text = holder.itemView.context.resources
-                .getStringArray(R.array.job_status)[application.status]
-            status.backgroundTintList = ColorStateList.valueOf(getStatusColor(application.status))
+                .getStringArray(R.array.job_status)[application.status.toInt()]
+            status.backgroundTintList = ColorStateList.valueOf(getStatusColor(application.status.toInt()))
 
             // Adding on click listener
             root.setOnClickListener{
-                OnItemClickListener(it, application.id)
+                OnItemClickListener(it, application.id.toInt())
             }
         }
     }

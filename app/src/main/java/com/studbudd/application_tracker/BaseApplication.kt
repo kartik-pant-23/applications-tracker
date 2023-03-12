@@ -16,7 +16,7 @@ class BaseApplication: Application() {
             val name = getString(R.string.channel_name)
             val descriptionText = getString(R.string.channel_description)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+            val channel = NotificationChannel(PERIODIC_NOTIFICATION_CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
             // Register the channel with the system
@@ -27,6 +27,7 @@ class BaseApplication: Application() {
     }
 
     companion object {
-        const val CHANNEL_ID = "notify_job_status"
+        const val PERIODIC_NOTIFICATION_CHANNEL_ID = "notify_job_status"
+        const val PERIODIC_NOTIFICATION_ID = 0
     }
 }

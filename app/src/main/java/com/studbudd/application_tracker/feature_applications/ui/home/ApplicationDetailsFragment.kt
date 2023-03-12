@@ -11,13 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
 import com.studbudd.application_tracker.databinding.FragmentApplicationDetailsBinding
 import com.studbudd.application_tracker.core.utils.ARG_APPLICATION_ID
-import com.studbudd.application_tracker.core.utils.DATE_FORMAT
 import com.studbudd.application_tracker.core.utils.TimestampHelper
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class ApplicationDetailsFragment : Fragment() {
@@ -25,7 +25,7 @@ class ApplicationDetailsFragment : Fragment() {
     private var binding: FragmentApplicationDetailsBinding? = null
     private val viewModel by viewModels<ApplicationViewModel>()
     private var applicationId: Int = 1
-    private lateinit var _Job_application: JobApplicationEntity
+    private lateinit var _Job_application: JobApplicationEntity_Old
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,20 +44,30 @@ class ApplicationDetailsFragment : Fragment() {
             if (application == null) {
                 binding?.root?.findNavController()?.navigateUp()
             } else {
-                _Job_application = application
+                _Job_application = JobApplicationEntity_Old(
+                    companyName = application.application.company,
+                    role = application.application.role,
+                    jobLink = application.application.jobLink,
+                    status = application.status.id,
+                    notes = application.application.notes,
+                    companyLogo = application.application.companyLogo,
+                    createdAtCalendar = Calendar.getInstance(),
+                    modifiedAtCalendar = Calendar.getInstance(),
+                )
                 binding?.run {
-                    applicationTitle.text = application.title
+                    applicationTitle.text = _Job_application.title
                     notes.text =
-                        if (application.notes.isNullOrBlank()) getString(R.string.placeholder_null_notes) else application.notes
-                    editNotes.setText(application.notes)
+                        if (_Job_application.notes.isNullOrBlank())
+                            getString(R.string.placeholder_null_notes)
+                        else _Job_application.notes
+                    editNotes.setText(_Job_application.notes)
 
-                    jobLink.text = application.jobLink
-                    editJobLink.setText(application.jobLink)
+                    jobLink.text = _Job_application.jobLink
+                    editJobLink.setText(_Job_application.jobLink)
 
                     applicationCreatedAt.text =
-                        TimestampHelper.getFormattedString(application.createdAt ?: "", TimestampHelper.DETAILED)
-                    jobStatus.text =
-                        resources.getStringArray(R.array.job_status)[application.status]
+                        TimestampHelper.getFormattedString(_Job_application.createdAt ?: "", TimestampHelper.DETAILED)
+                    jobStatus.text = application.status.tag
 
                     ArrayAdapter.createFromResource(
                         this@ApplicationDetailsFragment.requireContext(),
@@ -67,7 +77,7 @@ class ApplicationDetailsFragment : Fragment() {
                         adapter.setDropDownViewResource(R.layout.item_spinner)
                         editJobStatus.adapter = adapter
                     }
-                    editJobStatus.setSelection(application.status, true)
+                    editJobStatus.setSelection(_Job_application.status.toInt(), true)
                 }
             }
         }
@@ -143,12 +153,12 @@ class ApplicationDetailsFragment : Fragment() {
                 editJobLink.error = "Field cannot be empty!"
             } else {
                 viewModel.updateApplication(
-                    JobApplicationEntity(
+                    JobApplicationEntity_Old(
                     companyName = _Job_application.companyName,
                     role = _Job_application.role,
                     jobLink = editJobLink.text.toString(),
                     notes = editNotes.text.toString(),
-                    status = editJobStatus.selectedItemPosition
+                    status = editJobStatus.selectedItemPosition.toLong()
                 )
                 )
                 viewModel.changeEditMode(false)

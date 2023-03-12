@@ -1,7 +1,7 @@
 package com.studbudd.application_tracker.core.di
 
 import com.studbudd.application_tracker.BuildConfig
-import com.studbudd.application_tracker.core.dao.RefreshTokenDao
+import com.studbudd.application_tracker.core.data.dao.RefreshTokenDao
 import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
 import dagger.Module
 import dagger.Provides

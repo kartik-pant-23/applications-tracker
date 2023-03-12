@@ -33,7 +33,11 @@ class AppModule {
             application,
             AppDatabase::class.java,
             DATABASE_NAME,
-        ).addMigrations(AppDatabase.Migration_2_3, AppDatabase.Migration_3_4)
+        ).addMigrations(
+            AppDatabase.Migration_2_3,
+            AppDatabase.Migration_3_4,
+            AppDatabase.Migration_4_5
+        )
             .build()
     }
 

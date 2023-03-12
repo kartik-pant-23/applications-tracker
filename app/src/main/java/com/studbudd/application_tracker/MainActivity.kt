@@ -27,7 +27,7 @@ import com.studbudd.application_tracker.databinding.ActivityMainBinding
 import com.studbudd.application_tracker.feature_applications.ui.create.AddNewApplicationActivity
 import com.studbudd.application_tracker.feature_applications.ui.home.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
-import com.studbudd.application_tracker.workers.NotifyWorker
+import com.studbudd.application_tracker.core.data.workers.NotifyWorker
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val DAYS_FOR_FLEXIBLE_UPDATES: Int = 7
         const val UPDATE_REQUEST_CODE: Int = 100
+        const val NOTIFICATION_REQUEST_CODE = 101
         const val TAG = "MainActivity"
     }
 
