@@ -16,12 +16,12 @@
     </fragment>
     <fragment
         android:id="@+id/applicationDetailsFragment"
-        android:name="com.studbudd.application_tracker.feature_applications.ui.home.ApplicationDetailsFragment"
+        android:name="com.studbudd.application_tracker.feature_applications.ui.details.ApplicationDetailsFragment"
         android:label="@string/label_details"
         tools:layout="@layout/fragment_application_details" >
         <argument
             android:name="application_id"
-            app:argType="integer"
+            app:argType="long"
             app:nullable="false" />
         <action
             android:id="@+id/action_applicationDetailsFragment_to_draftMessageFragment"
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/draftMessageFragment"
-        android:name="com.studbudd.application_tracker.feature_applications.ui.home.DraftMessageFragment"
+        android:name="com.studbudd.application_tracker.feature_applications.ui.draft_message.DraftMessageFragment"
         android:label="fragment_draft_message"
         tools:layout="@layout/fragment_draft_message">
         <argument

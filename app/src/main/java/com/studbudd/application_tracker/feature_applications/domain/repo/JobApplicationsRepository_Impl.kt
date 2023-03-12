@@ -6,13 +6,14 @@ import com.studbudd.application_tracker.core.domain.HandleException
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsApi
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
-import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationWithStatus
 import com.studbudd.application_tracker.feature_applications.data.models.remote.requests.CreateRequest
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 class JobApplicationsRepository_Impl (
@@ -83,6 +84,22 @@ class JobApplicationsRepository_Impl (
         )
         if (res is Resource.Success) {
             dao.updateRemoteId(id = applicationId, remoteId = res.data!!.id)
+        }
+    }
+
+    override suspend fun getApplications(pageSize: Int, pageNum: Int):
+            Flow<Resource<List<JobApplication>>>  = flow {
+        try {
+            dao.getApplications(pageSize, pageSize * (pageNum - 1)).collect {
+                val applicationsList = it.map { item -> item.toJobApplication() }
+                emit(Resource.Success(applicationsList))
+                if (isRemoteUser) {
+                    // TODO - fetch from the remote datasource and update each application
+                }
+            }
+        } catch (e: Exception) {
+            handleException(TAG, e)
+            emit(Resource.Failure("Failed to fetch applications.."))
         }
     }
 

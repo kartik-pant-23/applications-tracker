@@ -13,9 +13,11 @@ import com.studbudd.application_tracker.core.domain.ClearAppDataUseCase
 import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.core.data.AppDatabase
 import com.studbudd.application_tracker.core.domain.HandleApiCall
+import com.studbudd.application_tracker.core.domain.PrefillApplicationStatus
 import com.studbudd.application_tracker.feature_applications.data.repo.ApplicationsRepository
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.core.utils.DATABASE_NAME
+import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,6 +40,7 @@ class AppModule {
             AppDatabase.Migration_3_4,
             AppDatabase.Migration_4_5
         )
+            .addCallback(PrefillApplicationStatus())
             .build()
     }
 
@@ -74,9 +77,10 @@ class AppModule {
     @Singleton
     fun providesClearAppDataUseCase(
         prefManager: SharedPreferencesManager,
-        database: AppDatabase
+        userDao: UserDao,
+        applicationsDao: JobApplicationsDao
     ): ClearAppDataUseCase {
-        return ClearAppDataUseCase(prefManager, database)
+        return ClearAppDataUseCase(prefManager, userDao, applicationsDao)
     }
 
     @Provides

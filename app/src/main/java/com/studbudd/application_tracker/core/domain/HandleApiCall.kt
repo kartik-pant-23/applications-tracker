@@ -18,7 +18,7 @@ class HandleApiCall(
         return try {
             val res = apiCall()
             if (res.code() == 401 || res.code() == 403) {
-                userDao.deleteLocalUser()
+                userDao.delete()
                 Resource.LoggedOut()
             } else if (res.isSuccessful && res.body() != null) {
                 Resource.Success(res.body()!!.data!!)

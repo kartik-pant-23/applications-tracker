@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature_applications.ui.home.ApplicationDetailsFragment">
+    tools:context=".feature_applications.ui.details.ApplicationDetailsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

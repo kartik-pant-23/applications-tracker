@@ -56,6 +56,10 @@
         <item name="android:textSize">@dimen/text_body1</item>
         <item name="android:textColor">@color/dark_text</item>
     </style>
+    <style name="Body2" parent="AppTextBold">
+        <item name="android:textSize">@dimen/text_body2</item>
+        <item name="android:textColor">@color/dark_text</item>
+    </style>
     <style name="Caption" parent="AppTextBold">
         <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:textSize">@dimen/text_small</item>

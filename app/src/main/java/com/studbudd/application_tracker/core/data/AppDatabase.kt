@@ -156,7 +156,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        private val defaultApplicationStatus = listOf<ContentValues>(
+        val defaultApplicationStatus = listOf(
             contentValuesOf(
                 Pair("id", 0),
                 Pair("tag", "waiting for referral"),

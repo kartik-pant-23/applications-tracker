@@ -13,6 +13,7 @@ import com.studbudd.application_tracker.feature_applications.domain.repo.JobAppl
 import com.studbudd.application_tracker.feature_applications.domain.use_cases.ApplicationsUseCase
 import com.studbudd.application_tracker.feature_applications.domain.use_cases.CreateJobApplicationUseCase
 import com.studbudd.application_tracker.feature_applications.domain.use_cases.CreatePeriodicNotifications
+import com.studbudd.application_tracker.feature_applications.domain.use_cases.GetJobApplicationsUseCase
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import dagger.Module
 import dagger.Provides
@@ -65,7 +66,8 @@ class ApplicationModule {
             create = CreateJobApplicationUseCase(
                 repo,
                 CreatePeriodicNotifications(WorkManager.getInstance(application.applicationContext))
-            )
+            ),
+            get = GetJobApplicationsUseCase(repo)
         )
     }
 

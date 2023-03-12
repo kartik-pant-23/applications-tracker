@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.feature_applications.ui.home
+package com.studbudd.application_tracker.feature_applications.ui.draft_message
 
 import android.content.Intent
 import android.os.Bundle
