@@ -7,6 +7,7 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
+import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationWithStatus
 import com.studbudd.application_tracker.feature_applications.data.repo.ApplicationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -50,7 +51,7 @@ class ApplicationViewModel @Inject constructor(
     // }
 
     // Get details of a particular application
-    fun getApplication(id: Int): LiveData<JobApplicationEntity_Old> = repository.getApplication(id).asLiveData()
+    fun getApplication(id: Int): LiveData<JobApplicationWithStatus> = repository.getApplication(id).asLiveData()
 
     // Insert New Application
     fun insertApplication(jobApplication: JobApplicationEntity_Old) = viewModelScope.launch {

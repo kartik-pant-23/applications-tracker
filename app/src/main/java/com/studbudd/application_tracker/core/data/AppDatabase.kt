@@ -26,6 +26,7 @@ import java.util.Date
     entities = [
         JobApplicationEntity::class,
         ApplicationStatusEntity::class,
+        JobApplicationEntity_Old::class,
         UserEntity::class
     ],
     version = AppDatabase.DB_VERSION,
@@ -87,7 +88,6 @@ abstract class AppDatabase : RoomDatabase() {
                 )
 
                 for (status in defaultApplicationStatus) {
-                    println("inserting $status")
                     database.insert(
                         "application_status",
                         SQLiteDatabase.CONFLICT_REPLACE,
@@ -98,7 +98,7 @@ abstract class AppDatabase : RoomDatabase() {
                 database.execSQL("ALTER TABLE `applications` RENAME TO `applications_old`")
 
                 database.execSQL("CREATE TABLE `applications` (" +
-                        "`id` INTEGER PRIMARY KEY NOT NULL, " +
+                        "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                         "`remoteId` TEXT, " +
                         "`company` TEXT NOT NULL, " +
                         "`companyLogo` TEXT, " +
@@ -108,7 +108,8 @@ abstract class AppDatabase : RoomDatabase() {
                         "`status` INTEGER NOT NULL, " +
                         "`applicationDeadline` TEXT, " +
                         "`createdAt` TEXT NOT NULL, " +
-                        "`modifiedAt` TEXT NOT NULL" +
+                        "`modifiedAt` TEXT NOT NULL," +
+                        "FOREIGN KEY (`status`) REFERENCES `application_status`(`id`) ON UPDATE CASCADE ON DELETE SET NULL" +
                         ")")
 
                 val cursor = database.query(SimpleSQLiteQuery("SELECT * from applications_old"))
@@ -151,7 +152,7 @@ abstract class AppDatabase : RoomDatabase() {
                     cursor.moveToNext()
                 }
 
-                database.execSQL("DROP TABLE `applications_old`")
+//                database.execSQL("DROP TABLE `applications_old`") // TODO - uncomment this once old entity is not used anymore
             }
         }
 

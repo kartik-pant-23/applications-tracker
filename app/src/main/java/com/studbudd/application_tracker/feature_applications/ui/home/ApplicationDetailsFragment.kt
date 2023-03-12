@@ -17,6 +17,7 @@ import com.studbudd.application_tracker.core.utils.ARG_APPLICATION_ID
 import com.studbudd.application_tracker.core.utils.TimestampHelper
 import com.studbudd.application_tracker.view_models.ApplicationViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class ApplicationDetailsFragment : Fragment() {
@@ -43,20 +44,30 @@ class ApplicationDetailsFragment : Fragment() {
             if (application == null) {
                 binding?.root?.findNavController()?.navigateUp()
             } else {
-                _Job_application = application
+                _Job_application = JobApplicationEntity_Old(
+                    companyName = application.application.company,
+                    role = application.application.role,
+                    jobLink = application.application.jobLink,
+                    status = application.status.id,
+                    notes = application.application.notes,
+                    companyLogo = application.application.companyLogo,
+                    createdAtCalendar = Calendar.getInstance(),
+                    modifiedAtCalendar = Calendar.getInstance(),
+                )
                 binding?.run {
-                    applicationTitle.text = application.title
+                    applicationTitle.text = _Job_application.title
                     notes.text =
-                        if (application.notes.isNullOrBlank()) getString(R.string.placeholder_null_notes) else application.notes
-                    editNotes.setText(application.notes)
+                        if (_Job_application.notes.isNullOrBlank())
+                            getString(R.string.placeholder_null_notes)
+                        else _Job_application.notes
+                    editNotes.setText(_Job_application.notes)
 
-                    jobLink.text = application.jobLink
-                    editJobLink.setText(application.jobLink)
+                    jobLink.text = _Job_application.jobLink
+                    editJobLink.setText(_Job_application.jobLink)
 
                     applicationCreatedAt.text =
-                        TimestampHelper.getFormattedString(application.createdAt ?: "", TimestampHelper.DETAILED)
-                    jobStatus.text =
-                        resources.getStringArray(R.array.job_status)[application.status.toInt()]
+                        TimestampHelper.getFormattedString(_Job_application.createdAt ?: "", TimestampHelper.DETAILED)
+                    jobStatus.text = application.status.tag
 
                     ArrayAdapter.createFromResource(
                         this@ApplicationDetailsFragment.requireContext(),
@@ -66,7 +77,7 @@ class ApplicationDetailsFragment : Fragment() {
                         adapter.setDropDownViewResource(R.layout.item_spinner)
                         editJobStatus.adapter = adapter
                     }
-                    editJobStatus.setSelection(application.status.toInt(), true)
+                    editJobStatus.setSelection(_Job_application.status.toInt(), true)
                 }
             }
         }
