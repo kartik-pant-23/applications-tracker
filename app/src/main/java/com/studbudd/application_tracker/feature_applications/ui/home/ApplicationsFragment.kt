@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.core.ui.main_activity.MainActivityViewModel
-import com.studbudd.application_tracker.core.ui.views.showInfoSnackbar
+import com.studbudd.application_tracker.core.utils.showInfoSnackbar
 import com.studbudd.application_tracker.databinding.FragmentApplicationsBinding
 import dagger.hilt.android.AndroidEntryPoint
 

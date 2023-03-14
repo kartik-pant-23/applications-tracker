@@ -1,24 +1,26 @@
 package com.studbudd.application_tracker.feature_applications.ui.create
 
 import android.Manifest
-import android.content.Intent
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.webkit.URLUtil
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.navigation.ActivityNavigator
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.core.ui.views.showError
-import com.studbudd.application_tracker.core.ui.views.showErrorIfNullOrBlank
-import com.studbudd.application_tracker.core.ui.views.showInfoSnackbar
+import com.studbudd.application_tracker.core.utils.showInfoSnackbar
+import com.studbudd.application_tracker.core.utils.finishWithTransition
+import com.studbudd.application_tracker.core.utils.showError
+import com.studbudd.application_tracker.core.utils.showErrorIfNullOrBlank
 import com.studbudd.application_tracker.databinding.ActivityAddNewApplicationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,7 +64,11 @@ class AddNewApplicationActivity : AppCompatActivity() {
             }
         }
 
-        binding.companyName.requestFocus()
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.companyName.requestFocus()
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .showSoftInput(binding.companyName, 0)
+        }, KEYBOARD_OPEN_DELAY)
 
         binding.submitButton.setOnClickListener { handleSubmitButtonClicked(it) }
         binding.backButton.setOnClickListener { finish() }
@@ -94,6 +100,7 @@ class AddNewApplicationActivity : AppCompatActivity() {
                     requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
                 setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
                     addNewApplication()
                 }
             }
@@ -140,8 +147,11 @@ class AddNewApplicationActivity : AppCompatActivity() {
 
     override fun finish() {
         super.finish()
-        ActivityNavigator.applyPopAnimationsToPendingTransition(this)
-        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+        this.finishWithTransition()
+    }
+
+    companion object {
+        private const val KEYBOARD_OPEN_DELAY = 500L
     }
 
 }
