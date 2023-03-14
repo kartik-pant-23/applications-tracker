@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CircularButton">
+        <attr name="buttonBackgroundColor" format="color" />
+        <attr name="buttonElevation" format="dimension" />
+        <attr name="buttonIcon" format="reference" />
+        <attr name="buttonIconTint" format="color" />
+    </declare-styleable>
+
+</resources>

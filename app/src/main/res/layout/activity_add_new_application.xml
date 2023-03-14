@@ -8,18 +8,12 @@
     android:orientation="vertical"
     tools:context=".feature_applications.ui.create.AddNewApplicationActivity">
 
-    <ImageView
+    <com.studbudd.application_tracker.core.ui.views.CircularButton
         android:id="@+id/back_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginVertical="8dp"
-        android:padding="12dp"
-        android:src="@drawable/ic_arrow_back"
-        app:tint="@color/dark_text"
-        android:background="@drawable/bg_round_button"
-        android:backgroundTint="@color/card_color"
-        android:contentDescription="@string/content_description_back_button"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp" />
 
     <ScrollView
         android:layout_width="match_parent"

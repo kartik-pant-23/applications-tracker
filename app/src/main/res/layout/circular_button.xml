@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/button_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="48dp"
+    android:layout_height="48dp">
+
+    <ImageView
+        android:id="@+id/button_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="Image For circular button"
+        android:padding="12dp" />
+
+</com.google.android.material.card.MaterialCardView>
