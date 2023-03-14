@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.navigation.ActivityNavigator
 import com.studbudd.application_tracker.R
+import com.studbudd.application_tracker.core.utils.finishWithTransition
 import com.studbudd.application_tracker.databinding.ActivityUpdatePlaceholderBinding
 
 class UpdatePlaceholderActivity : AppCompatActivity() {
@@ -19,7 +20,6 @@ class UpdatePlaceholderActivity : AppCompatActivity() {
 
     override fun finish() {
         super.finish()
-        ActivityNavigator.applyPopAnimationsToPendingTransition(this)
-        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+        this.finishWithTransition()
     }
 }

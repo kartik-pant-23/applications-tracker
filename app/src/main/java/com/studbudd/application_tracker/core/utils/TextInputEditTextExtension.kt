@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.core.ui.views
+package com.studbudd.application_tracker.core.utils
 
 import android.graphics.Typeface
 import android.text.Spannable

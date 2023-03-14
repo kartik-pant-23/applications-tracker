@@ -26,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.studbudd.application_tracker.BuildConfig
 import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.R
+import com.studbudd.application_tracker.core.utils.startAndFinishAffinity
 import com.studbudd.application_tracker.databinding.ActivityOnboardingBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -59,9 +60,7 @@ class OnboardingActivity : AppCompatActivity() {
                     state.snackBarMessage ?: "User authentication successful",
                     Toast.LENGTH_SHORT
                 ).show()
-                startActivity(Intent(this, MainActivity::class.java))
-                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
-                finishAffinity()
+                this.startAndFinishAffinity(MainActivity::class.java)
             } else if (state is OnboardingState.SignInFailure) {
                 state.snackBarMessage?.let {
                     showSnackbar(it)

@@ -28,6 +28,7 @@ import com.studbudd.application_tracker.feature_applications.ui.create.AddNewApp
 import com.studbudd.application_tracker.feature_applications.ui.home.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
 import com.studbudd.application_tracker.core.data.workers.NotifyWorker
+import com.studbudd.application_tracker.core.utils.start
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -114,8 +115,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openAddNewApplicationActivity() {
-        startActivity(Intent(this, AddNewApplicationActivity::class.java))
-        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+        this.start(AddNewApplicationActivity::class.java)
     }
 
     private fun startUpdate(appUpdateInfo: AppUpdateInfo, updateType: Int) {
