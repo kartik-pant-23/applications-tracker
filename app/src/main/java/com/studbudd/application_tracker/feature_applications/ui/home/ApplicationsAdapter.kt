@@ -1,6 +1,5 @@
 package com.studbudd.application_tracker.feature_applications.ui.home
 
-import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.core.ui.views.loadImageFromUrl
+import com.studbudd.application_tracker.core.utils.loadImageFromUrl
 import com.studbudd.application_tracker.databinding.ItemApplicationBinding
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
 
@@ -55,14 +54,7 @@ class ApplicationsAdapter(private val OnItemClickListener: (View, Long) -> Unit)
             companyName.text = data.job.company
             jobRole.text = data.job.role
 
-            applicationStatus.dividerColor =
-                if (holder.itemView.context.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
-                    == Configuration.UI_MODE_NIGHT_YES
-                ) {
-                    data.status.colorNight
-                } else {
-                    data.status.color
-                }
+            applicationStatus.dividerColor = data.status.getColor(holder.itemView.context)
 
             createAtDay.text = data.createdAtDay
             createAtMonthYear.text = data.createdAtMonthYear

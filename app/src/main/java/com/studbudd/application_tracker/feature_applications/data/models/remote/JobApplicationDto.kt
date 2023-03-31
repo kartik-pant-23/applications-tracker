@@ -13,23 +13,23 @@ data class JobApplicationDto(
     @Json(name = "createdAt")
     val createdAt: String,
     @Json(name = "description")
-    val description: String?,
+    val description: String? = null,
     @Json(name = "id")
     val id: String,
     @Json(name = "job")
-    val job: Job,
+    val job: JobDto,
     @Json(name = "updatedAt")
     val updatedAt: String
 ) {
 
     fun toJobApplicationEntity(): JobApplicationEntity_Old {
         return JobApplicationEntity_Old(
-            companyName = job.company,
-            companyLogo = job.companyLogo,
+            companyName = job.company.name,
+            companyLogo = job.company.logoUrl,
             role = job.role,
             notes = description,
             jobLink = job.jobUrl,
-            status = applicationStatus.id - 1, // TODO - fix when final implementation
+            status = applicationStatus.id - 1L, // TODO - fix when final implementation
             applicationDeadline = job.applicationDeadline,
             createdAtCalendar = TimestampHelper.getCalendar(createdAt)!!,
             modifiedAtCalendar = TimestampHelper.getCalendar(updatedAt)!!,

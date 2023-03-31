@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,9 @@ import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.core.ui.main_activity.MainActivityViewModel
 import com.studbudd.application_tracker.core.utils.showInfoSnackbar
+import com.studbudd.application_tracker.core.utils.start
 import com.studbudd.application_tracker.databinding.FragmentApplicationsBinding
+import com.studbudd.application_tracker.feature_applications.ui.details.ApplicationDetails
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,11 +42,14 @@ class ApplicationsFragment : Fragment() {
 
     private fun setUpViews() {
         adapter = ApplicationsAdapter { item, applicationId ->
-            item.findNavController().navigate(
-                ApplicationsFragmentDirections.actionApplicationsFragmentToApplicationDetailsFragment(
-                    applicationId
-                )
-            )
+//            item.findNavController().navigate(
+//                ApplicationsFragmentDirections.actionApplicationsFragmentToApplicationDetailsFragment(
+//                    applicationId
+//                )
+//            )
+            (requireActivity() as MainActivity).start(ApplicationDetails::class.java) {
+                putExtra(ApplicationDetails.EXTRAS_APPLICATION_ID, applicationId)
+            }
         }
 
         val layoutManager =

@@ -28,7 +28,7 @@ class ApplicationViewModel @Inject constructor(
     }
 
     // Get details of a particular application
-    fun getApplication(id: Long): LiveData<JobApplicationWithStatus> = repository.getApplication(id.toInt()).asLiveData()
+    fun getApplication(id: Long): LiveData<JobApplicationWithStatus?> = repository.getApplication(id.toInt()).asLiveData()
 
     // Update Application
     fun updateApplication(newJobApplication: JobApplicationEntity_Old) = viewModelScope.launch {

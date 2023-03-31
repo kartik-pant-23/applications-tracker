@@ -30,6 +30,12 @@ class ApplicationStatusAdapter(
         return 0
     }
 
+    fun getItemPosition(id: Long): Int {
+        return applicationStatuses.find { it.id == id }?.let {
+            applicationStatus -> applicationStatuses.indexOf(applicationStatus)
+        } ?: 0
+    }
+
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
         return super.getDropDownView(position, convertView, parent)
     }
@@ -40,13 +46,7 @@ class ApplicationStatusAdapter(
                 .inflate(R.layout.item_application_status_spinner, container, false)
         )
         val item = getItem(position)
-        val color: Int =
-            if (context.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK) ==
-                Configuration.UI_MODE_NIGHT_YES) {
-                item.colorNight
-            } else {
-                item.color
-            }
+        val color = item.getColor(context)
         binding.jobStatusTag.text = item.tag
         binding.jobStatusBullet.backgroundTintList = ColorStateList.valueOf(color)
         binding.jobStatusTag.setTextColor(color)

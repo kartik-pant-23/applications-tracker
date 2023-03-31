@@ -20,7 +20,7 @@
             android:id="@+id/company_logo_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
+            android:padding="12dp"
             android:contentDescription="@string/content_description_company_logo" />
 
         <TextView
@@ -49,6 +49,7 @@
         <TextView
             android:id="@+id/company_name"
             style="@style/Body"
+            android:textColor="@color/light_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="true"
@@ -99,6 +100,7 @@
             android:layout_marginTop="0dp"
             tools:text="Jan, 2023"
             style="@style/Body"
+            android:textColor="@color/light_text"
             android:textSize="@dimen/text_small" />
     </LinearLayout>
 

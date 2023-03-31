@@ -3,12 +3,14 @@ package com.studbudd.application_tracker.feature_applications.domain.repo
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.core.domain.HandleApiCall
 import com.studbudd.application_tracker.core.domain.HandleException
+import com.studbudd.application_tracker.feature_applications.data.dao.ApplicationStatusDao
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsApi
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationWithStatus
 import com.studbudd.application_tracker.feature_applications.data.models.remote.requests.CreateRequest
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
+import com.studbudd.application_tracker.feature_applications.domain.models.ApplicationStatus
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
@@ -16,8 +18,9 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
-class JobApplicationsRepository_Impl (
+class JobApplicationsRepository_Impl(
     private val dao: JobApplicationsDao,
+    private val applicationStatusDao: ApplicationStatusDao,
     private val api: JobApplicationsApi,
     private val handleApiCall: HandleApiCall,
     private val isRemoteUser: Boolean
@@ -54,7 +57,9 @@ class JobApplicationsRepository_Impl (
             val createdApplication = dao.getApplication(id).firstOrNull()
                 ?: return Resource.Failure("Oops.. Something went wrong!")
 
-            if (isRemoteUser) { createApplicationInGlobalScope(createdApplication) }
+            if (isRemoteUser) {
+                createApplicationInGlobalScope(createdApplication)
+            }
             return Resource.Success(createdApplication.toJobApplication())
         } catch (e: Exception) {
             handleException(TAG, e)
@@ -88,7 +93,7 @@ class JobApplicationsRepository_Impl (
     }
 
     override suspend fun getApplications(pageSize: Int, pageNum: Int):
-            Flow<Resource<List<JobApplication>>>  = flow {
+            Flow<Resource<List<JobApplication>>> = flow {
         try {
             dao.getApplications(pageSize, pageSize * (pageNum - 1)).collect {
                 val applicationsList = it.map { item -> item.toJobApplication() }
@@ -100,6 +105,29 @@ class JobApplicationsRepository_Impl (
         } catch (e: Exception) {
             handleException(TAG, e)
             emit(Resource.Failure("Failed to fetch applications.."))
+        }
+    }
+
+    override suspend fun getApplicationStatus(): Flow<Resource<List<ApplicationStatus>>> = flow {
+        try {
+            applicationStatusDao.getAllStatus().collect { data ->
+                emit(Resource.Success(data.map { it.toApplicationStatus() }))
+            }
+        } catch (e: Exception) {
+            handleException(TAG, e)
+            emit(Resource.Failure("Oops.. Something went wrong!"))
+        }
+    }
+
+    override suspend fun getApplicationDetails(id: Long): Flow<Resource<JobApplication>> = flow {
+        try {
+            dao.getApplication(id).collect { data ->
+                data?.let { emit(Resource.Success(it.toJobApplication())) }
+                    ?: emit(Resource.Failure("No such application exists!"))
+            }
+        } catch (e: Exception) {
+            handleException(TAG, e)
+            emit(Resource.Failure("Oops.. Something went wrong!"))
         }
     }
 

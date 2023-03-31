@@ -1,12 +1,15 @@
 package com.studbudd.application_tracker.core.utils
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import androidx.navigation.ActivityNavigator
 import com.studbudd.application_tracker.R
 
-fun Activity.start(cls: Class<*>) {
-    startActivity(Intent(this, cls))
+fun Activity.start(cls: Class<*>, fn: Intent.() -> Unit = {}) {
+    startActivity(Intent(this, cls).apply {
+        this.fn()
+    })
     overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
 }
 
