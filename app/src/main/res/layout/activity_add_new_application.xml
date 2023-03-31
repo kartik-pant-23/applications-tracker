@@ -8,12 +8,17 @@
     android:orientation="vertical"
     tools:context=".feature_applications.ui.create.AddNewApplicationActivity">
 
-    <com.studbudd.application_tracker.core.ui.views.CircularButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp" />
+        android:layout_marginStart="16dp"
+        app:backgroundTint="@color/card_color"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="@color/dark_text"
+        app:elevation="0dp"
+        android:tooltipText="Back Button"/>
 
     <ScrollView
         android:layout_width="match_parent"

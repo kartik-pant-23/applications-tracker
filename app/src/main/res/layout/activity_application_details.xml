@@ -74,7 +74,7 @@
                 android:layout_marginEnd="16dp"
                 style="@style/TextButton"
                 android:text="@string/button_save"
-                android:textColor="@color/blue_button_color"
+                android:textColor="@color/accent_color"
                 android:visibility="gone" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
