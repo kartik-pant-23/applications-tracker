@@ -56,9 +56,6 @@ class ApplicationsAdapter(private val OnItemClickListener: (View, Long) -> Unit)
 
             applicationStatus.dividerColor = data.status.getColor(holder.itemView.context)
 
-            createAtDay.text = data.createdAtDay
-            createAtMonthYear.text = data.createdAtMonthYear
-
             root.setOnClickListener {
                 OnItemClickListener(it, data.id)
             }
