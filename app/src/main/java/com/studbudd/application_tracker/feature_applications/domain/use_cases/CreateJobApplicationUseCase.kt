@@ -1,15 +1,12 @@
 package com.studbudd.application_tracker.feature_applications.domain.use_cases
 
 import android.webkit.URLUtil
-import androidx.work.WorkManager
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
-import kotlinx.coroutines.*
-import javax.inject.Inject
 
-class CreateJobApplicationUseCase (
+class CreateJobApplicationUseCase(
     private val repo: JobApplicationsRepository,
-    private val createNotification: CreatePeriodicNotifications
+    private val createNotification: HandlePeriodicNotification
 ) {
 
     /**
@@ -40,8 +37,10 @@ class CreateJobApplicationUseCase (
             )) {
                 is Resource.Success -> {
                     createNotification(res.data!!)
+                    Resource.Success(data = Unit, message = res.message)
                 }
-                else -> Resource.Failure("Failed to add application!")
+                is Resource.Failure -> Resource.Failure(res.message)
+                is Resource.LoggedOut -> Resource.LoggedOut()
             }
         }
     }

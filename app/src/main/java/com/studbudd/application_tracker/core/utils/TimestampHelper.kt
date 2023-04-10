@@ -50,6 +50,29 @@ object TimestampHelper {
         return getDateString(date, format) ?: "-"
     }
 
+    fun getRelativeTime(timestamp: String): String {
+        getDate(timestamp)?.let {  date ->
+            val diff = Date().time - date.time
+
+            val seconds = diff / 1000
+            val minutes = seconds / 60
+            val hours = minutes / 60
+            val days = hours / 24
+            val weeks = days / 7
+            val months = days / 30
+            val years = months / 12
+
+            if (years >= 1) return "more than ${if (years == 1L) "an year" else "$years years"} ago"
+            if (months >= 1) return "more than ${if (months == 1L) "a month" else "$months months"} ago"
+            if (weeks >= 1) return "around ${if (weeks == 1L) "a week" else "$weeks weeks"} ago"
+            if (days >= 1) return if (days == 1L) "yesterday" else "$days days back"
+            if (hours >= 1) return "around ${if (hours == 1L) "an hour" else "$hours hours ago"}"
+            if (minutes >= 1) return "${if (minutes <= 10) "a few" else "$minutes"} minutes ago"
+            return "just now"
+
+        } ?: return ""
+    }
+
     operator fun invoke(timestamp: String): String {
         return try {
             val date =

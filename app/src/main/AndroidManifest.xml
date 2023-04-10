@@ -3,13 +3,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
+    <!-- <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />
         </intent>
-    </queries>
+    </queries> -->
 
     <application
         android:name=".BaseApplication"
@@ -22,25 +22,19 @@
         android:theme="@style/Theme.Applicationtracker"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".feature_applications.ui.details.ApplicationDetails"
+            android:exported="false" />
+        <activity
             android:name=".feature_applications.ui.create.AddNewApplicationActivity"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".feature_user.ui.placeholder.UpdatePlaceholderActivity"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".feature_user.ui.onboarding.OnboardingActivity"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".MainActivity"

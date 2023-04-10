@@ -8,17 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 class ApplicationsRepository(private val applicationsDao: JobApplicationsDao) {
 
-    suspend fun getAllApplications(order_by_created: Boolean, latest_first: Boolean, status: List<Int>): List<JobApplicationEntity_Old> {
-        return if (order_by_created) {
-            applicationsDao.getApplicationsByCreatedDate(latest_first, status)
-        } else {
-            applicationsDao.getApplicationsByModifiedDate(latest_first, status)
-        }
-    }
-    fun getApplication(id: Int): Flow<JobApplicationWithStatus> = applicationsDao.getApplication(id.toLong())
-
-    @WorkerThread
-    suspend fun insertApplication(jobApplication: JobApplicationEntity_Old): Long = applicationsDao.insert(jobApplication)!!
+    fun getApplication(id: Int) = applicationsDao.getApplication(id.toLong())
 
     @WorkerThread
     suspend fun updateApplication(jobApplication: JobApplicationEntity_Old) {

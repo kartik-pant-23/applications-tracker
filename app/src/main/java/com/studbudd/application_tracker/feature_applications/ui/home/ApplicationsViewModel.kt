@@ -33,7 +33,6 @@ class ApplicationsViewModel @Inject constructor(
         currentPage: Int = 1
     ) = viewModelScope.launch {
         useCase.get(pageSize, currentPage).collect {
-            println("fetching applications list\n${it.data}")
             _applicationsList.postValue(it.data ?: emptyList())
             if (it is Resource.Failure) {
                 _uiState.postValue(ApplicationsUiState.Info(it.message))

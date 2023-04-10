@@ -7,7 +7,8 @@
     android:paddingVertical="12dp"
     android:paddingHorizontal="16dp"
     android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_spinner">
     <View
         android:id="@+id/job_status_bullet"
         android:layout_width="@dimen/text_body1"

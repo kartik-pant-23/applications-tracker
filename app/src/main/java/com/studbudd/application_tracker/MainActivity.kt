@@ -27,8 +27,9 @@ import com.studbudd.application_tracker.databinding.ActivityMainBinding
 import com.studbudd.application_tracker.feature_applications.ui.create.AddNewApplicationActivity
 import com.studbudd.application_tracker.feature_applications.ui.home.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
-import com.studbudd.application_tracker.core.data.workers.NotifyWorker
 import com.studbudd.application_tracker.core.utils.start
+import com.studbudd.application_tracker.feature_applications.data.workers.PeriodicNotificationWorker
+import com.studbudd.application_tracker.feature_applications.ui.details.ApplicationDetails
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -169,13 +170,17 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         if (intent != null) {
-            val applicationId: Long = intent.getLongExtra(NotifyWorker.applicationIdKey, -1)
+            val applicationId: Long =
+                intent.getLongExtra(PeriodicNotificationWorker.JOB_APPLICATION_ID, -1)
             if (applicationId != -1L) {
-                navController.navigate(
+                /* navController.navigate(
                     ApplicationsFragmentDirections.actionApplicationsFragmentToApplicationDetailsFragment(
                         applicationId
                     )
-                )
+                ) */
+                this.start(ApplicationDetails::class.java) {
+                    putExtra(ApplicationDetails.EXTRAS_APPLICATION_ID, applicationId)
+                }
             }
         }
     }

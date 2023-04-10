@@ -17,6 +17,7 @@ import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.feature_user.data.models.local.UserEntity
 import com.studbudd.application_tracker.core.utils.DateConverter
 import com.studbudd.application_tracker.core.utils.TimestampHelper
+import com.studbudd.application_tracker.feature_applications.data.dao.ApplicationStatusDao
 import com.studbudd.application_tracker.feature_applications.data.models.local.ApplicationStatusEntity
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
 import java.util.Calendar
@@ -40,6 +41,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun applicationsDao(): JobApplicationsDao
     abstract fun userLocalDao(): UserDao
+    abstract fun applicationStatusDao(): ApplicationStatusDao
 
     companion object {
         const val DB_VERSION = 5

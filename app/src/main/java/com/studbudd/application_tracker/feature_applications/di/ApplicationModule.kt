@@ -6,15 +6,12 @@ import com.studbudd.application_tracker.core.data.AppDatabase
 import com.studbudd.application_tracker.core.di.RetrofitModule
 import com.studbudd.application_tracker.core.domain.HandleApiCall
 import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.feature_applications.data.dao.ApplicationStatusDao
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsApi
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
 import com.studbudd.application_tracker.feature_applications.domain.repo.JobApplicationsRepository_Impl
-import com.studbudd.application_tracker.feature_applications.domain.use_cases.ApplicationsUseCase
-import com.studbudd.application_tracker.feature_applications.domain.use_cases.CreateJobApplicationUseCase
-import com.studbudd.application_tracker.feature_applications.domain.use_cases.CreatePeriodicNotifications
-import com.studbudd.application_tracker.feature_applications.domain.use_cases.GetJobApplicationsUseCase
-import com.studbudd.application_tracker.feature_user.data.dao.UserDao
+import com.studbudd.application_tracker.feature_applications.domain.use_cases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,6 +31,12 @@ class ApplicationModule {
 
     @Provides
     @Singleton
+    fun providesApplicationStatusDao(db: AppDatabase): ApplicationStatusDao {
+        return db.applicationStatusDao()
+    }
+
+    @Provides
+    @Singleton
     fun providesJobApplicationsApi(
         @RetrofitModule.AuthRetrofitObject retrofit: Retrofit
     ): JobApplicationsApi {
@@ -44,12 +47,14 @@ class ApplicationModule {
     @Singleton
     fun provideJobApplicationsRepository(
         localDao: JobApplicationsDao,
+        applicationStatusDao: ApplicationStatusDao,
         remoteDao: JobApplicationsApi,
         prefs: SharedPreferencesManager,
         handleApiCall: HandleApiCall
     ): JobApplicationsRepository {
         return JobApplicationsRepository_Impl(
             dao = localDao,
+            applicationStatusDao = applicationStatusDao,
             api = remoteDao,
             handleApiCall = handleApiCall,
             isRemoteUser = prefs.accessToken != null && prefs.refreshToken != null
@@ -62,12 +67,16 @@ class ApplicationModule {
         repo: JobApplicationsRepository,
         application: Application
     ): ApplicationsUseCase {
+        val createNotification = HandlePeriodicNotification(WorkManager.getInstance(application.applicationContext))
         return ApplicationsUseCase(
             create = CreateJobApplicationUseCase(
                 repo,
-                CreatePeriodicNotifications(WorkManager.getInstance(application.applicationContext))
+                createNotification
             ),
-            get = GetJobApplicationsUseCase(repo)
+            get = GetJobApplicationsUseCase(repo),
+            getApplicationStatus = GetApplicationStatusUseCase(repo),
+            getDetails = GetJobApplicationDetailsUseCase(repo),
+            update = UpdateJobApplicationUseCase(repo, createNotification)
         )
     }
 

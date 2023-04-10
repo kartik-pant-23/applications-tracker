@@ -10,8 +10,6 @@ sealed class Resource<T>(
 
     class Failure<T>(message: String, data: T? = null): Resource<T>(message, data)
 
-    class Loading<T>(message: String? = null, data: T? = null): Resource<T>(message = "Loading", data)
-
     class LoggedOut<T>(): Resource<T>("Login Required")
 
 }

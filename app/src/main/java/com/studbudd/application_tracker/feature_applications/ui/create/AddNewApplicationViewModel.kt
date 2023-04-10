@@ -41,56 +41,20 @@ class AddNewApplicationViewModel @Inject constructor(
             notes = notes,
             status = status
         )) {
-            is Resource.Success -> _uiState.postValue(AddNewApplicationUiState.Success())
+            is Resource.Success -> _uiState.postValue(AddNewApplicationUiState.Success(res.message))
             else -> _uiState.postValue(AddNewApplicationUiState.Info(res.message))
         }
 
     }
 
-    fun requestNotificationPermission() {
-        _uiState.postValue(AddNewApplicationUiState.RequestNotificationPermission())
-    }
-
-    private fun loadListOfApplicationStatus() {
-        _applicationStatus.postValue(
-            listOf(
-                ApplicationStatus(
-                    id = 0,
-                    _tag = "waiting for referral",
-                    _color = "#D0A200",
-                    _colorNight = "#FFC700",
-                    importanceValue = 50
-                ),
-                ApplicationStatus(
-                    id = 1,
-                    _tag = "applied",
-                    _color = "#006CBA",
-                    _colorNight = "#44B0FF",
-                    importanceValue = 40
-                ),
-                ApplicationStatus(
-                    id = 2,
-                    _tag = "applied with referral",
-                    _color = "#C100AE",
-                    _colorNight = "#FF8CF4",
-                    importanceValue = 30
-                ),
-                ApplicationStatus(
-                    id = 3,
-                    _tag = "rejected",
-                    _color = "#C90000",
-                    _colorNight = "#FF5A5A",
-                    importanceValue = 20
-                ),
-                ApplicationStatus(
-                    id = 4,
-                    _tag = "selected",
-                    _color = "#00A811",
-                    _colorNight = "#49FF5B",
-                    importanceValue = 10
-                )
-            )
-        )
+    private fun loadListOfApplicationStatus() = viewModelScope.launch {
+        useCase.getApplicationStatus(lowerRange = 30).collect {
+            if (it is Resource.Success) {
+                _applicationStatus.postValue(it.data!!)
+            } else {
+                _uiState.postValue(AddNewApplicationUiState.Info(it.message))
+            }
+        }
     }
 
 }

@@ -4,7 +4,7 @@ sealed class AddNewApplicationUiState (val message: String = "") {
 
     class Default(): AddNewApplicationUiState()
     class Info(message: String): AddNewApplicationUiState(message)
-    class Success(): AddNewApplicationUiState("Application added successfully..")
+    class Success(message: String?): AddNewApplicationUiState(message ?: "Application added successfully..")
     class RequestNotificationPermission(): AddNewApplicationUiState()
 
 }

@@ -89,6 +89,7 @@
         <item name="android:textColor">@color/dark_text</item>
         <item name="android:drawableTint">@color/dark_text</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="textAllCaps">true</item>
     </style>
     
     <!-- Snackbar Style -->

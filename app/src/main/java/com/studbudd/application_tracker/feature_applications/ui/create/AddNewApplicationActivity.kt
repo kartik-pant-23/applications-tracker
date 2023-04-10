@@ -113,7 +113,7 @@ class AddNewApplicationActivity : AppCompatActivity() {
                 company = companyName.text!!.toString(),
                 role = jobRole.text!!.toString(),
                 jobLink = jobLink.text!!.toString(),
-                notes = notes.text?.toString(),
+                notes = if (notes.text.isNullOrBlank()) null else notes.text.toString(),
                 status = jobStatus.selectedItemPosition.toLong()
             )
         }
