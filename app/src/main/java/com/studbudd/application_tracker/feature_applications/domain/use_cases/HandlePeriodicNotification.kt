@@ -1,11 +1,9 @@
 package com.studbudd.application_tracker.feature_applications.domain.use_cases
 
-import android.util.Log
 import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
-import androidx.work.WorkRequest
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_applications.data.workers.PeriodicNotificationWorker
 import com.studbudd.application_tracker.feature_applications.domain.models.ApplicationStatus
@@ -16,26 +14,15 @@ class HandlePeriodicNotification(
     private val workManager: WorkManager
 ) {
 
-    private fun testingWorkRequest(duration: Long, inputData: Data): PeriodicWorkRequest {
-        return PeriodicWorkRequest.Builder(
-            PeriodicNotificationWorker::class.java,
-            15L,
-            TimeUnit.MINUTES
-        ).setInitialDelay(10L, TimeUnit.SECONDS)
-            .setInputData(inputData)
-            .build()
-    }
     operator fun invoke(jobApplication: JobApplication): Resource<Unit> {
         val uniqueWorkName = "jobApplicationNotification${jobApplication.createdAt}"
 
         if (shouldDeleteNotificationWork(jobApplication.status.id)) {
             workManager.cancelUniqueWork(uniqueWorkName)
-            Log.d("NotificationHandler", "deleting $uniqueWorkName")
         } else {
             val inputData = getInputData(jobApplication)
             val duration = getDuration(jobApplication.status.id)
-            // val work = getPeriodicWorkRequest(duration = duration, inputData = inputData)
-            val work = testingWorkRequest(duration, inputData)
+            val work = getPeriodicWorkRequest(duration = duration, inputData = inputData)
 
             workManager.enqueueUniquePeriodicWork(
                 uniqueWorkName,
