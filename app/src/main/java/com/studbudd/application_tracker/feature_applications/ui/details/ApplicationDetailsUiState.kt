@@ -1,6 +1,6 @@
 package com.studbudd.application_tracker.feature_applications.ui.details
 
-sealed class ApplicationDetailsUiState(message: String? = null) {
+sealed class ApplicationDetailsUiState(val message: String? = null) {
 
     class Default: ApplicationDetailsUiState()
 

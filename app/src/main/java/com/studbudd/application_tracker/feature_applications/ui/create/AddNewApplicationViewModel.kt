@@ -41,14 +41,10 @@ class AddNewApplicationViewModel @Inject constructor(
             notes = notes,
             status = status
         )) {
-            is Resource.Success -> _uiState.postValue(AddNewApplicationUiState.Success())
+            is Resource.Success -> _uiState.postValue(AddNewApplicationUiState.Success(res.message))
             else -> _uiState.postValue(AddNewApplicationUiState.Info(res.message))
         }
 
-    }
-
-    fun requestNotificationPermission() {
-        _uiState.postValue(AddNewApplicationUiState.RequestNotificationPermission())
     }
 
     private fun loadListOfApplicationStatus() = viewModelScope.launch {

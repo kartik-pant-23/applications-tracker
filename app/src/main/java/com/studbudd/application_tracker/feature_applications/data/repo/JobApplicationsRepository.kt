@@ -24,4 +24,6 @@ interface JobApplicationsRepository {
 
     suspend fun getApplicationDetails(id: Long): Flow<Resource<JobApplication>>
 
+    suspend fun updateApplication(id: Long, status: Long, notes: String?): Resource<JobApplication>
+
 }

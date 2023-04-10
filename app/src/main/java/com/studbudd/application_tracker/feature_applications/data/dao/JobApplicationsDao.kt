@@ -1,6 +1,7 @@
 package com.studbudd.application_tracker.feature_applications.data.dao
 
 import androidx.room.*
+import com.studbudd.application_tracker.core.utils.TimestampHelper
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationWithStatus
@@ -22,6 +23,14 @@ interface JobApplicationsDao {
 
     @Update
     suspend fun update(jobApplication: JobApplicationEntity_Old)
+
+    @Query("UPDATE applications SET status=:status, notes=:notes, modifiedAt=:modifiedAt WHERE id=:id")
+    suspend fun update(
+        id: Long,
+        status: Long,
+        notes: String?,
+        modifiedAt: String = TimestampHelper.getCurrentTimestamp()
+    )
 
     @Query("UPDATE applications SET remoteId=(:remoteId) WHERE id=(:id)")
     suspend fun updateRemoteId(id: Long, remoteId: String)

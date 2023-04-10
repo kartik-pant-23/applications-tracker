@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ApplicationDetailsViewModel @Inject constructor(
     private val useCase: ApplicationsUseCase
-): ViewModel() {
+) : ViewModel() {
 
     init {
         fetchApplicationStatus()
@@ -24,9 +24,10 @@ class ApplicationDetailsViewModel @Inject constructor(
     val application: LiveData<JobApplication> = _application
 
     private val _availableStatus = MutableLiveData(emptyList<ApplicationStatus>())
-    val availableStatus = _availableStatus.asFlow().combine(application.asFlow()) { statuses, data ->
-        Pair(statuses, data.status)
-    }
+    val availableStatus =
+        _availableStatus.asFlow().combine(application.asFlow()) { statuses, data ->
+            Pair(statuses, data.status)
+        }
 
     private val _uiState = MutableLiveData<ApplicationDetailsUiState>()
     val uiState: LiveData<ApplicationDetailsUiState> = _uiState
@@ -55,6 +56,22 @@ class ApplicationDetailsViewModel @Inject constructor(
                 _availableStatus.postValue(it.data!!)
             } else {
                 _uiState.postValue(ApplicationDetailsUiState.Info(it.message))
+            }
+        }
+    }
+
+    fun updateApplication(notes: String?, status: Long) = viewModelScope.launch {
+        _application.value?.let {
+            when (val res = useCase.update(id = it.id, notes = notes, status = status)) {
+                is Resource.Success -> {
+                    _uiState.postValue(ApplicationDetailsUiState.Info("Application updated successfully."))
+                }
+                is Resource.Failure -> {
+                    _uiState.postValue(ApplicationDetailsUiState.EditMode(res.message))
+                }
+                is Resource.LoggedOut -> {
+                    _uiState.postValue(ApplicationDetailsUiState.Info("User logged out."))
+                }
             }
         }
     }

@@ -3,23 +3,20 @@ package com.studbudd.application_tracker.feature_applications.ui.details
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.core.utils.TimestampHelper
 import com.studbudd.application_tracker.core.utils.loadImageFromUrl
 import com.studbudd.application_tracker.core.utils.finishWithTransition
+import com.studbudd.application_tracker.core.utils.showInfoSnackbar
 import com.studbudd.application_tracker.databinding.ActivityApplicationDetailsBinding
 import com.studbudd.application_tracker.feature_applications.domain.models.ApplicationStatus
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
 import com.studbudd.application_tracker.feature_applications.ui.create.ApplicationStatusAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -54,6 +51,9 @@ class ApplicationDetails : AppCompatActivity() {
         viewModel.uiState.observe(this) {
             isEditMode = it is ApplicationDetailsUiState.EditMode
             changeViewsVisibility(isEditMode)
+            it.message?.let { message ->
+                binding.root.showInfoSnackbar(message = message)
+            }
         }
     }
 
@@ -142,12 +142,12 @@ class ApplicationDetails : AppCompatActivity() {
     private fun attachOnClickListeners() {
         binding.editButton.setOnClickListener { viewModel.enableEditMode() }
         binding.addNotes.setOnClickListener { viewModel.enableEditMode() }
-        binding.backButton.setOnClickListener {
-            if (isEditMode) {
-                showCloseWithoutSavingAlertDialog()
-            } else {
-                finish()
-            }
+        binding.backButton.setOnClickListener { finish() }
+        binding.saveButton.setOnClickListener {
+            var notes: String? = binding.editNotes.text.toString()
+            if (notes.isNullOrBlank()) notes = null
+            val status = (binding.applicationStatusEdit.selectedItem as ApplicationStatus).id
+            viewModel.updateApplication(notes = notes, status = status)
         }
     }
 
@@ -167,8 +167,11 @@ class ApplicationDetails : AppCompatActivity() {
     }
 
     override fun finish() {
-        super.finish()
-        this.finishWithTransition()
+        if (isEditMode) showCloseWithoutSavingAlertDialog()
+        else {
+            super.finish()
+            this.finishWithTransition()
+        }
     }
 
     companion object {

@@ -12,7 +12,6 @@ import com.studbudd.application_tracker.feature_applications.data.dao.JobApplica
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
 import com.studbudd.application_tracker.feature_applications.domain.repo.JobApplicationsRepository_Impl
 import com.studbudd.application_tracker.feature_applications.domain.use_cases.*
-import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -68,14 +67,16 @@ class ApplicationModule {
         repo: JobApplicationsRepository,
         application: Application
     ): ApplicationsUseCase {
+        val createNotification = HandlePeriodicNotification(WorkManager.getInstance(application.applicationContext))
         return ApplicationsUseCase(
             create = CreateJobApplicationUseCase(
                 repo,
-                CreatePeriodicNotifications(WorkManager.getInstance(application.applicationContext))
+                createNotification
             ),
             get = GetJobApplicationsUseCase(repo),
             getApplicationStatus = GetApplicationStatusUseCase(repo),
-            getDetails = GetJobApplicationDetailsUseCase(repo)
+            getDetails = GetJobApplicationDetailsUseCase(repo),
+            update = UpdateJobApplicationUseCase(repo, createNotification)
         )
     }
 
