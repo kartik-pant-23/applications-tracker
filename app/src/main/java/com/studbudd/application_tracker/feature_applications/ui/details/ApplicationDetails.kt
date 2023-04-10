@@ -1,10 +1,12 @@
 package com.studbudd.application_tracker.feature_applications.ui.details
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.graphics.ColorUtils
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.studbudd.application_tracker.R
@@ -84,6 +86,7 @@ class ApplicationDetails : AppCompatActivity() {
         }
 
         binding.updatedAt.text = "updated ${TimestampHelper.getRelativeTime(data.modifiedAt)}"
+
         setupApplicationStatus(data.status)
 
         binding.notes.setLinkTextColor(data.status.getColor(this@ApplicationDetails))
@@ -130,6 +133,10 @@ class ApplicationDetails : AppCompatActivity() {
 
     private fun setupApplicationStatus(status: ApplicationStatus) {
         binding.applicationStatus.apply {
+            val color = status.getColor(root.context)
+            val backgroundColor = ColorUtils.setAlphaComponent(color, 20)
+
+            root.backgroundTintList = ColorStateList.valueOf(backgroundColor)
             jobStatusTag.apply {
                 text = status.tag
                 setTextColor(status.getColor(context))

@@ -66,7 +66,10 @@ class JobApplicationsRepository_Impl(
                     is Resource.LoggedOut -> Resource.LoggedOut()
                 }
             } else {
-                return Resource.Success(createdApplication.toJobApplication())
+                return Resource.Success(
+                    createdApplication.toJobApplication(),
+                    "Application created successfully"
+                )
             }
         } catch (e: Exception) {
             handleException(TAG, e)

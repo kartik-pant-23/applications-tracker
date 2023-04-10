@@ -117,7 +117,7 @@
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/application_status_divider"
-            android:layout_width="4dp"
+            android:layout_width="6dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@id/job_details_container"
