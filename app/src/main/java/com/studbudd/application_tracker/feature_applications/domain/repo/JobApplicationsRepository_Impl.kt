@@ -14,6 +14,7 @@ import com.studbudd.application_tracker.feature_applications.data.repo.JobApplic
 import com.studbudd.application_tracker.feature_applications.domain.models.ApplicationStatus
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 
@@ -110,10 +111,11 @@ class JobApplicationsRepository_Impl(
     override suspend fun getApplications(pageSize: Int, pageNum: Int):
             Flow<Resource<List<JobApplication>>> = flow {
         try {
-            dao.getApplications(pageSize, pageSize * (pageNum - 1)).collect {
-                val applicationsList = it.map { item -> item.toJobApplication() }
-                emit(Resource.Success(applicationsList))
-            }
+            dao.getApplications(pageSize, pageSize * (pageNum - 1)).catch { throw Exception(it) }
+                .collect {
+                    val applicationsList = it.map { item -> item.toJobApplication() }
+                    emit(Resource.Success(applicationsList))
+                }
         } catch (e: Exception) {
             handleException(TAG, e)
             emit(Resource.Failure("Failed to fetch applications.."))
@@ -122,7 +124,7 @@ class JobApplicationsRepository_Impl(
 
     override suspend fun getApplicationStatus(): Flow<Resource<List<ApplicationStatus>>> = flow {
         try {
-            applicationStatusDao.getAllStatus().collect { data ->
+            applicationStatusDao.getAllStatus().catch { throw Exception(it) }.collect { data ->
                 emit(Resource.Success(data.map { it.toApplicationStatus() }))
             }
         } catch (e: Exception) {
@@ -138,7 +140,7 @@ class JobApplicationsRepository_Impl(
      */
     override suspend fun getApplicationDetails(id: Long): Flow<Resource<JobApplication>> = flow {
         try {
-            dao.getApplication(id).collect { data ->
+            dao.getApplication(id).catch { throw Exception(it) }.collect { data ->
                 data?.let { emit(Resource.Success(it.toJobApplication())) }
                     ?: emit(Resource.Failure("No such application exists!"))
             }
@@ -207,7 +209,7 @@ class JobApplicationsRepository_Impl(
 
     private suspend fun isApplicationRemote(id: Long): Resource<String?> {
         try {
-            val application = dao.getApplication(id).firstOrNull()
+            val application = dao.getApplication(id).catch { throw Exception(it) }.firstOrNull()
                 ?: return Resource.Failure("Application not present, try restarting the application!")
             return Resource.Success(application.application.remoteId)
         } catch (e: Exception) {
