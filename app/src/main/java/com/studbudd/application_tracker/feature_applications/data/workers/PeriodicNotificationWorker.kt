@@ -32,7 +32,7 @@ class PeriodicNotificationWorker(
     private fun getPendingIntentForNotification(): PendingIntent {
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             putExtra(JOB_APPLICATION_ID, inputData.getLong(JOB_APPLICATION_ID, -1L))
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         return PendingIntent.getActivity(
             applicationContext,
