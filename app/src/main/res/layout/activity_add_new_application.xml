@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".feature_applications.ui.create.AddNewApplicationActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        app:backgroundTint="@color/card_color"
-        android:src="@drawable/ic_arrow_back"
-        app:tint="@color/dark_text"
-        app:elevation="0dp"
-        android:tooltipText="Back Button"/>
-
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:background="@color/window_background"
+        app:liftOnScroll="true">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetStart="0dp">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_arrow_back"
+                android:tooltipText="Back Button"
+                app:backgroundTint="@color/card_color"
+                app:elevation="0dp"
+                app:tint="@color/dark_text" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
             android:layout_marginTop="8dp"
             android:clipToPadding="false"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
 
             <TextView
+                style="@style/Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_add_application_header"
-                style="@style/Title" />
+                android:text="@string/label_add_application_header" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/company_name"
@@ -56,33 +66,33 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/job_role"
+                style="@style/Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_round_corners"
                 android:backgroundTint="@color/card_color"
-                android:hint="@string/hint_role"
                 android:drawableStart="@drawable/ic_job_role"
                 android:drawablePadding="12dp"
                 android:drawableTint="@color/dark_text"
+                android:hint="@string/hint_role"
                 android:inputType="textCapWords"
-                style="@style/Body" />
+                android:minHeight="48dp" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/job_link"
+                style="@style/Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_round_corners"
                 android:backgroundTint="@color/card_color"
-                android:hint="@string/hint_job_link"
                 android:drawableStart="@drawable/ic_link"
                 android:drawablePadding="12dp"
                 android:drawableTint="@color/dark_text"
+                android:hint="@string/hint_job_link"
                 android:inputType="textUri"
-                style="@style/Body" />
+                android:minHeight="48dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,52 +100,58 @@
                 android:layout_marginVertical="24dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:textSize="16sp"
                     android:fontFamily="@font/montserrat"
+                    android:text="@string/hint_job_status"
                     android:textColor="@color/light_text"
-                    android:text="@string/hint_job_status" />
+                    android:textSize="16sp" />
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
+
                     <Spinner
                         android:id="@+id/job_status"
+                        style="@style/SpinnerStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="48dp"
-                        style="@style/SpinnerStyle"
-                        android:contentDescription="@string/content_description_job_status" />
+                        android:contentDescription="@string/content_description_job_status"
+                        android:minHeight="48dp" />
+
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:padding="12dp"
                         android:src="@drawable/ic_drop_down"
-                        app:tint="@color/dark_text"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        app:tint="@color/dark_text" />
                 </RelativeLayout>
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/notes"
+                    style="@style/Body"
                     android:layout_width="match_parent"
                     android:layout_height="144dp"
-                    android:gravity="top"
                     android:background="@drawable/bg_round_corners"
                     android:backgroundTint="@color/card_color"
-                    android:hint="@string/hint_notes"
-                    android:paddingVertical="14dp"
-                    android:paddingStart="48dp"
                     android:drawableTint="@color/dark_text"
+                    android:gravity="top"
+                    android:hint="@string/hint_notes"
                     android:inputType="textCapSentences|textMultiLine"
-                    style="@style/Body" />
+                    android:paddingVertical="14dp"
+                    android:paddingStart="48dp" />
+
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
@@ -146,15 +162,15 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/submitButton"
+                style="@style/FilledButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_application"
-                style="@style/FilledButton"
                 android:layout_marginTop="64dp"
-                android:layout_marginBottom="32dp"/>
+                android:layout_marginBottom="32dp"
+                android:text="@string/add_application" />
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
