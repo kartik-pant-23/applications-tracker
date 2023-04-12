@@ -25,7 +25,6 @@ import com.studbudd.application_tracker.core.ui.main_activity.MainActivityState
 import com.studbudd.application_tracker.core.ui.main_activity.MainActivityViewModel
 import com.studbudd.application_tracker.databinding.ActivityMainBinding
 import com.studbudd.application_tracker.feature_applications.ui.create.AddNewApplicationActivity
-import com.studbudd.application_tracker.feature_applications.ui.home.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
 import com.studbudd.application_tracker.core.utils.start
 import com.studbudd.application_tracker.feature_applications.data.workers.PeriodicNotificationWorker
@@ -173,11 +172,6 @@ class MainActivity : AppCompatActivity() {
             val applicationId: Long =
                 intent.getLongExtra(PeriodicNotificationWorker.JOB_APPLICATION_ID, -1)
             if (applicationId != -1L) {
-                /* navController.navigate(
-                    ApplicationsFragmentDirections.actionApplicationsFragmentToApplicationDetailsFragment(
-                        applicationId
-                    )
-                ) */
                 this.start(ApplicationDetails::class.java) {
                     putExtra(ApplicationDetails.EXTRAS_APPLICATION_ID, applicationId)
                 }

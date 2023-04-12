@@ -1,6 +1,5 @@
 package com.studbudd.application_tracker.core.data
 
-import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import androidx.core.content.contentValuesOf
 import androidx.room.Database
@@ -9,10 +8,8 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.sqlite.db.SupportSQLiteQueryBuilder
 import com.studbudd.application_tracker.core.domain.ListConverterUseCase
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
-import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity_Old
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.feature_user.data.models.local.UserEntity
 import com.studbudd.application_tracker.core.utils.DateConverter
@@ -21,13 +18,11 @@ import com.studbudd.application_tracker.feature_applications.data.dao.Applicatio
 import com.studbudd.application_tracker.feature_applications.data.models.local.ApplicationStatusEntity
 import com.studbudd.application_tracker.feature_applications.data.models.local.JobApplicationEntity
 import java.util.Calendar
-import java.util.Date
 
 @Database(
     entities = [
         JobApplicationEntity::class,
         ApplicationStatusEntity::class,
-        JobApplicationEntity_Old::class,
         UserEntity::class
     ],
     version = AppDatabase.DB_VERSION,
@@ -44,7 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun applicationStatusDao(): ApplicationStatusDao
 
     companion object {
-        const val DB_VERSION = 5
+        const val DB_VERSION = 6
 
         // Adding users table
         val Migration_2_3 = object : Migration(2, 3) {
@@ -153,11 +148,8 @@ abstract class AppDatabase : RoomDatabase() {
                     )
                     cursor.moveToNext()
                 }
-
-//                database.execSQL("DROP TABLE `applications_old`") // TODO - uncomment this once old entity is not used anymore
             }
         }
-
         val defaultApplicationStatus = listOf(
             contentValuesOf(
                 Pair("id", 0),
@@ -195,6 +187,13 @@ abstract class AppDatabase : RoomDatabase() {
                 Pair("importanceValue", 10)
             ),
         )
+
+        // Deleting old applications table
+        val Migration_5_6 = object : Migration(5, 6) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("DROP TABLE `applications_old`")
+            }
+        }
     }
 
 }

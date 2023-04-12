@@ -14,7 +14,6 @@ import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.core.data.AppDatabase
 import com.studbudd.application_tracker.core.domain.HandleApiCall
 import com.studbudd.application_tracker.core.domain.PrefillApplicationStatus
-import com.studbudd.application_tracker.feature_applications.data.repo.ApplicationsRepository
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.core.utils.DATABASE_NAME
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
@@ -38,7 +37,8 @@ class AppModule {
         ).addMigrations(
             AppDatabase.Migration_2_3,
             AppDatabase.Migration_3_4,
-            AppDatabase.Migration_4_5
+            AppDatabase.Migration_4_5,
+            AppDatabase.Migration_5_6
         )
             .addCallback(PrefillApplicationStatus())
             .build()
@@ -81,11 +81,6 @@ class AppModule {
         applicationsDao: JobApplicationsDao
     ): ClearAppDataUseCase {
         return ClearAppDataUseCase(prefManager, userDao, applicationsDao)
-    }
-
-    @Provides
-    fun providesApplicationRepository(database: AppDatabase): ApplicationsRepository {
-        return ApplicationsRepository(database.applicationsDao())
     }
 
     @Provides
