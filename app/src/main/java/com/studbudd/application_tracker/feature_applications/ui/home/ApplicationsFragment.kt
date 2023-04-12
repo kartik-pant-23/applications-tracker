@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.MainActivity
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.core.ui.main_activity.MainActivityViewModel
 import com.studbudd.application_tracker.core.utils.showInfoSnackbar
 import com.studbudd.application_tracker.core.utils.start
 import com.studbudd.application_tracker.databinding.FragmentApplicationsBinding
@@ -27,7 +25,6 @@ class ApplicationsFragment : Fragment() {
         get() = _binding!!
 
     private val viewModel by viewModels<ApplicationsViewModel>()
-    private val activityViewModel by activityViewModels<MainActivityViewModel>()
 
     private lateinit var adapter: ApplicationsAdapter
 
@@ -41,12 +38,7 @@ class ApplicationsFragment : Fragment() {
     }
 
     private fun setUpViews() {
-        adapter = ApplicationsAdapter { item, applicationId ->
-//            item.findNavController().navigate(
-//                ApplicationsFragmentDirections.actionApplicationsFragmentToApplicationDetailsFragment(
-//                    applicationId
-//                )
-//            )
+        adapter = ApplicationsAdapter { _, applicationId ->
             (requireActivity() as MainActivity).start(ApplicationDetails::class.java) {
                 putExtra(ApplicationDetails.EXTRAS_APPLICATION_ID, applicationId)
             }
@@ -61,10 +53,10 @@ class ApplicationsFragment : Fragment() {
         }
         binding.applicationsList.apply {
             setLayoutManager(layoutManager)
-            addItemDecoration(itemDecoration)
+//            addItemDecoration(itemDecoration)
         }.adapter = adapter
 
-        viewModel.applicationsList.observe(viewLifecycleOwner) {
+        viewModel.listItems.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 binding.noApplicationsLayout.root.visibility = View.VISIBLE
                 binding.applicationsList.visibility = View.GONE
