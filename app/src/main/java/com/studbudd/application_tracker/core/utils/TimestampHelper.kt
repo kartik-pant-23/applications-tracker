@@ -12,6 +12,15 @@ object TimestampHelper {
     const val SHORT_MONTH = "dd MMM, yyyy"
     const val DETAILED = "dd-MM-yyyy hh:mm a"
 
+    const val MILLISECONDS = "milliseconds"
+    const val SECONDS = "seconds"
+    const val MINUTES = "minutes"
+    const val HOURS = "hours"
+    const val DAYS = "days"
+    const val WEEKS = "weeks"
+    const val MONTHS = "months"
+    const val YEARS = "years"
+
     private fun getDateFormat(format: String): SimpleDateFormat {
         return SimpleDateFormat(format, Locale.ENGLISH)
     }
@@ -46,31 +55,52 @@ object TimestampHelper {
     fun getFormattedString(timestamp: String, format: String = DEFAULT): String {
         return getDateString(getDate(timestamp), format) ?: "-"
     }
+
     fun getFormattedString(date: Date, format: String): String {
         return getDateString(date, format) ?: "-"
     }
 
     fun getRelativeTime(timestamp: String): String {
-        getDate(timestamp)?.let {  date ->
+        getDate(timestamp)?.let { date ->
             val diff = Date().time - date.time
+            val timeMap = getTimeMap(diff)
 
-            val seconds = diff / 1000
-            val minutes = seconds / 60
-            val hours = minutes / 60
-            val days = hours / 24
-            val weeks = days / 7
-            val months = days / 30
-            val years = months / 12
-
-            if (years >= 1) return "more than ${if (years == 1L) "an year" else "$years years"} ago"
-            if (months >= 1) return "more than ${if (months == 1L) "a month" else "$months months"} ago"
-            if (weeks >= 1) return "around ${if (weeks == 1L) "a week" else "$weeks weeks"} ago"
-            if (days >= 1) return if (days == 1L) "yesterday" else "$days days back"
-            if (hours >= 1) return "around ${if (hours == 1L) "an hour" else "$hours hours ago"}"
-            if (minutes >= 1) return "${if (minutes <= 10) "a few" else "$minutes"} minutes ago"
+            if (timeMap[YEARS]!! >= 1L)
+                return "more than ${if (timeMap[YEARS] == 1L) "an year" else "${timeMap[YEARS]} years"} ago"
+            if (timeMap[MONTHS]!! >= 1L)
+                return "more than ${if (timeMap[MONTHS] == 1L) "a month" else "${timeMap[MONTHS]} months"} ago"
+            if (timeMap[WEEKS]!! >= 1L)
+                return "around ${if (timeMap[WEEKS] == 1L) "a week" else "${timeMap[WEEKS]} weeks"} ago"
+            if (timeMap[DAYS]!! >= 1L)
+                return if (timeMap[DAYS] == 1L) "yesterday" else "${timeMap[DAYS]} days ago"
+            if (timeMap[HOURS]!! >= 1L)
+                return "around ${if (timeMap[HOURS] == 1L) "an hour" else "${timeMap[HOURS]} hours ago"}"
+            if (timeMap[MINUTES]!! >= 1L)
+                return "${if (timeMap[MINUTES]!! <= 10) "a few" else "${timeMap[MINUTES]}"} minutes ago"
             return "just now"
 
         } ?: return ""
+    }
+
+    private fun getTimeMap(time: Long): Map<String, Long> {
+        val seconds = time / 1000
+        val minutes = seconds / 60
+        val hours = minutes / 60
+        val days = hours / 24
+        val weeks = days / 7
+        val months = days / 30
+        val years = months / 12
+
+        return mapOf(
+            Pair(MILLISECONDS, time),
+            Pair(SECONDS, seconds),
+            Pair(MINUTES, minutes),
+            Pair(HOURS, hours),
+            Pair(DAYS, days),
+            Pair(WEEKS, weeks),
+            Pair(MONTHS, months),
+            Pair(YEARS, years)
+        )
     }
 
     operator fun invoke(timestamp: String): String {
