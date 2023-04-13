@@ -15,13 +15,14 @@
 
     <color name="fab_color">#0CCBD7</color>
     <color name="grey_background">#293643</color>
-    <color name="error_color">#FF8080</color>
+    <color name="error_color">#FF5A5A</color>
     <color name="warning_color">#293643</color>
 
     <color name="card_color">#323A50</color>
     <color name="text_input_layout">@color/card_color</color>
 
-    <color name="snackbar_color">#222735</color>
+    <color name="snackbar_color">#FAFAFA</color>
+    <color name="snackbar_text_color">#2D2D2D</color>
 
     <bool name="status_icon_color">false</bool>
 

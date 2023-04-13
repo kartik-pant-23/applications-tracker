@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.graphics.ColorUtils
 import androidx.lifecycle.lifecycleScope
@@ -51,10 +52,15 @@ class ApplicationDetails : AppCompatActivity() {
             displayApplicationData(it)
         }
         viewModel.uiState.observe(this) {
-            isEditMode = it is ApplicationDetailsUiState.EditMode
-            changeViewsVisibility(isEditMode)
-            it.message?.let { message ->
-                binding.root.showInfoSnackbar(message = message)
+            if (it is ApplicationDetailsUiState.ApplicationDeleted) {
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                finish()
+            } else {
+                isEditMode = it is ApplicationDetailsUiState.EditMode
+                changeViewsVisibility(isEditMode)
+                it.message?.let { message ->
+                    binding.root.showInfoSnackbar(message = message)
+                }
             }
         }
     }
@@ -105,8 +111,7 @@ class ApplicationDetails : AppCompatActivity() {
     }
 
     private fun changeViewsVisibility(isEditMode: Boolean) {
-        binding.editButton.visibility = if (isEditMode) View.GONE else View.VISIBLE
-        binding.sendMessageButton.visibility = if (isEditMode) View.GONE else View.VISIBLE
+        binding.actionButtonGroup.visibility = if (isEditMode) View.GONE else View.VISIBLE
 
         binding.applicationStatus.root.visibility = if (isEditMode) View.GONE else View.VISIBLE
         binding.applicationStatusEditContainer.visibility =
@@ -156,6 +161,7 @@ class ApplicationDetails : AppCompatActivity() {
             val status = (binding.applicationStatusEdit.selectedItem as ApplicationStatus).id
             viewModel.updateApplication(notes = notes, status = status)
         }
+        binding.deleteButton.setOnClickListener { showDeleteAlertDialog() }
     }
 
     private fun showCloseWithoutSavingAlertDialog() {
@@ -164,6 +170,21 @@ class ApplicationDetails : AppCompatActivity() {
             .setMessage("Are you sure, you want to close the edit mode, without saving your changes?")
             .setPositiveButton("Yes") { dialog, _ ->
                 viewModel.disableEditMode()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    private fun showDeleteAlertDialog() {
+        MaterialAlertDialogBuilder(this, R.style.AlertDialog)
+            .setTitle("Delete Application?")
+            .setMessage("This task cannot be undone, make sure you really want to delete the application.")
+            .setPositiveButton("Yes") { dialog, _ ->
+                viewModel.deleteApplication()
                 dialog.dismiss()
             }
             .setNegativeButton("Cancel") { dialog, _ ->

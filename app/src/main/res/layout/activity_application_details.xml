@@ -23,7 +23,8 @@
                 android:id="@+id/top_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:animateLayoutChanges="true">
+                android:animateLayoutChanges="true"
+                android:clipToPadding="false">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/back_button"
@@ -40,35 +41,51 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/dark_text" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/edit_button"
+                <LinearLayout
+                    android:id="@+id/action_button_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_edit"
-                    android:tooltipText="Edit"
-                    app:backgroundTint="@color/blue_button_color"
-                    app:elevation="8dp"
+                    android:clipToPadding="false"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#FAFAFA" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/send_message_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_send"
-                    android:tooltipText="Send Message"
-                    app:backgroundTint="@color/accent_color"
-                    app:elevation="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/edit_button"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#FAFAFA" />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/delete_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_delete"
+                        android:tooltipText="Delete Application"
+                        app:backgroundTint="@color/error_color"
+                        app:elevation="8dp"
+                        app:tint="#fafafa" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/send_message_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_send"
+                        android:tooltipText="Send Message"
+                        app:backgroundTint="@color/accent_color"
+                        app:elevation="8dp"
+                        app:tint="#FAFAFA" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/edit_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_edit"
+                        android:tooltipText="Edit"
+                        app:backgroundTint="@color/blue_button_color"
+                        app:elevation="8dp"
+                        app:tint="#FAFAFA" />
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/save_button"
@@ -88,9 +105,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -348,10 +366,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/notes_container_layout">
+                app:layout_constraintTop_toBottomOf="@id/notes_container_layout"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
                     android:id="@+id/created_at_title_text"
@@ -385,6 +403,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -96,7 +96,6 @@
     <style name="Snackbar" parent="@style/Widget.MaterialComponents.Snackbar">
         <item name="android:layout_margin">24dp</item>
         <item name="android:background">@drawable/snackbar_background</item>
-        <item name="android:backgroundTint">@color/snackbar_color</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
         <item name="android:paddingTop">0dp</item>
@@ -104,7 +103,7 @@
     </style>
     <style name="SnackbarTextStyle" parent="@style/Widget.MaterialComponents.Snackbar.TextView">
         <item name="fontFamily">@font/montserrat</item>
-        <item name="android:textColor">@color/dark_text</item>
+        <item name="android:textColor">@color/snackbar_text_color</item>
         <item name="android:textAlignment">center</item>
     </style>
 

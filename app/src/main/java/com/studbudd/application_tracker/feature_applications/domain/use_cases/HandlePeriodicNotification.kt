@@ -14,23 +14,31 @@ class HandlePeriodicNotification(
     private val workManager: WorkManager
 ) {
 
-    operator fun invoke(jobApplication: JobApplication): Resource<Unit> {
-        val uniqueWorkName = "jobApplicationNotification${jobApplication.createdAt}"
-
-        if (shouldDeleteNotificationWork(jobApplication.status.id)) {
-            workManager.cancelUniqueWork(uniqueWorkName)
+    fun create(jobApplication: JobApplication): Resource<Unit> {
+        return if (shouldDeleteNotificationWork(jobApplication.status.id)) {
+            delete(jobApplication)
         } else {
-            val inputData = getInputData(jobApplication)
-            val duration = getDuration(jobApplication.status.id)
-            val work = getPeriodicWorkRequest(duration = duration, inputData = inputData)
-
-            workManager.enqueueUniquePeriodicWork(
-                uniqueWorkName,
-                ExistingPeriodicWorkPolicy.REPLACE,
-                work
-            )
+            createNotificationWork(jobApplication)
         }
+    }
 
+    fun delete(jobApplication: JobApplication): Resource<Unit> {
+        val uniqueWorkName = getUniqueWorkName(jobApplication)
+        workManager.cancelUniqueWork(uniqueWorkName)
+        return Resource.Success(Unit)
+    }
+
+    private fun createNotificationWork(jobApplication: JobApplication): Resource<Unit> {
+        val inputData = getInputData(jobApplication)
+        val duration = getDuration(jobApplication.status.id)
+        val work = getPeriodicWorkRequest(duration = duration, inputData = inputData)
+        val uniqueWorkName = getUniqueWorkName(jobApplication)
+
+        workManager.enqueueUniquePeriodicWork(
+            uniqueWorkName,
+            ExistingPeriodicWorkPolicy.REPLACE,
+            work
+        )
         return Resource.Success(Unit)
     }
 
@@ -69,6 +77,10 @@ class HandlePeriodicNotification(
             .setInputData(inputData)
             .setInitialDelay(duration, TimeUnit.HOURS)
             .build()
+    }
+
+    private fun getUniqueWorkName(jobApplication: JobApplication): String {
+        return "jobApplicationNotification${jobApplication.createdAt}"
     }
 
     companion object {

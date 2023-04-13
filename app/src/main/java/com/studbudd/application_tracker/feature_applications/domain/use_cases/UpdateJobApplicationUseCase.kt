@@ -10,7 +10,7 @@ class UpdateJobApplicationUseCase(
     suspend operator fun invoke(id: Long, notes: String?, status: Long): Resource<Unit> {
         return when (val res = repo.updateApplication(id = id, notes = notes, status = status)) {
             is Resource.Success -> {
-                handlePeriodicNotification(res.data!!)
+                handlePeriodicNotification.create(res.data!!)
                 Resource.Success(Unit, "Application updated successfully")
             }
             is Resource.Failure -> Resource.Failure(res.message)

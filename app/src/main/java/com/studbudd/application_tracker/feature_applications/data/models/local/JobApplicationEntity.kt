@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.studbudd.application_tracker.core.utils.TimestampHelper
-import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
 
 @Entity(
     tableName = "applications",

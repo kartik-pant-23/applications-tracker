@@ -31,6 +31,9 @@ interface JobApplicationsDao {
     @Query("UPDATE applications SET remoteId=(:remoteId) WHERE id=(:id)")
     suspend fun updateRemoteId(id: Long, remoteId: String)
 
+    @Delete
+    suspend fun delete(application: JobApplicationEntity): Int
+
     @Query("DELETE FROM applications")
     suspend fun deleteAllApplications()
 

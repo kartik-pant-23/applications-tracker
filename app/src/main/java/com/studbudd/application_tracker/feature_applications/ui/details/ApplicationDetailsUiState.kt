@@ -8,4 +8,6 @@ sealed class ApplicationDetailsUiState(val message: String? = null) {
 
     class EditMode(message: String? = null): ApplicationDetailsUiState(message)
 
+    class ApplicationDeleted: ApplicationDetailsUiState("Application deleted.")
+
 }
