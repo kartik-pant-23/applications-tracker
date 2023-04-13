@@ -230,22 +230,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        super.onStop()
         if (this::appUpdateManager.isInitialized) {
             appUpdateManager.unregisterListener(installStateUpdateListener)
         }
     }
-
-    /**
-     * This function shows a snack bar with the consistent design for
-     * any kind of error that occurs on the `MainActivity`.
-     */
-//    private fun showSnackbar(message: String) {
-//        Snackbar.make(
-//            binding.root, message, Snackbar.ANIMATION_MODE_SLIDE
-//        ).apply {
-//            animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
-//        }.show()
-//    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onNavigateUp()
