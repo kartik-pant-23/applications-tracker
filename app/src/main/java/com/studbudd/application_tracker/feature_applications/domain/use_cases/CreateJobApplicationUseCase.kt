@@ -36,7 +36,7 @@ class CreateJobApplicationUseCase(
                 status = status
             )) {
                 is Resource.Success -> {
-                    createNotification(res.data!!)
+                    createNotification.create(res.data!!)
                     Resource.Success(data = Unit, message = res.message)
                 }
                 is Resource.Failure -> Resource.Failure(res.message)

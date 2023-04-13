@@ -13,17 +13,18 @@ import com.studbudd.application_tracker.feature_applications.data.models.remote.
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
 import com.studbudd.application_tracker.feature_applications.domain.models.ApplicationStatus
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
+import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 
 class JobApplicationsRepository_Impl(
+    private val userDao: UserDao,
     private val dao: JobApplicationsDao,
     private val applicationStatusDao: ApplicationStatusDao,
     private val api: JobApplicationsApi,
     private val handleApiCall: HandleApiCall,
-    private val isRemoteUser: Boolean
 ) : JobApplicationsRepository {
 
     private val handleException = HandleException()
@@ -54,7 +55,7 @@ class JobApplicationsRepository_Impl(
             val createdApplication = dao.getApplication(id).firstOrNull()
                 ?: return Resource.Failure("Oops.. Something went wrong!")
 
-            if (isRemoteUser) {
+            if (isRemoteUser()) {
                 return when (createRemoteApplication(data = createdApplication)) {
                     is Resource.Success -> Resource.Success(
                         data = createdApplication.toJobApplication(),
@@ -76,6 +77,12 @@ class JobApplicationsRepository_Impl(
             handleException(TAG, e)
             Resource.Failure("Failed to insert application..")
         }
+    }
+
+    private suspend fun isRemoteUser(): Boolean {
+        userDao.getUser().catch { handleException(TAG, Exception(it)) }.firstOrNull()
+            ?.let { return it.remoteId != null }
+            ?: return false
     }
 
     private suspend fun createRemoteApplication(data: JobApplicationWithStatus): Resource<Boolean> {
@@ -108,29 +115,25 @@ class JobApplicationsRepository_Impl(
      * because local database is our single source of truth. Whatever sync needs
      * to happen, would happen in the starting of the app itself.
      */
-    override suspend fun getApplications(pageSize: Int, pageNum: Int):
-            Flow<Resource<List<JobApplication>>> = flow {
-        try {
+    override suspend fun getApplications(pageSize: Int, pageNum: Int) =
+        flow<Resource<List<JobApplication>>> {
             dao.getApplications(pageSize, pageSize * (pageNum - 1)).catch { throw Exception(it) }
                 .collect {
                     val applicationsList = it.map { item -> item.toJobApplication() }
                     emit(Resource.Success(applicationsList))
                 }
-        } catch (e: Exception) {
-            handleException(TAG, e)
+        }.catch {
+            handleException(TAG, Exception(it))
             emit(Resource.Failure("Failed to fetch applications.."))
         }
-    }
 
-    override suspend fun getApplicationStatus(): Flow<Resource<List<ApplicationStatus>>> = flow {
-        try {
-            applicationStatusDao.getAllStatus().catch { throw Exception(it) }.collect { data ->
-                emit(Resource.Success(data.map { it.toApplicationStatus() }))
-            }
-        } catch (e: Exception) {
-            handleException(TAG, e)
-            emit(Resource.Failure("Oops.. Something went wrong!"))
+    override suspend fun getApplicationStatus() = flow<Resource<List<ApplicationStatus>>> {
+        applicationStatusDao.getAllStatus().catch { throw Exception(it) }.collect { data ->
+            emit(Resource.Success(data.map { it.toApplicationStatus() }))
         }
+    }.catch {
+        handleException(TAG, Exception(it))
+        emit(Resource.Failure("Oops.. Something went wrong!"))
     }
 
     /**
@@ -138,16 +141,14 @@ class JobApplicationsRepository_Impl(
      * from the local database, only thing being it returns [Flow] of
      * application's details.
      */
-    override suspend fun getApplicationDetails(id: Long): Flow<Resource<JobApplication>> = flow {
-        try {
-            dao.getApplication(id).catch { throw Exception(it) }.collect { data ->
-                data?.let { emit(Resource.Success(it.toJobApplication())) }
-                    ?: emit(Resource.Failure("No such application exists!"))
-            }
-        } catch (e: Exception) {
-            handleException(TAG, e)
-            emit(Resource.Failure("Oops.. Something went wrong!"))
+    override suspend fun getApplicationDetails(id: Long) = flow<Resource<JobApplication>> {
+        dao.getApplication(id).catch { throw Exception(it) }.collect { data ->
+            data?.let { emit(Resource.Success(it.toJobApplication())) }
+                ?: emit(Resource.Failure("No such application exists!"))
         }
+    }.catch {
+        handleException(TAG, Exception(it))
+        emit(Resource.Failure("Oops.. Something went wrong!"))
     }
 
     /**
@@ -210,7 +211,7 @@ class JobApplicationsRepository_Impl(
     private suspend fun isApplicationRemote(id: Long): Resource<String?> {
         try {
             val application = dao.getApplication(id).catch { throw Exception(it) }.firstOrNull()
-                ?: return Resource.Failure("Application not present, try restarting the application!")
+                ?: return Resource.Failure("Application not present, try restarting the app!")
             return Resource.Success(application.application.remoteId)
         } catch (e: Exception) {
             throw e
@@ -232,6 +233,39 @@ class JobApplicationsRepository_Impl(
             is Resource.Failure -> Resource.Failure(response.message)
             is Resource.LoggedOut -> Resource.LoggedOut()
         }
+    }
+
+    override suspend fun deleteApplication(id: Long): Resource<JobApplication> {
+        try {
+            val applicationData = dao.getApplication(id).catch { throw Exception(it) }.firstOrNull()
+                ?: return Resource.Failure("Application does not exist!")
+            val applicationToDelete = applicationData.application
+            return if (applicationToDelete.remoteId != null) {
+                return when (val deleteApplicationResponse = handleApiCall(
+                    apiCall = { api.deleteApplication(applicationToDelete.remoteId) },
+                    TAG = TAG
+                )) {
+                    is Resource.Success -> {
+                        deleteLocalApplication(applicationData)
+                    }
+                    is Resource.Failure -> Resource.Failure(deleteApplicationResponse.message)
+                    is Resource.LoggedOut -> Resource.LoggedOut()
+                }
+            } else {
+                deleteLocalApplication(applicationData)
+            }
+        } catch (e: Exception) {
+            handleException(TAG = TAG, e = e)
+            return Resource.Failure("Failed to delete application.")
+        }
+    }
+
+    private suspend fun deleteLocalApplication(application: JobApplicationWithStatus): Resource<JobApplication> {
+        val deletionStatus = dao.delete(application.application)
+        return if (deletionStatus == 1)
+            Resource.Success(application.toJobApplication())
+        else
+            Resource.Failure("Failed to delete application. Something went wrong.")
     }
 
     companion object {

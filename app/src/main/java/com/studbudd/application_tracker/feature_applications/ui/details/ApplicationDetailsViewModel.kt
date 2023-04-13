@@ -37,7 +37,7 @@ class ApplicationDetailsViewModel @Inject constructor(
             if (it is Resource.Success) {
                 _application.postValue(it.data!!)
             } else {
-                _uiState.postValue(ApplicationDetailsUiState.Info(it.message))
+                _uiState.postValue(ApplicationDetailsUiState.ApplicationDeleted())
             }
         }
     }
@@ -55,7 +55,7 @@ class ApplicationDetailsViewModel @Inject constructor(
             if (it is Resource.Success) {
                 _availableStatus.postValue(it.data!!)
             } else {
-                _uiState.postValue(ApplicationDetailsUiState.Info(it.message))
+                _uiState.postValue(ApplicationDetailsUiState.ApplicationDeleted())
             }
         }
     }
@@ -74,6 +74,12 @@ class ApplicationDetailsViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun deleteApplication() = viewModelScope.launch {
+        application.value?.let {
+            useCase.delete(it.id)
+        } ?: showMessage("Oops!! Something went wrong.")
     }
 
     fun enableEditMode() {

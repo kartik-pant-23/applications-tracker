@@ -5,5 +5,6 @@ data class ApplicationsUseCase(
     val get: GetJobApplicationsUseCase,
     val getApplicationStatus: GetApplicationStatusUseCase,
     val getDetails: GetJobApplicationDetailsUseCase,
-    val update: UpdateJobApplicationUseCase
+    val update: UpdateJobApplicationUseCase,
+    val delete: DeleteJobApplicationUseCase
 )

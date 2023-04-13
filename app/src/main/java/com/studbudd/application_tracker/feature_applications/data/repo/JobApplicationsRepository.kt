@@ -26,4 +26,6 @@ interface JobApplicationsRepository {
 
     suspend fun updateApplication(id: Long, status: Long, notes: String?): Resource<JobApplication>
 
+    suspend fun deleteApplication(id: Long): Resource<JobApplication>
+
 }
