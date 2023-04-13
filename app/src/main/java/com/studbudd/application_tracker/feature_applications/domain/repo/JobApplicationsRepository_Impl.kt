@@ -93,7 +93,8 @@ class JobApplicationsRepository_Impl(
                 role = data.application.role,
                 url = data.application.jobLink
             ),
-            status = data.status.id
+            status = data.status.id,
+            createdAt = data.application.createdAt
         )
         return when (val res = handleApiCall(
             apiCall = { api.createApplication(reqParams) },

@@ -11,7 +11,9 @@ data class CreateRequest(
     @Json(name = "job_details")
     val jobDetails: JobDetails,
     @Json(name = "status")
-    val status: Long
+    val status: Long,
+    @Json(name = "created_at")
+    val createdAt: String
 ) {
     @JsonClass(generateAdapter = true)
     data class JobDetails(
