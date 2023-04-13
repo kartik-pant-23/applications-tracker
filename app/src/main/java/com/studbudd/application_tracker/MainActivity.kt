@@ -16,17 +16,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.InstallStatus
 import com.studbudd.application_tracker.core.ui.main_activity.MainActivityState
 import com.studbudd.application_tracker.core.ui.main_activity.MainActivityViewModel
+import com.studbudd.application_tracker.core.utils.showInfoSnackbar
 import com.studbudd.application_tracker.databinding.ActivityMainBinding
 import com.studbudd.application_tracker.feature_applications.ui.create.AddNewApplicationActivity
 import com.studbudd.application_tracker.feature_user.ui.onboarding.OnboardingActivity
 import com.studbudd.application_tracker.core.utils.start
+import com.studbudd.application_tracker.core.utils.startAndFinishAffinity
 import com.studbudd.application_tracker.feature_applications.data.workers.PeriodicNotificationWorker
 import com.studbudd.application_tracker.feature_applications.ui.details.ApplicationDetails
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,18 +40,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var appUpdateManager: AppUpdateManager
+    private lateinit var installStateUpdateListener: InstallStateUpdatedListener
     private val viewModel by viewModels<MainActivityViewModel>()
 
     @Inject
     lateinit var gsc: GoogleSignInClient
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
 
-    var isAnonymousUser = false
+    private var isAnonymousUser = false
 
     companion object {
         const val DAYS_FOR_FLEXIBLE_UPDATES: Int = 7
         const val UPDATE_REQUEST_CODE: Int = 100
         const val NOTIFICATION_REQUEST_CODE = 101
+
+        const val BOTTOM_NAVIGATION_EXPLORE_TAB = R.id.exploreFragment
+        const val BOTTOM_NAVIGATION_ALERTS_TAB = R.id.alertFragment
+
         const val TAG = "MainActivity"
     }
 
@@ -59,106 +66,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initializeGoogleSignInDependencies()
-
-        // Disabling the center of the bottom navigation
-        // to allow clicks on the Floating Action Button
-        binding.bottomNavigationView.menu.findItem(R.id.menu_placeholder).isEnabled = false
-
-        viewModel.state.observe(this) {
-            // setting up the screen state if it is loading
-            binding.loaderScreen.apply {
-                progressText.text = it.loaderMessage
-                root.visibility = if (it.loading) View.VISIBLE else View.GONE
-            }
-
-            // start connecting user's account with google
-            if (it is MainActivityState.StartConnectingWithGoogle)
-                signInWithGoogle()
-            // if the user's google account is connected, recreate the activity
-            if (it is MainActivityState.ConnectedWithGoogle) {
-                startActivity(Intent(this, MainActivity::class.java))
-                finishAffinity()
-            }
-
-            // start the logging out process
-            if (it is MainActivityState.StartLoggingOut)
-                signOut()
-            // if user is logged out, take him to the onboarding screen
-            if (it is MainActivityState.LoggedOut) {
-                startActivity(Intent(this, OnboardingActivity::class.java))
-                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
-                finishAffinity()
-            }
-
-            // show the error message
-            if (it is MainActivityState.Info) {
-                showSnackbar(it.errorMessage ?: "")
-            }
-        }
-
-        // making the screen visible only if we have a user
-        viewModel.user.observe(this) {
-            isAnonymousUser = it?.isAnonymousUser == true
-        }
-
-
-        appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
-
-        val navHost = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
-        navController = navHost.navController
-        binding.bottomNavigationView.setupWithNavController(navController)
-
         onNewIntent(intent)
+        initializeGoogleSignInDependencies()
+        initializeAppUpdateDependencies()
 
-        binding.addApplicationButton.setOnClickListener { openAddNewApplicationActivity() }
-    }
-
-    fun openAddNewApplicationActivity() {
-        this.start(AddNewApplicationActivity::class.java)
-    }
-
-    private fun startUpdate(appUpdateInfo: AppUpdateInfo, updateType: Int) {
-        appUpdateManager.startUpdateFlowForResult(
-            appUpdateInfo,
-            updateType,
-            this,
-            UPDATE_REQUEST_CODE
-        )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.checkForUpdates(appUpdateManager) { appUpdateInfo, updateType ->
-            startUpdate(appUpdateInfo, updateType)
-        }
-    }
-
-    /**
-     * Handles the case when the update is available but gets failed
-     * due to some other error.
-     */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == UPDATE_REQUEST_CODE) {
-            if (resultCode != RESULT_OK) viewModel.showError("In-app update failed!");
-        }
-    }
-
-    /**
-     * This function shows a snack bar with the consistent design for
-     * any kind of error that occurs on the `MainActivity`.
-     */
-    private fun showSnackbar(message: String) {
-        Snackbar.make(
-            binding.root, message, Snackbar.ANIMATION_MODE_SLIDE
-        ).apply {
-            animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
-        }.show()
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onNavigateUp()
+        setUpView()
+        attachOnClickListener()
     }
 
     /**
@@ -207,6 +120,135 @@ class MainActivity : AppCompatActivity() {
                     Log.e(TAG, "google-sign-in-failed: $result")
                 }
             }
+    }
+
+    private fun initializeAppUpdateDependencies() {
+        installStateUpdateListener =
+            InstallStateUpdatedListener { state ->
+                if (state.installStatus() == InstallStatus.FAILED) {
+                    binding.root.showInfoSnackbar("Oops!! In-app update failed.")
+                } else if (state.installStatus() == InstallStatus.DOWNLOADED) {
+                    binding.root.showInfoSnackbar("Enjoy the latest version of the app.")
+                }
+            }
+    }
+
+    private fun setUpView() {
+        viewModel.state.observe(this) {
+            setUpLoadingUiState(it)
+            setUpGoogleSignInUiState(it)
+            setUpLoggingOutUiState(it)
+            setUpInfoUiState(it)
+        }
+
+        viewModel.user.observe(this) {
+            isAnonymousUser = it?.isAnonymousUser == true
+        }
+
+        setUpBottomNavigationBar()
+    }
+
+    private fun setUpLoadingUiState(uiState: MainActivityState) {
+        binding.loaderScreen.apply {
+            progressText.text = uiState.loaderMessage
+            root.visibility = if (uiState.loading) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun setUpGoogleSignInUiState(uiState: MainActivityState) {
+        if (uiState is MainActivityState.StartConnectingWithGoogle)
+            signInWithGoogle()
+        if (uiState is MainActivityState.ConnectedWithGoogle) {
+            this.startAndFinishAffinity(MainActivity::class.java)
+        }
+    }
+
+    private fun setUpLoggingOutUiState(uiState: MainActivityState) {
+        if (uiState is MainActivityState.StartLoggingOut)
+            signOut()
+        if (uiState is MainActivityState.LoggedOut) {
+            this.start(OnboardingActivity::class.java)
+            overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+            finishAffinity()
+        }
+    }
+
+    private fun setUpInfoUiState(uiState: MainActivityState) {
+        if (uiState is MainActivityState.Info) {
+            binding.root.showInfoSnackbar(uiState.errorMessage ?: "")
+        }
+    }
+
+    private fun setUpBottomNavigationBar() {
+        attachNavControllerToBottomNavigation()
+        binding.bottomNavigationView.menu.findItem(R.id.menu_placeholder).isEnabled = false
+        setVisibilityOfBottomNavigationItems()
+    }
+
+    private fun attachNavControllerToBottomNavigation() {
+        val navHost = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
+        navController = navHost.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
+    }
+
+    private fun setVisibilityOfBottomNavigationItems() {
+        binding.bottomNavigationView.menu.apply {
+            findItem(BOTTOM_NAVIGATION_EXPLORE_TAB).isVisible = false
+            findItem(BOTTOM_NAVIGATION_ALERTS_TAB).isVisible = false
+
+        }
+    }
+
+    private fun attachOnClickListener() {
+        binding.addApplicationButton.setOnClickListener { openAddNewApplicationActivity() }
+    }
+
+    fun openAddNewApplicationActivity() {
+        this.start(AddNewApplicationActivity::class.java)
+    }
+
+    private fun startUpdate(appUpdateInfo: AppUpdateInfo, updateType: Int) {
+        appUpdateManager.startUpdateFlowForResult(
+            appUpdateInfo,
+            updateType,
+            this,
+            UPDATE_REQUEST_CODE
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUpForInAppUpdate()
+        viewModel.checkForUpdates(appUpdateManager) { appUpdateInfo, updateType ->
+            startUpdate(appUpdateInfo, updateType)
+        }
+    }
+
+    private fun setUpForInAppUpdate() {
+        appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
+        appUpdateManager.registerListener(installStateUpdateListener)
+    }
+
+    override fun onStop() {
+        if (this::appUpdateManager.isInitialized) {
+            appUpdateManager.unregisterListener(installStateUpdateListener)
+        }
+    }
+
+    /**
+     * This function shows a snack bar with the consistent design for
+     * any kind of error that occurs on the `MainActivity`.
+     */
+//    private fun showSnackbar(message: String) {
+//        Snackbar.make(
+//            binding.root, message, Snackbar.ANIMATION_MODE_SLIDE
+//        ).apply {
+//            animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+//        }.show()
+//    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onNavigateUp()
     }
 
     /**

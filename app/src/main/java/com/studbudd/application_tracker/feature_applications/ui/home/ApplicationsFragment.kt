@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.studbudd.application_tracker.MainActivity
-import com.studbudd.application_tracker.R
 import com.studbudd.application_tracker.core.utils.showInfoSnackbar
 import com.studbudd.application_tracker.core.utils.start
 import com.studbudd.application_tracker.databinding.FragmentApplicationsBinding
@@ -46,14 +44,8 @@ class ApplicationsFragment : Fragment() {
 
         val layoutManager =
             LinearLayoutManager(binding.applicationsList.context, RecyclerView.VERTICAL, false)
-        val itemDecoration =
-            DividerItemDecoration(binding.applicationsList.context, layoutManager.orientation)
-        requireActivity().getDrawable(R.drawable.application_list_divider)?.let {
-            itemDecoration.setDrawable(it)
-        }
         binding.applicationsList.apply {
             setLayoutManager(layoutManager)
-//            addItemDecoration(itemDecoration)
         }.adapter = adapter
 
         viewModel.listItems.observe(viewLifecycleOwner) {
