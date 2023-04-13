@@ -78,7 +78,9 @@ class ApplicationDetailsViewModel @Inject constructor(
 
     fun deleteApplication() = viewModelScope.launch {
         application.value?.let {
-            useCase.delete(it.id)
+            val res = useCase.delete(it.id)
+            if (res is Resource.Failure) showMessage(res.message)
+            else if (res is Resource.LoggedOut) println("user logged out.")
         } ?: showMessage("Oops!! Something went wrong.")
     }
 
