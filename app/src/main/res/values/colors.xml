@@ -11,6 +11,7 @@
     <!-- Text color -->
     <color name="light_text">#BF2D2D2D</color>
     <color name="dark_text">#2d2d2d</color>
+    <color name="tab_text_color">#802D2D2D</color>
 
     <!-- Window color -->
     <color name="window_background">#FAFAFA</color>

@@ -11,14 +11,12 @@ import androidx.core.graphics.ColorUtils
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.studbudd.application_tracker.R
-import com.studbudd.application_tracker.core.utils.TimestampHelper
-import com.studbudd.application_tracker.core.utils.loadImageFromUrl
-import com.studbudd.application_tracker.core.utils.finishWithTransition
-import com.studbudd.application_tracker.core.utils.showInfoSnackbar
+import com.studbudd.application_tracker.core.utils.*
 import com.studbudd.application_tracker.databinding.ActivityApplicationDetailsBinding
 import com.studbudd.application_tracker.feature_applications.domain.models.ApplicationStatus
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
 import com.studbudd.application_tracker.feature_applications.ui.create.ApplicationStatusAdapter
+import com.studbudd.application_tracker.feature_applications.ui.draft_message.DraftMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -152,6 +150,7 @@ class ApplicationDetails : AppCompatActivity() {
 
     private fun attachOnClickListeners() {
         binding.editButton.setOnClickListener { viewModel.enableEditMode() }
+        binding.sendMessageButton.setOnClickListener { this.start(DraftMessage::class.java) }
         binding.addNotes.setOnClickListener { viewModel.enableEditMode() }
         binding.backButton.setOnClickListener { finish() }
         binding.saveButton.setOnClickListener {

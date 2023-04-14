@@ -79,10 +79,10 @@
     <string name="notifications_alert_message">Keep yourself up-to-date with regular notifications regarding your applications.</string>
 
     <!-- Others -->
-    <string name="placeholder_info">Before removing &lt;name&gt;, &lt;resume&gt;, etc, see the preview and start setting placeholders.\n\nFor more information, visit https://github.com/kartik-pant-23/applications-tracker/#features</string>
+    <string name="placeholder_info">This is a rich text-editor, make sure you check the preview.</string>
     <string name="setup_placeholders">Setup Placeholders</string>
 
-    <string name="show_placeholder_info">important</string>
+    <string name="show_placeholder_info">(Show More…)</string>
     <string name="hide_placeholder_info">hide info</string>
     <string name="back_button_desc">Back button</string>
     <string name="delete_button_desc">Delete application</string>

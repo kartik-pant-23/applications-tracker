@@ -7,6 +7,7 @@
 
     <color name="light_text">#A6FAFAFA</color>
     <color name="dark_text">#FAFAFA</color>
+    <color name="tab_text_color">#80FAFAFA</color>
 
     <color name="window_background">#282F41</color>
     <color name="status_bar_color">#212735</color>
