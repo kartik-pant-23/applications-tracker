@@ -19,4 +19,4 @@ const val PLACEHOLDER_COLLEGE_KEY = "COLLEGE_KEY"
 const val PLACEHOLDER_EXPERIENCE_KEY = "EXPERIENCE_KEY"
 const val PLACEHOLDER_RESUME_KEY = "RESUME_KEY"
 
-const val DEFAULT_DRAFT_MESSAGE = "Hi there! I am <name> currently pursuing <degree> from <college>. I have <experience>.\n\nCurrently I am looking for a referral for following job - \n\n<job-link>\n\nYou can find my resume here <resume>. Hoping for a positive response from your side. Thank You!!"
+const val DEFAULT_DRAFT_MESSAGE = "Hi there!\nI am <name> currently pursuing <degree> from <college>. I have <experience>.\n\nCurrently I am looking for a referral for following job - \n\n<job-link>\n\nYou can find my resume here <resume>. Hoping for a positive response from your side. Thank You!!"

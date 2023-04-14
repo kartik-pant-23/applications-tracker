@@ -150,7 +150,7 @@ class ApplicationDetails : AppCompatActivity() {
 
     private fun attachOnClickListeners() {
         binding.editButton.setOnClickListener { viewModel.enableEditMode() }
-        binding.sendMessageButton.setOnClickListener { this.start(DraftMessage::class.java) }
+        binding.sendMessageButton.setOnClickListener { openDraftMessageScreen() }
         binding.addNotes.setOnClickListener { viewModel.enableEditMode() }
         binding.backButton.setOnClickListener { finish() }
         binding.saveButton.setOnClickListener {
@@ -160,6 +160,16 @@ class ApplicationDetails : AppCompatActivity() {
             viewModel.updateApplication(notes = notes, status = status)
         }
         binding.deleteButton.setOnClickListener { showDeleteAlertDialog() }
+    }
+
+    private fun openDraftMessageScreen() {
+        this.start(DraftMessage::class.java) {
+            viewModel.application.value?.let { data ->
+                putExtra(DraftMessage.INTENT_KEY_COMPANY, data.job.company)
+                putExtra(DraftMessage.INTENT_KEY_ROLE, data.job.role)
+                putExtra(DraftMessage.INTENT_KEY_JOB_LINK, data.job.url)
+            }
+        }
     }
 
     private fun showCloseWithoutSavingAlertDialog() {

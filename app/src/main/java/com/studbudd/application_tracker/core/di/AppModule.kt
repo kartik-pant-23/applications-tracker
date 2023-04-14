@@ -9,11 +9,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.studbudd.application_tracker.BuildConfig
-import com.studbudd.application_tracker.core.domain.ClearAppDataUseCase
-import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
 import com.studbudd.application_tracker.core.data.AppDatabase
-import com.studbudd.application_tracker.core.domain.HandleApiCall
-import com.studbudd.application_tracker.core.domain.PrefillApplicationStatus
+import com.studbudd.application_tracker.core.domain.*
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.core.utils.DATABASE_NAME
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
@@ -89,5 +86,12 @@ class AppModule {
         return HandleApiCall(userDao)
     }
 
+    @Provides
+    fun draftMessageUseCase(sharedPreferencesManager: SharedPreferencesManager): DraftMessageUseCases {
+        return DraftMessageUseCases(
+            GetDraftMessageUseCase(sharedPreferencesManager),
+            ParseDraftMessageUseCase()
+        )
+    }
 
 }

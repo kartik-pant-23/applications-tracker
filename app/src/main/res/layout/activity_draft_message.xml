@@ -94,6 +94,7 @@
                 android:background="@color/window_background">
 
                 <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     app:layout_collapseMode="pin"
@@ -140,20 +141,24 @@
                 android:id="@+id/edit_draft_message"
                 style="@style/Body"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:layout_marginVertical="16dp"
-                android:background="@color/window_background"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/bg_round_corners"
+                android:backgroundTint="@color/card_color"
                 android:gravity="start"
                 android:hint="@string/hint_draft_message"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:scrollbars="vertical"/>
+                android:scrollbars="vertical" />
 
             <TextView
-                android:id="@+id/edit_draft"
+                android:id="@+id/draft_message"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:visibility="gone"
+                android:background="@drawable/bg_round_corners"
+                android:backgroundTint="@color/card_color"
+                android:autoLink="all"
+                style="@style/Body" />
 
         </RelativeLayout>
 
