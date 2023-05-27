@@ -151,17 +151,27 @@
 
             <TextView
                 android:id="@+id/draft_message"
+                style="@style/Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:visibility="gone"
+                android:autoLink="all"
                 android:background="@drawable/bg_round_corners"
                 android:backgroundTint="@color/card_color"
-                android:autoLink="all"
-                style="@style/Body" />
+                android:visibility="gone" />
 
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@drawable/bg_shadow"
+        app:layout_anchor="@id/bottom_sheet" />
+
+    <include
+        android:id="@+id/bottom_sheet"
+        layout="@layout/bottom_sheet_add_placeholders" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
