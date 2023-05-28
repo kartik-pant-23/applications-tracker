@@ -1,11 +1,12 @@
 package com.studbudd.application_tracker.feature_applications.ui.draft_message
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.studbudd.application_tracker.core.utils.finishWithTransition
 import com.studbudd.application_tracker.databinding.ActivityDraftMessageBinding
@@ -31,6 +32,7 @@ class DraftMessage : AppCompatActivity() {
         binding.editDraftMessage.setText(viewModel.getDraftMessage())
         saveApplicationsData(intent)
         setUpTabLayout()
+        setUpPlaceholdersList()
     }
 
     private fun attachOnClickListeners() {
@@ -48,10 +50,11 @@ class DraftMessage : AppCompatActivity() {
     }
 
     private fun setUpTabLayout() {
-        binding.tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 handleViewChangesOnTabSelect(tab?.position == TAB_PREVIEW)
             }
+
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
         })
@@ -62,6 +65,18 @@ class DraftMessage : AppCompatActivity() {
         with(binding.draftMessage) {
             visibility = if (isPreviewSelected) View.VISIBLE else View.GONE
             text = viewModel.getPreviewMessage(binding.editDraftMessage.text.toString())
+        }
+    }
+
+    private fun setUpPlaceholdersList() {
+        val placeholderAdapter = PlaceholderAdapter()
+        with(binding.bottomSheet.placeholdersList) {
+            layoutManager = LinearLayoutManager(this@DraftMessage, RecyclerView.HORIZONTAL, false)
+            adapter = placeholderAdapter
+        }
+
+        viewModel.placeholderDataMap.observe(this) {
+            placeholderAdapter.submitList(it.toList())
         }
     }
 

@@ -28,11 +28,12 @@ class DraftMessageViewModel @Inject constructor(
         dataMap.putAll(_dataMap)
     }
 
-    private val placeholderDataMap = MutableLiveData(mapOf<String, String>())
+    private val _placeholderDataMap = MutableLiveData(mapOf<String, String>())
+    val placeholderDataMap: LiveData<Map<String, String>> = _placeholderDataMap
     private fun fetchPlaceholderData() = viewModelScope.launch {
         placeholderUseCases.get().collect {
             if (it is Resource.Success) {
-                placeholderDataMap.postValue(it.data!!)
+                _placeholderDataMap.postValue(it.data!!)
             }
         }
     }

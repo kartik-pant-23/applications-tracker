@@ -18,7 +18,7 @@ class GetDraftMessageUseCase(
                 "\n" +
                 "I am confident that my skills and experience are at par with what is required for this role. Along with the technical skills, my team work and leadership qualities add to my personality and make me a perfect fit for the role.\n" +
                 "\n" +
-                "Following is a link to my resume, please have a look and am looking forward to advices from you side.\n" +
+                "Following is a link to my resume, please have a look and am looking forward to advices from your side.\n" +
                 "\n" +
                 "<resumeLink>\n" +
                 "\n" +
