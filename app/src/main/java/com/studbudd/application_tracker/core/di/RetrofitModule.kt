@@ -1,8 +1,8 @@
 package com.studbudd.application_tracker.core.di
 
 import com.studbudd.application_tracker.BuildConfig
-import com.studbudd.application_tracker.core.data.dao.RefreshTokenDao
-import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.core.data.dao.RefreshTokenApi
+import com.studbudd.application_tracker.core.utils.SharedPreferencesManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,10 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class RetrofitModule {
-
-//    private fun getClientWithHeader(headerKey: String, headerValue: String): OkHttpClient {
-//        return
-//    }
 
     @RetrofitObject
     @Provides
@@ -72,7 +68,7 @@ class RetrofitModule {
             .client(OkHttpClient.Builder().authenticator { _, response ->
                 if (response.code() == 401) {
                     val data = runBlocking(Dispatchers.IO) {
-                        val res = retrofit.create(RefreshTokenDao::class.java).refreshAuthTokens()
+                        val res = retrofit.create(RefreshTokenApi::class.java).refreshAuthTokens()
                         res.body()?.data
                     }
                     return@authenticator if (data != null) {

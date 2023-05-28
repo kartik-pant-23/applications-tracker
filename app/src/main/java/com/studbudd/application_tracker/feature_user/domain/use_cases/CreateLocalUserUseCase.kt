@@ -7,12 +7,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
 class CreateLocalUserUseCase (
     private val repo: UserRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
+
+    private fun getDefaultPlaceholderMap(name: String, email: String): Map<String, String> {
+        return mapOf(
+            "name" to name,
+            "email" to email,
+            "currentRole" to "final year student at XYZ college",
+            "yoe" to "2+ years",
+            "industry" to "Android App Development",
+            "resumeLink" to "https://example.com"
+        )
+    }
 
     suspend operator fun invoke() = withContext(dispatcher) {
         // Creating random name and email for anonymous users
@@ -20,12 +30,14 @@ class CreateLocalUserUseCase (
         val name = getRandomName()
         val email = getEmailFromName(name)
         val createdAt = getCurrentTimestamp()
+        val placeholderMap = getDefaultPlaceholderMap(name, email)
 
         repo.createLocalUser(
             UserEntity(
                 name = name,
                 email = email,
-                createdAt = createdAt
+                createdAt = createdAt,
+                placeholderMap = placeholderMap
             )
         )
     }

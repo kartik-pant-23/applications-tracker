@@ -11,8 +11,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.studbudd.application_tracker.BuildConfig
 import com.studbudd.application_tracker.core.data.AppDatabase
 import com.studbudd.application_tracker.core.domain.*
+import com.studbudd.application_tracker.core.domain.usecases.ClearAppDataUseCase
+import com.studbudd.application_tracker.core.domain.usecases.HandleApiCallUseCase
+import com.studbudd.application_tracker.core.domain.usecases.HandleExceptionUseCase
+import com.studbudd.application_tracker.core.domain.usecases.PrefillApplicationStatusUseCase
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.core.utils.DATABASE_NAME
+import com.studbudd.application_tracker.core.utils.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import dagger.Module
 import dagger.Provides
@@ -35,9 +40,10 @@ class AppModule {
             AppDatabase.Migration_2_3,
             AppDatabase.Migration_3_4,
             AppDatabase.Migration_4_5,
-            AppDatabase.Migration_5_6
+            AppDatabase.Migration_5_6,
+            AppDatabase.Migration_6_7
         )
-            .addCallback(PrefillApplicationStatus())
+            .addCallback(PrefillApplicationStatusUseCase())
             .build()
     }
 
@@ -72,6 +78,12 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun providesHandleException(): HandleExceptionUseCase {
+        return HandleExceptionUseCase()
+    }
+
+    @Provides
+    @Singleton
     fun providesClearAppDataUseCase(
         prefManager: SharedPreferencesManager,
         userDao: UserDao,
@@ -82,16 +94,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideHandleApiCallUseCase(userDao: UserDao): HandleApiCall {
-        return HandleApiCall(userDao)
-    }
-
-    @Provides
-    fun draftMessageUseCase(sharedPreferencesManager: SharedPreferencesManager): DraftMessageUseCases {
-        return DraftMessageUseCases(
-            GetDraftMessageUseCase(sharedPreferencesManager),
-            ParseDraftMessageUseCase()
-        )
+    fun provideHandleApiCallUseCase(userDao: UserDao): HandleApiCallUseCase {
+        return HandleApiCallUseCase(userDao)
     }
 
 }

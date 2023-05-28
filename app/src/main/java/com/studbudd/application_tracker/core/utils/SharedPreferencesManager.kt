@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.core.domain
+package com.studbudd.application_tracker.core.utils
 
 import android.content.SharedPreferences
 

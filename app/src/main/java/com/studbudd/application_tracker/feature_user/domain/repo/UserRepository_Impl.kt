@@ -1,8 +1,8 @@
 package com.studbudd.application_tracker.feature_user.domain.repo
 
 import androidx.annotation.WorkerThread
-import com.studbudd.application_tracker.core.domain.HandleApiCall
-import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.core.domain.usecases.HandleApiCallUseCase
+import com.studbudd.application_tracker.core.utils.SharedPreferencesManager
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_user.data.dao.AuthUserApi
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
@@ -20,7 +20,7 @@ class UserRepository_Impl(
     private val api: UserApi,
     private val authApi: AuthUserApi,
     private val preferencesManager: SharedPreferencesManager,
-    private val handleApiCall: HandleApiCall
+    private val handleApiCall: HandleApiCallUseCase
 ) : UserRepository {
 
     @WorkerThread

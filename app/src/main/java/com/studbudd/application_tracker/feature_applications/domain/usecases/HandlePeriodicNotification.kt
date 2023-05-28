@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.feature_applications.domain.use_cases
+package com.studbudd.application_tracker.feature_applications.domain.usecases
 
 import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy

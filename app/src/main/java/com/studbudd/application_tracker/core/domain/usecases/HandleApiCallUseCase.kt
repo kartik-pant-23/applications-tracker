@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.core.domain
+package com.studbudd.application_tracker.core.domain.usecases
 
 import android.util.Log
 import com.studbudd.application_tracker.core.data.models.ApiResponse
@@ -8,7 +8,7 @@ import okio.IOException
 import retrofit2.HttpException
 import retrofit2.Response
 
-class HandleApiCall(
+class HandleApiCallUseCase(
     private val userDao: UserDao
 ) {
     suspend operator fun<T> invoke(

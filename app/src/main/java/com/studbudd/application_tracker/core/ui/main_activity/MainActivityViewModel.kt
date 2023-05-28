@@ -11,7 +11,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
 import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import com.studbudd.application_tracker.MainActivity
-import com.studbudd.application_tracker.core.domain.ClearAppDataUseCase
+import com.studbudd.application_tracker.core.domain.usecases.ClearAppDataUseCase
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_user.domain.models.User
 import com.studbudd.application_tracker.feature_user.domain.use_cases.UserUseCases

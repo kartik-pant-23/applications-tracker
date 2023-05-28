@@ -1,6 +1,5 @@
-package com.studbudd.application_tracker.feature_applications.domain.use_cases
+package com.studbudd.application_tracker.feature_applications.domain.usecases
 
-import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
 
 class GetJobApplicationDetailsUseCase(

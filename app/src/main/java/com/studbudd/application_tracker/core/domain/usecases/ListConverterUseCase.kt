@@ -1,4 +1,4 @@
-package com.studbudd.application_tracker.core.domain
+package com.studbudd.application_tracker.core.domain.usecases
 
 import androidx.room.TypeConverter
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
-import com.studbudd.application_tracker.feature_applications.domain.use_cases.ApplicationsUseCase
+import com.studbudd.application_tracker.feature_applications.domain.usecases.ApplicationsUseCase
 import com.studbudd.application_tracker.feature_applications.ui.home.models.ApplicationListItem
 import com.studbudd.application_tracker.feature_applications.ui.home.models.HeaderListItem
 import com.studbudd.application_tracker.feature_applications.ui.home.models.ListItem

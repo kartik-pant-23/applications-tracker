@@ -8,7 +8,9 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.studbudd.application_tracker.core.domain.ListConverterUseCase
+import com.studbudd.application_tracker.core.data.dao.PlaceholderDao
+import com.studbudd.application_tracker.core.domain.usecases.ListConverterUseCase
+import com.studbudd.application_tracker.core.domain.usecases.MapConverterUseCase
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import com.studbudd.application_tracker.feature_user.data.models.local.UserEntity
@@ -30,16 +32,18 @@ import java.util.Calendar
 )
 @TypeConverters(
     DateConverter::class,
-    ListConverterUseCase::class
+    ListConverterUseCase::class,
+    MapConverterUseCase::class
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun applicationsDao(): JobApplicationsDao
     abstract fun userLocalDao(): UserDao
     abstract fun applicationStatusDao(): ApplicationStatusDao
+    abstract fun placeholderDao(): PlaceholderDao
 
     companion object {
-        const val DB_VERSION = 6
+        const val DB_VERSION = 7
 
         // Adding users table
         val Migration_2_3 = object : Migration(2, 3) {
@@ -192,6 +196,29 @@ abstract class AppDatabase : RoomDatabase() {
         val Migration_5_6 = object : Migration(5, 6) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("DROP TABLE `applications_old`")
+            }
+        }
+
+        // adding placeholderMap, which will now be used instead of keys and values list
+        // removing the placeholder keys, and values column
+        val Migration_6_7 = object : Migration(6, 7) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                with(database) {
+                    execSQL(
+                        "CREATE TABLE `usersBackup` " +
+                                "(`id` INTEGER NOT NULL, " +
+                                "`name` TEXT NOT NULL, " +
+                                "`email` TEXT, " +
+                                "`remoteId` TEXT, " +
+                                "`photoUrl` TEXT, " +
+                                "`createdAt` TEXT, " +
+                                "`placeholderMap` TEXT NOT NULL DEFAULT '||', " +
+                                "PRIMARY KEY(`id`))")
+                    execSQL("INSERT INTO `usersBackup` SELECT " +
+                            "id, name, email, `remoteId`, `photoUrl`, `createdAt`, '||' FROM users")
+                    execSQL("DROP TABLE `users`")
+                    execSQL("ALTER TABLE `usersBackup` RENAME TO `users`")
+                }
             }
         }
     }

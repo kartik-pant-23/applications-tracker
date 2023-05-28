@@ -1,8 +1,8 @@
 package com.studbudd.application_tracker.feature_applications.domain.repo
 
 import com.studbudd.application_tracker.core.data.models.Resource
-import com.studbudd.application_tracker.core.domain.HandleApiCall
-import com.studbudd.application_tracker.core.domain.HandleException
+import com.studbudd.application_tracker.core.domain.usecases.HandleApiCallUseCase
+import com.studbudd.application_tracker.core.domain.usecases.HandleExceptionUseCase
 import com.studbudd.application_tracker.feature_applications.data.dao.ApplicationStatusDao
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsApi
@@ -24,10 +24,10 @@ class JobApplicationsRepository_Impl(
     private val dao: JobApplicationsDao,
     private val applicationStatusDao: ApplicationStatusDao,
     private val api: JobApplicationsApi,
-    private val handleApiCall: HandleApiCall,
+    private val handleApiCall: HandleApiCallUseCase,
 ) : JobApplicationsRepository {
 
-    private val handleException = HandleException()
+    private val handleException = HandleExceptionUseCase()
 
     /**
      * Tries to create a remote application, but does not bother if it fails,

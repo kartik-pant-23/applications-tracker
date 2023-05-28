@@ -1,8 +1,8 @@
 package com.studbudd.application_tracker.feature_user.di
 
 import com.studbudd.application_tracker.core.data.AppDatabase
-import com.studbudd.application_tracker.core.domain.HandleApiCall
-import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.core.domain.usecases.HandleApiCallUseCase
+import com.studbudd.application_tracker.core.utils.SharedPreferencesManager
 import com.studbudd.application_tracker.core.di.RetrofitModule
 import com.studbudd.application_tracker.feature_user.data.dao.AuthUserApi
 import com.studbudd.application_tracker.feature_user.data.dao.UserApi
@@ -49,7 +49,7 @@ class UserModule {
         api: UserApi,
         authApi: AuthUserApi,
         prefs: SharedPreferencesManager,
-        handleApiCall: HandleApiCall
+        handleApiCall: HandleApiCallUseCase
     ): UserRepository {
         return UserRepository_Impl(
             dao = dao,

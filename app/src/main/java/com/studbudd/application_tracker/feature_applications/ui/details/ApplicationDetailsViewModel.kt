@@ -4,9 +4,8 @@ import androidx.lifecycle.*
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_applications.domain.models.ApplicationStatus
 import com.studbudd.application_tracker.feature_applications.domain.models.JobApplication
-import com.studbudd.application_tracker.feature_applications.domain.use_cases.ApplicationsUseCase
+import com.studbudd.application_tracker.feature_applications.domain.usecases.ApplicationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -4,14 +4,18 @@ import android.app.Application
 import androidx.work.WorkManager
 import com.studbudd.application_tracker.core.data.AppDatabase
 import com.studbudd.application_tracker.core.di.RetrofitModule
-import com.studbudd.application_tracker.core.domain.HandleApiCall
-import com.studbudd.application_tracker.core.domain.SharedPreferencesManager
+import com.studbudd.application_tracker.core.domain.usecases.HandleApiCallUseCase
+import com.studbudd.application_tracker.core.domain.usecases.placeholder.PlaceholderUseCases
+import com.studbudd.application_tracker.core.utils.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_applications.data.dao.ApplicationStatusDao
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsApi
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_applications.data.repo.JobApplicationsRepository
 import com.studbudd.application_tracker.feature_applications.domain.repo.JobApplicationsRepository_Impl
-import com.studbudd.application_tracker.feature_applications.domain.use_cases.*
+import com.studbudd.application_tracker.feature_applications.domain.usecases.*
+import com.studbudd.application_tracker.feature_applications.domain.usecases.draftmessage.DraftMessageUseCases
+import com.studbudd.application_tracker.feature_applications.domain.usecases.draftmessage.GetDraftMessageUseCase
+import com.studbudd.application_tracker.feature_applications.domain.usecases.draftmessage.ParseDraftMessageUseCase
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import dagger.Module
 import dagger.Provides
@@ -51,7 +55,7 @@ class ApplicationModule {
         localDao: JobApplicationsDao,
         applicationStatusDao: ApplicationStatusDao,
         remoteDao: JobApplicationsApi,
-        handleApiCall: HandleApiCall
+        handleApiCall: HandleApiCallUseCase
     ): JobApplicationsRepository {
         return JobApplicationsRepository_Impl(
             dao = localDao,
@@ -80,6 +84,16 @@ class ApplicationModule {
             getDetails = GetJobApplicationDetailsUseCase(repo),
             update = UpdateJobApplicationUseCase(repo, handleNotification),
             delete = DeleteJobApplicationUseCase(repo, handleNotification)
+        )
+    }
+
+    @Provides
+    fun draftMessageUseCase(
+        sharedPreferencesManager: SharedPreferencesManager,
+    ): DraftMessageUseCases {
+        return DraftMessageUseCases(
+            GetDraftMessageUseCase(sharedPreferencesManager),
+            ParseDraftMessageUseCase()
         )
     }
 

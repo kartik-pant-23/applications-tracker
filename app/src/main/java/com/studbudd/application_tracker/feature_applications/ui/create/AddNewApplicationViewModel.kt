@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.studbudd.application_tracker.core.data.models.Resource
 import com.studbudd.application_tracker.feature_applications.domain.models.ApplicationStatus
-import com.studbudd.application_tracker.feature_applications.domain.use_cases.ApplicationsUseCase
+import com.studbudd.application_tracker.feature_applications.domain.usecases.ApplicationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

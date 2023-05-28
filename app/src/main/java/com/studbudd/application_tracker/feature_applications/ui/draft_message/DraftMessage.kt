@@ -3,6 +3,7 @@ package com.studbudd.application_tracker.feature_applications.ui.draft_message
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import androidx.activity.viewModels
 import com.google.android.material.tabs.TabLayout
@@ -58,15 +59,16 @@ class DraftMessage : AppCompatActivity() {
 
     private fun handleViewChangesOnTabSelect(isPreviewSelected: Boolean) {
         binding.editDraftMessage.visibility = if (isPreviewSelected) View.GONE else View.VISIBLE
-
-        binding.draftMessage.text = viewModel.getPreviewMessage(binding.editDraftMessage.text.toString())
-        binding.draftMessage.visibility = if (isPreviewSelected) View.VISIBLE else View.GONE
+        with(binding.draftMessage) {
+            visibility = if (isPreviewSelected) View.VISIBLE else View.GONE
+            text = viewModel.getPreviewMessage(binding.editDraftMessage.text.toString())
+        }
     }
 
     companion object {
         const val INTENT_KEY_COMPANY = "company"
         const val INTENT_KEY_ROLE = "role"
-        const val INTENT_KEY_JOB_LINK = "job-link"
+        const val INTENT_KEY_JOB_LINK = "jobLink"
 
         const val TAB_DRAFT = 0
         const val TAB_PREVIEW = 1

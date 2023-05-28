@@ -1,5 +1,6 @@
-package com.studbudd.application_tracker.core.domain
+package com.studbudd.application_tracker.core.domain.usecases
 
+import com.studbudd.application_tracker.core.utils.SharedPreferencesManager
 import com.studbudd.application_tracker.feature_applications.data.dao.JobApplicationsDao
 import com.studbudd.application_tracker.feature_user.data.dao.UserDao
 import kotlinx.coroutines.CoroutineDispatcher

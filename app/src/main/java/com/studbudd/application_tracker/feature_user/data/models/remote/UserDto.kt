@@ -16,10 +16,8 @@ data class UserDto(
     val email: String,
     @Json(name = "photoUrl")
     val photoUrl: String?,
-    @Json(name = "placeholderKeys")
-    val placeholderKeys: List<String>?,
-    @Json(name = "placeholderValues")
-    val placeholderValues: List<String>?,
+    @Json(name = "placeholderMap")
+    val placeholderMap: Map<String, String>,
     @Json(name = "createdAt")
     val createdAt: String,
 ) {
@@ -30,8 +28,7 @@ data class UserDto(
             name = name,
             email = email,
             photoUrl = photoUrl,
-            placeholderKeys = placeholderKeys ?: emptyList(),
-            placeholderValues = placeholderValues ?: emptyList(),
+            placeholderMap = placeholderMap,
             createdAt = createdAt
         )
     }

@@ -1,7 +1,10 @@
 package com.studbudd.application_tracker.feature_user.data.models.local
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.studbudd.application_tracker.core.domain.usecases.MapConverterUseCase
 import com.studbudd.application_tracker.feature_user.domain.models.User
 
 @Entity(tableName = "users")
@@ -10,9 +13,8 @@ data class UserEntity(
     val name: String,
     val email: String? = null,
     val photoUrl: String? = null,
-    val placeholderKeys: List<String> = emptyList(),
-    val placeholderValues: List<String> = emptyList(),
     val createdAt: String? = null,
+    val placeholderMap: Map<String,String> = mapOf()
 ) {
 
     @PrimaryKey(autoGenerate = true)
@@ -20,13 +22,12 @@ data class UserEntity(
 
     fun toUser(): User {
         return User(
-            remoteId,
-            name,
-            email ?: "-",
-            photoUrl,
-            placeholderKeys,
-            placeholderValues,
-            createdAt
+            remoteId = remoteId,
+            name = name,
+            email = email ?: "-",
+            photoUrl = photoUrl,
+            placeholderMap = placeholderMap,
+            createdAt = createdAt
         )
     }
 
@@ -36,9 +37,7 @@ data class UserEntity(
                 remoteId == other.remoteId &&
                         name == other.name &&
                         email == other.email &&
-                        photoUrl == other.photoUrl &&
-                        placeholderKeys.toString() == other.placeholderKeys.toString() &&
-                        placeholderValues.toString() == other.placeholderValues.toString() &&
+                        placeholderMap.toString() == other.placeholderMap.toString() &&
                         createdAt == other.createdAt
             }
             else -> {
@@ -52,8 +51,7 @@ data class UserEntity(
         result = 31 * result + name.hashCode()
         result = 31 * result + (email?.hashCode() ?: 0)
         result = 31 * result + (photoUrl?.hashCode() ?: 0)
-        result = 31 * result + placeholderKeys.toString().hashCode()
-        result = 31 * result + placeholderValues.toString().hashCode()
+        result = 31 * result + placeholderMap.toString().hashCode()
         result = 31 * result + (createdAt?.hashCode() ?: 0)
         result = 31 * result + id
         return result
