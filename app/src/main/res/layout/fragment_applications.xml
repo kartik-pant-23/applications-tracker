@@ -54,6 +54,7 @@
         android:id="@+id/applications_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutAnimation="@anim/default_layout_animation"
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:itemCount="30"

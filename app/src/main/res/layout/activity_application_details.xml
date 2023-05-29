@@ -102,7 +102,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layoutAnimation="@anim/default_layout_animation">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/company_logo_container"
@@ -398,8 +399,8 @@
                 android:layout_marginTop="64dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/delete_button_desc"
-                app:backgroundTint="@color/tonal_button_bg_red"
                 android:textColor="@color/tonal_button_text_red"
+                app:backgroundTint="@color/tonal_button_bg_red"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
