@@ -113,6 +113,8 @@ class ApplicationDetails : AppCompatActivity() {
     private fun changeViewsVisibility(isEditMode: Boolean) {
         binding.actionButtonGroup.visibility = if (isEditMode) View.GONE else View.VISIBLE
 
+        binding.deleteButton.visibility = if (isEditMode) View.GONE else View.VISIBLE
+
         binding.applicationStatus.root.visibility = if (isEditMode) View.GONE else View.VISIBLE
         binding.applicationStatusEditContainer.visibility =
             if (isEditMode) View.VISIBLE else View.GONE
@@ -139,15 +141,12 @@ class ApplicationDetails : AppCompatActivity() {
     private fun setupApplicationStatus(status: ApplicationStatus) {
         binding.applicationStatus.apply {
             val color = status.getColor(root.context)
-            val backgroundColor = ColorUtils.setAlphaComponent(color, 20)
-
-            root.backgroundTintList = ColorStateList.valueOf(backgroundColor)
             jobStatusTag.apply {
                 text = status.tag
-                setTextColor(status.getColor(context))
+                setTextColor(color)
             }
             jobStatusBullet.backgroundTintList =
-                ColorStateList.valueOf(status.getColor(this@ApplicationDetails))
+                ColorStateList.valueOf(color)
         }
     }
 

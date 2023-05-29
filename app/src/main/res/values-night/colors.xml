@@ -27,4 +27,8 @@
     <bool name="status_icon_color">false</bool>
 
     <color name="divider_color">#1AD0D0D0</color>
+
+    <!-- tonal buttons color -->
+    <color name="tonal_button_text_red">#FF5A5A</color>
+    <color name="tonal_button_bg_red">#3E3344</color>
 </resources>

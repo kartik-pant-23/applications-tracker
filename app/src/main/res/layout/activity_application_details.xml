@@ -54,21 +54,10 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/delete_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:src="@drawable/ic_delete"
-                        android:tooltipText="Delete Application"
-                        app:backgroundTint="@color/error_color"
-                        app:elevation="8dp"
-                        app:tint="#fafafa" />
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/send_message_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="12dp"
                         android:src="@drawable/ic_send"
                         android:tooltipText="Send Message"
                         app:backgroundTint="@color/accent_color"
@@ -368,8 +357,7 @@
                 android:layout_marginVertical="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/notes_container_layout"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/notes_container_layout">
 
                 <TextView
                     android:id="@+id/created_at_title_text"
@@ -400,6 +388,22 @@
                     app:layout_constraintTop_toBottomOf="@id/created_at_title_text"
                     tools:text="14 March, 2023 @ 08:59PM" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/delete_button"
+                style="@style/FilledTonalButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/delete_button_desc"
+                app:backgroundTint="@color/tonal_button_bg_red"
+                android:textColor="@color/tonal_button_text_red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/created_at_container_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

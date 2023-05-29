@@ -32,4 +32,7 @@
 
     <color name="divider_color">#1A303030</color>
 
+    <!-- tonal buttons color -->
+    <color name="tonal_button_text_red">#C90000</color>
+    <color name="tonal_button_bg_red">#FAEAEA</color>
 </resources>
