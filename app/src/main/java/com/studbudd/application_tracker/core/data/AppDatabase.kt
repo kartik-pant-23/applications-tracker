@@ -212,10 +212,10 @@ abstract class AppDatabase : RoomDatabase() {
                                 "`remoteId` TEXT, " +
                                 "`photoUrl` TEXT, " +
                                 "`createdAt` TEXT, " +
-                                "`placeholderMap` TEXT NOT NULL DEFAULT '||', " +
+                                "`placeholderMap` TEXT NOT NULL DEFAULT '{}', " +
                                 "PRIMARY KEY(`id`))")
                     execSQL("INSERT INTO `usersBackup` SELECT " +
-                            "id, name, email, `remoteId`, `photoUrl`, `createdAt`, '||' FROM users")
+                            "id, name, email, `remoteId`, `photoUrl`, `createdAt`, '{}' FROM users")
                     execSQL("DROP TABLE `users`")
                     execSQL("ALTER TABLE `usersBackup` RENAME TO `users`")
                 }

@@ -26,4 +26,18 @@ class PlaceholderRepository_Impl(
             .collect { emit(Resource.Success(MapConverterUseCase().fromStringToMap(it))) }
     }
 
+    /**
+     * Updates the remote information first and then updates the local.
+     */
+    override suspend fun updatePlaceholderData(updatedData: Map<String, String>): Resource<Unit> {
+        return try {
+            // TODO - update the remote user entity
+            dao.updatePlaceholderData(updatedData)
+            Resource.Success(Unit, "Placeholder updated successfully.")
+        } catch (e: Exception) {
+            handleException(e = e, TAG = TAG)
+            Resource.Failure("Failed to update the placeholders. Try again later.")
+        }
+    }
+
 }

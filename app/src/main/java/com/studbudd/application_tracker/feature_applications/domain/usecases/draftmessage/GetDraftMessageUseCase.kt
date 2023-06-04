@@ -12,7 +12,7 @@ class GetDraftMessageUseCase(
     companion object {
         const val DEFAULT_DRAFT_MESSAGE = "Hello,\n" +
                 "\n" +
-                "I hope this message finds you well. My name is <name> and I am a <currentRole> with <yoe> of experience in <industry>. I am writing to you today to request a referral for a position as <role> at <company>. I am looking for a referral for following job post -\n" +
+                "I hope this message finds you well. My name is <name> and I am a <currentRole> with <yoe> of experience in <industry>. I am writing to you today to request a referral for a position as <jobRole> at <company>. I am looking for a referral for following job post -\n" +
                 "\n" +
                 "<jobLink>\n" +
                 "\n" +
@@ -25,6 +25,6 @@ class GetDraftMessageUseCase(
                 "Thank you for considering my request. I look forward to hearing from you soon.\n" +
                 "\n" +
                 "Best regards,\n" +
-                "<name>\n"
+                "<name>"
     }
 }

@@ -33,6 +33,25 @@
         <item>Rejected</item>
         <item>Selected</item>
     </string-array>
+    
+    <!-- Draft Message Screen -->
+    <string name="header_preview_mode">Preview Mode</string>
+    <string name="helper_preview_mode">Replaces the placeholders with their corresponding values.</string>
+    <string name="header_setup_placeholder">Setup Placeholder</string>
+    <string name="helper_setup_placeholder">Lets you change your messages with defined values dynamically.</string>
+    <string name="content_desc_icon_placeholder">Placeholder Setup Icon</string>
+    <string name="button_text_edit_mode">Edit Mode</string>
+    <string name="button_text_send_message">Send Message</string>
+    <string name="button_text_check_preview">Check Preview</string>
+
+    <string name="bottom_sheet_header_placeholder">Placeholders</string>
+    <string name="bottom_sheet_helper_placeholder">Let you map your custom labels against values that dynamically change content of your draft message.\nClick on \u2794 to check.</string>
+    <string name="add_placeholder">Add Placeholder</string>
+    <string name="update_placeholder">Save Changes</string>
+    <string name="content_desc_remove_placeholder">Remove Placeholder</string>
+    <string name="content_desc_icon_mapped">Icon showing key mapping</string>
+    <string name="hint_placeholder_key">Key</string>
+    <string name="hint_placeholder_value">Value</string>
 
     <!-- Explore Screen -->
     <string name="label_explore">Explore</string>
@@ -97,5 +116,7 @@
     <string name="empty_field_error_text">%1$s is a mandatory field!</string>
     <string name="content_description_company_logo">Company Logo</string>
     <string name="hint_search_applications">Search by company, role</string>
+
+    <string name="tooltip_back_button">Back Button</string>
 
 </resources>

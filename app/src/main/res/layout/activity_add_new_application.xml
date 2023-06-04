@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_arrow_back"
-                android:tooltipText="Back Button"
+                android:tooltipText="@string/tooltip_back_button"
+                android:contentDescription="@string/content_description_back_button"
                 app:backgroundTint="@color/card_color"
                 app:elevation="0dp"
                 app:tint="@color/dark_text" />

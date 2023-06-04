@@ -7,6 +7,7 @@ import com.studbudd.application_tracker.core.domain.repo.PlaceholderRepository_I
 import com.studbudd.application_tracker.core.domain.usecases.HandleExceptionUseCase
 import com.studbudd.application_tracker.core.domain.usecases.placeholder.GetPlaceholderDataUseCase
 import com.studbudd.application_tracker.core.domain.usecases.placeholder.PlaceholderUseCases
+import com.studbudd.application_tracker.core.domain.usecases.placeholder.UpdatePlaceholderDataUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,7 +41,8 @@ class PlaceholderModule {
         repo: PlaceholderRepository,
     ): PlaceholderUseCases {
         return PlaceholderUseCases(
-            get = GetPlaceholderDataUseCase(repo)
+            get = GetPlaceholderDataUseCase(repo),
+            update = UpdatePlaceholderDataUseCase(repo)
         )
     }
 

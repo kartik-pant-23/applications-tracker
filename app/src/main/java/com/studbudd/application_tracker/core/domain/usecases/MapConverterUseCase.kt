@@ -18,7 +18,11 @@ class MapConverterUseCase {
             .build()
         val type = Types.newParameterizedType(Map::class.java, String::class.java, String::class.java)
         val adapter = moshi.adapter<Map<String, String>>(type)
-        return adapter.fromJson(placeholderString) ?: emptyMap()
+        return try {
+            adapter.fromJson(placeholderString) ?: emptyMap()
+        } catch (e: Exception) {
+            emptyMap()
+        }
     }
 
 }
