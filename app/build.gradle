@@ -8,12 +8,12 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.studbudd.application_tracker"
         minSdk 23
-        targetSdk 31
+        targetSdk 34
         versionCode 7
         versionName "1.1.2"
 
@@ -71,8 +71,16 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:$workVersion"
 
     // Play Core - In-app Update
-    implementation "com.google.android.play:core:$playCoreVersion"
-    implementation "com.google.android.play:core-ktx:$playCoreKotlinExtVersion"
+//    implementation "com.google.android.play:core:$playCoreVersion"
+//    implementation "com.google.android.play:core-ktx:$playCoreKotlinExtVersion"
+
+    // new play asset delivery for reduce apk size
+    implementation "com.google.android.play:asset-delivery:$playAssetDeliveryLibrary"
+    implementation "com.google.android.play:asset-delivery-ktx:$playAssetDeliveryLibrary"
+
+    // Play - In-App update
+    implementation "com.google.android.play:app-update:$playInAppUpdateLibrary"
+    implementation "com.google.android.play:app-update-ktx:$playInAppUpdateLibrary"
 
     // Test implementation
     testImplementation 'junit:junit:4.+'
