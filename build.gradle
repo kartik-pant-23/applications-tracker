@@ -5,23 +5,26 @@ buildscript {
         mavenCentral()
     }
     ext {
-        roomVersion = '2.4.1'
+        roomVersion = '2.6.1'
         coroutinesVersion = '1.5.2'
-        lifecycleVersion = '2.4.1'
-        navVersion = '2.4.1'
-        workVersion = '2.7.1'
-//        playCoreVersion = '1.10.3'
-//        playCoreKotlinExtVersion = '1.8.1'
+        lifecycleVersion = '2.8.4'
+        navVersion = '2.5.0'
+        workVersion = '2.9.1'
         playAssetDeliveryLibrary = '2.2.2'
         playInAppUpdateLibrary = '2.1.0'
+        kotlin_version = '2.0.20'
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
+        classpath 'com.android.tools.build:gradle:8.5.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
-        classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
+        classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2'
     }
+}
+
+plugins {
+    id("com.google.devtools.ksp") version "2.0.20-1.0.24" apply false
 }
 
 task clean(type: Delete) {
