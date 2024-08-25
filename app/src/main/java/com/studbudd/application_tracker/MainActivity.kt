@@ -21,6 +21,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
 import com.google.android.play.core.ktx.isImmediateUpdateAllowed
+import com.google.firebase.FirebaseApp
 import com.studbudd.application_tracker.databinding.ActivityMainBinding
 import com.studbudd.application_tracker.fragments.ApplicationsFragmentDirections
 import com.studbudd.application_tracker.workers.NotifyWorker
@@ -77,6 +78,8 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
+
+        FirebaseApp.initializeApp(this)
     }
 
     override fun onRequestPermissionsResult(
