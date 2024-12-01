@@ -105,7 +105,7 @@ class ApplicationViewModel (application: android.app.Application, private val re
                 .build()
             workManager.enqueueUniquePeriodicWork(
                 "application${application.application_id}",
-                ExistingPeriodicWorkPolicy.REPLACE,
+                ExistingPeriodicWorkPolicy.UPDATE,
                 workRequest
             )
         }

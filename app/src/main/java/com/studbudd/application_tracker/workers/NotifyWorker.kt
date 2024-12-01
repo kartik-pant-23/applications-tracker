@@ -42,7 +42,11 @@ class NotifyWorker(
             .build()
 
         with(NotificationManagerCompat.from(applicationContext)) {
-            notify(0, notification)
+            try {
+                notify(0, notification)
+            } catch (ex: SecurityException) {
+                Log.e("NotifyWorker", "Error showing notification, permission not present", ex)
+            }
         }
 
         return Result.success()

@@ -5,10 +5,11 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import androidx.work.Configuration
 import com.studbudd.application_tracker.data.AppDatabase
 import com.studbudd.application_tracker.data.ApplicationsRepository
 
-class BaseApplication: Application() {
+class BaseApplication: Application(), Configuration.Provider {
 
     val database by lazy { AppDatabase.getInstance(this) }
     val repository by lazy { ApplicationsRepository(database.applicationsDao()) }
@@ -32,4 +33,9 @@ class BaseApplication: Application() {
     companion object {
         const val CHANNEL_ID = "notify_job_status"
     }
+
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
+            .setMinimumLoggingLevel(android.util.Log.DEBUG)
+            .build()
 }
